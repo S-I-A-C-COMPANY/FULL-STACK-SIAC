@@ -96,7 +96,7 @@ export const Products = () => {
                     <form className='formCreateProduct' action="">
 
                         <InputUI typeInpt='text' style='inputProduct' textInpt='Ingrese Nombre' />
-                        <InputUI typeInpt='text' style='inputProduct' textInpt='Ingrese Precio' />
+                        <InputUI typeInpt='number' style='inputProduct' textInpt='Ingrese Precio' />
                         <InputUI typeInpt='text' style='inputProduct' textInpt='Ingrese Descripcion' />
 
                         <InputUI typeInpt='button' style='inputProduct' valueInpt='Inserte Imagen' />
