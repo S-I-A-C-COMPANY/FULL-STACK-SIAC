@@ -4,6 +4,7 @@ import { ContainerInfoResetPass } from '../ContainerInfoResetPass/ContainerInfoR
 
 
 export const MainResetPassword = () => {
+  
   return (
     <>
         <main className='mainResetPassword'>
