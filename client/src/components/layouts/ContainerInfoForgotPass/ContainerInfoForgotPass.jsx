@@ -11,7 +11,7 @@ export const ContainerInfoForgotPass = () => {
     <section className="info">
         <p>No te preocupes nosotros te ayudamos!!</p>
 
-        <div class="imgMsg">
+        <div className="imgMsg">
             <ImgUI  routeImg={logoTwo}/>
         </div>
     </section>

@@ -129,12 +129,14 @@ const getMe = asyncHandler(async(req,res)=>{
 const forgotPw = asyncHandler(async(req,res)=>{
   
       const {email} = req.body
+
         const authEmail = await User.findOne({email})
         if(!authEmail){
             // res.status(400).json({stack: "invalid data"})
             res.status(400)
             throw new Error('invalid data')
-        }
+        }else{
+
 
         const secretKey = process.env.JWT_SECRET + authEmail.password
         const token = jwt.sign({email: authEmail.email, id: authEmail._id}, secretKey, {
@@ -172,23 +174,16 @@ const forgotPw = asyncHandler(async(req,res)=>{
               throw new Error('Email error')
             } else {
               
-               res.status(200)
-            //   //  toast.success("Envio Exitoso")
-            //    toast.success('Envio Exitoso!', {
-            //     position: "top-right",
-            //     autoClose: 5000,
-            //     hideProgressBar: false,
-            //     closeOnClick: true,
-            //     pauseOnHover: true,
-            //     draggable: true,
-            //     progress: undefined,
-            //     theme: "light",
-            //     });
-            //    console.log("Envio Exitoso");
+               res.json({
+                email: authEmail.email
+              })
+              console.log("Envio Exitoso");
+              //  throw new Error("Envio Exitoso")
            }
           });
           
   
+        }
          
       });
 
