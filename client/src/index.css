@@ -1714,6 +1714,8 @@ li {
   
 }
 
+
+
 .cardOrder{
   display: flex;
   cursor: pointer;
@@ -1728,10 +1730,12 @@ li {
   width: 16%;
   height: 45%;
   margin-bottom: 3rem;
+  transition: transform 0.3s ease-in-out;
 }
 
 .cardOrder:hover{
   background-color: #ea681298;
+  transform: scale(1.1);
 }
 
 .infoOrder{
@@ -1753,21 +1757,126 @@ li {
   bottom: 10rem;
 }
 
+/* Modal - CRUD */
+
 .modalCreateProducts{
   display: none;
-  top: 25%;
-  background-color: rgb(226, 156, 156);
+  top: 18%;
+  background-color: rgb(255, 255, 255);
   position: absolute;
   width: 50%;
-  height: 50%;
+  height: 65%;
   z-index: 1;
+  border-radius: 25px;
+  border: 5px solid #EA6A12;
+}
+
+.modalCreateProducts.open{
+  display: flex;
+}
+
+
+.btnCloseModal{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  left: 74.5%;
+  top: 20.5%;
+  width: 2.5%;
+  height: 5%;
+  border-radius: 50px;
+  border: none;
+  background: #EA6A12;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.btnCloseModal:hover,
+.btnCloseModal:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+
+.formCreateProduct{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  margin-top: 2.5%;
+  border-radius: 20px;
+}
+
+.inputProduct{
+  display: flex;
+  height: 10%;
+  width: 70%;
+  margin: 2%;
+  margin-top: 1.5%;
+  padding: 13px;
+  border: 2px solid #cf6406;
+  border-radius: 8px;
+  font-family: inherit;
+  background-color: #fff6f5;
+}
+
+input:focus{
+  outline: none;
+}
+
+.btnCreateProduct{
+  cursor: pointer;
+  border: none;
+  width: 25%;
+  height: 10%;
+  font-size: 18px;
+  border-radius: 25px;
+  background-color: #EA6A12;
+  color: #ffffff;
+  font-weight: bold;
+  margin-top: 2%;
 }
 
 
 
+/* boton - card | crear producto */
 
+.cardCreateProduct{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 16%;
+  height: 45%;
+  margin-top: 5rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  background-color: #FFFFFF;
+  border-radius: 25px;
+  margin-bottom: 3rem;
+}
 
+.cardCreateProduct:hover{
+  background-color: #ea681298;
+  transform: scale(1.1);
+}
 
+.btnOpenModal{
+  cursor: pointer;
+  border: none;
+  width: 100%;
+  height: 100%;
+  border-radius: 25px;
+  font-size: 4rem;
+  background-color: #ffffff;
+  color: #EA6A12;
+}
 
 
 
