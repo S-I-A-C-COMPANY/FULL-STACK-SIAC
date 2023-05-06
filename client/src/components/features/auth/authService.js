@@ -6,11 +6,13 @@ const API_URL = '/api/users'
 const register = async (userData) =>{
     const response = await axios.post(API_URL + '/register',userData)
 
-    if(response.data){
-        localStorage.setItem('user', JSON.stringify(response.data))
+    // ingresar directamente al aplicactivo 
 
-        return response.data
-    }
+    // if(response.data){
+    //     localStorage.setItem('user', JSON.stringify(response.data))
+
+    //     return response.data
+    // }
 
 }
 
@@ -29,12 +31,6 @@ const login = async (userData) =>{
 //forgot pass
 const forgotPass = async (userData) =>{
    const response = await axios.post(API_URL + '/forgot-password',userData)
-
-    if(response.data){
-        localStorage.setItem('user', JSON.stringify(response.data))
-
-        return response.data
-    }
 }
 
 // Logout User
@@ -44,8 +40,8 @@ const logout = ()=>{
 const authService = {
     register,
     logout,
+    forgotPass,
     login,
-    forgotPass
 }
 
 export default authService

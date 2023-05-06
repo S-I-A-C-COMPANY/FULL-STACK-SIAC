@@ -13,6 +13,7 @@ import { Products } from "./components/pages/Products/Products";
 
 
 function App() {
+  window.document.title = 'SIAC'
   return (
     <>
       <Router>

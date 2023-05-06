@@ -4,6 +4,7 @@ import { ContainerHedingForgotPass } from '../ContainerHeadingForgotPass/Contain
 import { ContainerFormForgotPass } from '../ContainerFormForgotPass/ContainerFormForgotPass'
 
 
+
 export const ContentForgotPass = () => {
   return (
         <div className="content">

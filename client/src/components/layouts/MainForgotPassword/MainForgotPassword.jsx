@@ -4,6 +4,9 @@ import { ContainerInfoForgotPass } from '../ContainerInfoForgotPass/ContainerInf
 
 
 export const MainForgotPassword = () => {
+
+    
+
     return (
         <>
             <main className='mainForgotPassword'>
