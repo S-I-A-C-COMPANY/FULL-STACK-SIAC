@@ -23,7 +23,7 @@ router.put('/updateInfo/:id',protect ,updateUsers)
 router.delete('/deleteUser/:id',protect ,deleteUser)
 
 router.get('/me',protect, getMe)
-router.get('/profile',protect)
+router.get('/profile',protect, profileUser)
 
 
 

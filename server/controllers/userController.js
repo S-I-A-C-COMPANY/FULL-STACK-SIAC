@@ -300,7 +300,11 @@ const deleteUser = asyncHandler( async (req, res) => {
   // }
 });
 
-
+const profileUser = asyncHandler(async(req,res)=>{
+  res.status(200)
+  res.send(localStorage.getItem("user"))
+  
+})
 
 
 
@@ -319,5 +323,6 @@ module.exports = {
     forgotPw,
     resetUpdate,
     updateUsers,
-    deleteUser
+    deleteUser,
+    profileUser
 }
