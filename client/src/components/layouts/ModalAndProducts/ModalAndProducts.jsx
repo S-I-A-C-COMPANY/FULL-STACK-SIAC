@@ -63,7 +63,9 @@ export const ModalAndProducts = () => {
                         <div className='infoOrder'>
                             <h3 className='nameOrder'>Nombre: {producto.name}</h3>
                             <p className='priceOrder'>Precio: {producto.price}</p>
-                            <p className='descriptionOrder'>Descripcion: {producto.category}</p>
+                            <p className='categoryProduct'>Categoria: {producto.category}</p>
+                            <p className='amountProduct'>Cantidad: {producto.amount}</p>
+                            <p className='descriptionOrder'>Descripcion: ?? </p>
                         </div>
                     </div>
                 ))}
