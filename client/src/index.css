@@ -1034,14 +1034,11 @@ li {
 }
 
 .back{
-  
   margin-top: 1rem;
   color: rgb(57, 57, 57);
 }
 
-
 /* SEGUNDO DIV */
-
 .messageContent{
   width: 100%;
   height: 100%;
@@ -1086,52 +1083,6 @@ li {
 }
 
 
-/* Responsive Acomodar */
-
-/* @media (max-width: 680px){
-
-  .mainForgotPassword{
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-  }
-
-  .img{
-      
-      position: relative;
-      left: 30px;
-  }
-
-  .content img{
-      width: auto;
-      height: 160px;
-  }
-  .content{
-      display: flex;
-      margin-top: 4rem;
-       flex-direction: column; 
-      justify-content: center;
-      align-content: center;
-      width: 80%;
-  }
-  .card{
-      width: 100%;
-  }
-  .messageContent{
-      display: none;
-  }
-
-  .heading p{
-      font-size: 1rem ;
-  }
-
-  .heading h1{
-      font-size: 1.4rem;
-  }
-
-} */
-
 
 /* Page-Profile */
 
@@ -1142,7 +1093,6 @@ li {
   height: 100vh;
 }
 
-
 .navBarInSideBar{
   display: flex;
   height: 100%;
@@ -1151,11 +1101,8 @@ li {
   align-items:center;
 }
 
-
-
 /* uno */
 .sideBar{
-  /* display: flex; */
   display: block;
   justify-content: center;
   align-items: center;
@@ -1164,15 +1111,9 @@ li {
   background-color: #EA6A12;
 }
 
-/* 
-.sideBar:hover{
-  width: 8%;
-} */
-
 .listLinks{
   display: block;
 }
-
 
 /* logo.sideBar */
 .imgIcon{
@@ -1195,9 +1136,8 @@ li {
   font-size: 2rem;
 }
 
-
 /* dos */
-.contentImages{
+.contentProfile{
   display: flex;
   position: relative;
   justify-content: center;
@@ -1248,7 +1188,6 @@ li {
   height: 25px;
 }
 
-
 .iconNotification{
   width: 23px;
   height: 25px;
@@ -1275,7 +1214,6 @@ li {
   flex-direction: column;
   position: absolute;
   top: 21.2rem;
-  
 }
 
 .nameProfile{
@@ -1294,7 +1232,6 @@ li {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  /* border: 2px solid rgb(0, 0, 0); */
   width: 85%;
   height: 46%;
   position: absolute;
@@ -1305,21 +1242,10 @@ li {
 .inputs{
   width: 80%;
   height: 90%;
-  /* height: 3.8rem; */
   border: none;
   outline: none;
   background: transparent;
   font-size: 18px;
-  /* padding-left: 2rem;
-  font-size: 1.1rem;
-  margin: 1rem;
-  margin-bottom: 2rem;
-  margin-right: 5rem;
-  margin-left: 5rem;
-  border: 2px solid #f07000;
-  border-radius: 11.5px;
-  font-family: inherit;
-  background-color: #fff6f5; */
 }
 
 
@@ -1360,108 +1286,9 @@ li {
   height:55%;
   margin-right: 1rem;
   margin-left: 1rem;
+  border-right: 1px solid #5d5b5bc8;
+  padding-right: 0.5rem;
 }
-
-
-
-/* Laptop */
-@media only screen and (max-width: 1400px) {
-
-  .contentImages{
-    display: flex;
-    position: relative;
-    justify-content: center;
-    align-items: flex-start;
-    width: 95.8vw;
-    padding-top: 3.5rem;
-    height: 100vh;
-  }
-  
-  .banner{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 90%;
-    height: 25%;
-    background: url(./Images/banner.png);
-    filter: brightness(75%);
-    background-size: cover;
-    border: 1.5px solid #EA6A12;
-  }
-  
-  .imgProfile{
-    width: 180px;
-    height: 180px;
-    position: absolute;
-    top: 4.7rem;
-    border: 5px solid #EA6A12;
-    border-radius: 50%;
-    border-style: dashed;
-  }
-
-  .btnUpload{
-    width: 3rem;
-    height: 2.5rem;
-    position: absolute;
-    top: 14.6rem;
-    border-radius: 25%;
-    background-color: #EA6A12;
-    font-size:2rem;
-    border:none;
-    filter: brightness(120%);
-    cursor: pointer;
-  }
-  
-  .groupText{
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 18rem;
-    
-  }
-
-  .formProfile{
-    display: block;
-    justify-content: center;
-    align-items: center;
-    /* border: 2px solid rgb(0, 0, 0); */
-    width: 80%;
-    height: 30%;
-    position: absolute;
-    top: 27rem;
-    flex-wrap: wrap;
-  }
-  
-  .inputs{
-    width: 22rem;
-    height: 3rem;
-    padding-left: 2rem;
-    font-size: 1rem;
-    margin: 0rem;
-    margin-bottom: 1rem;
-    margin-right: 5rem;
-    margin-left: 5rem;
-    border: 2px solid #f07000;
-    border-radius: 11.5px;
-    font-family: inherit;
-    background-color: #fff6f5;
-  }
-
-  .btnUpdate{
-    cursor: pointer;
-    width: 18rem;
-    border-radius: 11.5px;
-    border: none;
-    background-color: #FF5C00;
-    color: white;
-    font-size: 1.1rem;
-    font-weight: bold;
-    height: 3rem;
-    margin-top: 2rem;
-  }
-
-}
-
 
 
 
@@ -1704,17 +1531,21 @@ li {
 
 .containerCards{
   display: flex;
-  overflow-y: scroll;
+  overflow: auto;
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 3%;
   margin-bottom: 3%;
   width: 85%;
   height: 100vh;
-  
 }
 
+/* ocultar barra de scroll */
 
+.containerCards::-webkit-scrollbar {
+  width: 0px;
+  background-color: transparent;
+}
 
 .cardOrder{
   display: flex;
@@ -1883,7 +1714,6 @@ input[type="number"]::-webkit-inner-spin-button {
   background-color: #ffffff;
   color: #EA6A12;
 }
-
 
 
 
