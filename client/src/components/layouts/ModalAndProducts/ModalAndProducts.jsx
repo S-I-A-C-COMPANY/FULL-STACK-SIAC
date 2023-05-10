@@ -1,4 +1,8 @@
 import { useState , useEffect} from 'react'
+import axios from 'axios'
+// Importo socket
+import io from 'socket.io-client';
+
 // LAYOUT
 import { FormCreateProducts } from '../FormCreateProducts/FormCreateProducts'
 
@@ -8,8 +12,9 @@ import { ButtonUI } from '../../UI/ButtonUI/ButtonUI'
 
 // IMG
 import orderExample from '../../../Images/order.png'
-import axios from 'axios'
 
+// Se crea una instancia de socket
+const socket = io('http://localhost:3000')
 
 export const ModalAndProducts = () => {
 
@@ -28,18 +33,36 @@ export const ModalAndProducts = () => {
 
     // traer productos bd
     useEffect(()=>{
-        const getProductsList = async ()=>{
+        // cuando el componente se monta, nos conectamos al servidor WebSocket y solicitamos la lista de productos
+        socket.on('productos', (listProduct) => {
+            setProduct(listProduct);
+        });
+    
+        // cuando se agrega un nuevo producto, lo agregamos a la lista de productos
+        socket.on('nuevoProducto', (producto) => {
+            setProduct([...listProduct, producto]);
+        });
+    
+        // cuando el componente se desmonta, desconectamos el socket
+        return () => {
+            socket.disconnect();
+        };
+    
+    },[listProduct])
+
+
+    const getProductsList = async ()=>{
             
-            try{
-                const res = await axios.get("http://localhost:3000/api/products/all-product")
-                setProduct(res.data);
-                console.log(res.data)
-            }catch(err){
-                console.log(err)
-            }
+        try{
+            const res = await axios.get("http://localhost:3000/api/products/all-product")
+            setProduct(res.data);
+            console.log(res.data)
+        }catch(err){
+            console.log(err)
         }
-        getProductsList()
-    },[])
+    }
+    getProductsList()
+
 
     return (
         <>
@@ -57,7 +80,6 @@ export const ModalAndProducts = () => {
                     listProduct.map((producto) => (
                     
                         <div key={producto._id} className='cardOrder'>
-                        
                         <ImgUI style='imgOrder' routeImg={orderExample} />
 
                         <div className='infoOrder'>
