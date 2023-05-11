@@ -1,5 +1,8 @@
 import { useState , useEffect} from 'react'
 import axios from 'axios'
+import {  useDispatch } from "react-redux";
+import { deleteProducts } from '../../features/products/productSlice';
+
 // Importo socket
 import io from 'socket.io-client';
 
@@ -17,9 +20,10 @@ import orderExample from '../../../Images/order.png'
 const socket = io('http://localhost:3000')
 
 export const ModalAndProducts = () => {
-
+    
     const [modalOpen, setModalOpen] = useState(false);
-
+    
+    const dispatch = useDispatch();
     // para pintar productos de la bd
     const [listProduct, setProduct] = useState([])
 
@@ -56,13 +60,18 @@ export const ModalAndProducts = () => {
         try{
             const res = await axios.get("http://localhost:3000/api/products/all-product")
             setProduct(res.data);
-            console.log(res.data)
+            // console.log(res.data)
         }catch(err){
             console.log(err)
         }
     }
     getProductsList()
 
+    // const deleteProduct =  async(id)=>{
+
+    //     dispatch(deleteProducts(id));
+        
+    // }
 
     return (
         <>
@@ -88,6 +97,8 @@ export const ModalAndProducts = () => {
                             <p className='categoryProduct'>Categoria: {producto.category}</p>
                             <p className='amountProduct'>Cantidad: {producto.amount}</p>
                             <p className='descriptionOrder'>Descripcion: ?? </p>
+                            {/* <ButtonUI onClicks={()=>deleteProduct(producto._id)} style='' text='X' /> */}
+                            <ButtonUI onClicks={()=>dispatch(deleteProducts(producto._id))} style='' text='X' />
                         </div>
                     </div>
                 ))}

@@ -146,25 +146,21 @@ const updateProduct = asyncHandler (async (req,res)=>{
 
 
 //@Desc     delete Product
-//@Route    DELETE /api/products/delete-products/
+//@Route    DELETE /api/products/delete-products/:id
 //@Access   private
 const deleteProduct = asyncHandler ( async (req,res)=>{
+  const {id} = req.params;
+  const idProduct = await Product.findById(id)
 
-
-  const {id} = req.body;
-
-  const product = await Product.findOne({_id: id })
-
-  if(product){
-    
-    await product.remove()
-    res.status(200).json({status: "product deleted successfully"})
-  } else{
-  
-    res.status(200).json({status: "product Not Exists!!" })
+  if (!idProduct) {
+    res.status(400)
+    throw new Error('Goal not found')
+  }else{
+  await idProduct.remove();
+  res.status(200).json({ status: "Eliminado"})
   }
-    
 
+  
 })
 
 

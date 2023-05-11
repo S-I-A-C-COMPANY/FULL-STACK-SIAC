@@ -9,8 +9,16 @@ const createProducto = async (productData, token)=>{
     return response.data
 }
 
+
+const deleteProducto = async (productId)=>{
+    const response = await axios.delete(API_URL + '/delete-products/' + productId)
+    console.log(response.data.status);
+    return response.data
+}
+
 const productService = {
-    createProducto
+    createProducto,
+    deleteProducto
 }
 
 export default productService
