@@ -17,7 +17,9 @@ import { ButtonUI } from '../../UI/ButtonUI/ButtonUI'
 import orderExample from '../../../Images/order.png'
 
 // Se crea una instancia de socket
-const socket = io('http://localhost:3000')
+const socket = io({
+    transports: ['websocket']
+})
 
 export const ModalAndProducts = () => {
     

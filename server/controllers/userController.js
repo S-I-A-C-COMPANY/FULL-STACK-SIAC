@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken")
 const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const User = require("../model/userModel")
+
 const nodemailer = require("nodemailer");
 const Role = require("../model/roleModel")
 
@@ -112,14 +113,23 @@ const loginUser = asyncHandler(async(req,res)=>{
 //@Route    GET /api/users/me
 //@Access   Private
 const getMe = asyncHandler(async(req,res)=>{
-    const {_id,name,dni,email} = await User.findById(req.user.id)
 
-    res.status(200).json({
-        id : _id,
-        name,
-        dni,
-        email
-    })
+  const {id} = req.params;
+
+  const user = await User.findById( id )
+
+  if(user){
+  
+      res.json({
+        _id: user.id,
+        name: user.name,
+        email: user.email
+      })
+  }else{
+    res.json({ status: "Something Went Wrong" });
+  }
+
+    
 })
 
 

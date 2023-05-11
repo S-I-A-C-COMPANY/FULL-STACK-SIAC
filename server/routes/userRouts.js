@@ -22,7 +22,7 @@ router.post('/reset-password/:id/:token', resetUpdate)
 router.put('/updateInfo/:id',protect ,updateUsers)
 router.delete('/deleteUser/:id',protect ,deleteUser)
 
-router.get('/me',protect, getMe)
+router.get('/me/:id',getMe,protect)
 router.get('/profile',protect, profileUser)
 
 
