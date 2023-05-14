@@ -91,7 +91,7 @@ export const ModalAndProducts = () => {
                     listProduct.map((producto) => (
                     
                         <div key={producto._id} className='cardOrder'>
-                        <ImgUI style='imgOrder' routeImg={orderExample} />
+                        <ImgUI style='imgOrder' routeImg={producto.image} />
 
                         <div className='infoOrder'>
                             <h3 className='nameOrder'>Nombre: {producto.name}</h3>
