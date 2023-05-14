@@ -1,6 +1,6 @@
 const express = require("express")
 
-const { registerProduct, deleteProduct, getProduct, updateProduct,allProduct} = require("../controllers/productsController")
+const { registerProduct, deleteProduct, getProduct, updateProduct,allProduct, imgProduct} = require("../controllers/productsController")
 const router = express.Router()
 
 //registar un producto
@@ -18,6 +18,7 @@ router.get('/all-product',allProduct)
 router.put('/update-product/:id',updateProduct )
 //borrar un producto
 router.delete('/delete-products/:id', deleteProduct)
+router.post('/uploadImg', imgProduct)
 
 
 

@@ -1,9 +1,7 @@
-// const jwt = require("jsonwebtoken")
-// const bcrypt = require('bcryptjs')
-// const User = require("../model/userModel")
-// const nodemailer = require("nodemailer"); 
+
 const asyncHandler = require('express-async-handler')
 const Product = require("../model/productsModel")
+const { cloudinary } = require('../utils/cloudinary');
 
 
 //@Desc     Register Product
@@ -164,10 +162,37 @@ const deleteProduct = asyncHandler ( async (req,res)=>{
 })
 
 
+//@Desc     delete Product
+//@Route    DELETE /api/products/imgProduct
+//@Access   private
+const imgProduct = asyncHandler ( async (req,res)=>{
+  try {
+    const {url} = req.body;
+    console.log(url);
+    const uploadResponse = await cloudinary.uploader.upload(url, {
+      upload_preset: 'siac',
+  });
+  console.log(uploadResponse);
+  res.status(200).json({ msg: 'File uploaded sucessfully' });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({err: 'something went wrong'})
+  }
+  
+  // const idProduct = await Product.findById(id)
+
+  
+})
+
+
+
+
+
 module.exports = {
   registerProduct,
   getProduct,
   updateProduct,
   deleteProduct,
-  allProduct
+  allProduct,
+  imgProduct
 }
