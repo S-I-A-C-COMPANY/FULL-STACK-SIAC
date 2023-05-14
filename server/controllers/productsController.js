@@ -9,9 +9,9 @@ const { cloudinary } = require('../utils/cloudinary');
 //@Access   Public
 const registerProduct = asyncHandler(async(req,res)=>{
 
-    const {name, price, category, amount} = req.body
+    const {name, price, category, amount,image} = req.body
 
-    if(!name || !price || !category || !amount){
+    if(!name || !price || !category || !amount || !image){
         res.status(400)
         throw new Error('Please add all fiels')
     }
@@ -30,7 +30,8 @@ const registerProduct = asyncHandler(async(req,res)=>{
         name,
         price,
         category,
-        amount
+        amount,
+        image
 
     })
 
@@ -41,6 +42,7 @@ const registerProduct = asyncHandler(async(req,res)=>{
       price: product.price,
       category: product.category,
       amount: product.amount,
+      image: product.image
     })
   } else {
     res.status(400)
