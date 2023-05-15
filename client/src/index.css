@@ -1202,7 +1202,6 @@ li {
   width: 90%;
   height: 25%;
   background: url(./Images/banner.png);
-  filter: brightness(75%);
   background-size: cover;
   border: 1.5px solid #EA6A12;
 }
@@ -1339,7 +1338,7 @@ li {
 }
 
 /* Laptop - Profile */
-@media only screen and (max-width : 1366px) {
+@media only screen and (min-width: 1024px) and (max-width: 1366px) {
   .mainProfile{
     display: flex;
     flex-direction: row;
@@ -1397,7 +1396,7 @@ li {
     justify-content: center;
     align-items: flex-start;
     width: 95.8vw;
-    padding-top: 3.5rem;
+    padding-top: 2.5rem;
     height: 100vh;
   }
   
@@ -1406,17 +1405,17 @@ li {
     justify-content: center;
     align-items: center;
     width: 90%;
-    height: 21.5%;
+    height: 25.5%;
     background: url(./Images/banner.png);
     background-size: cover;
     border: 1.5px solid #EA6A12;
   }
   
   .imgProfile{
-    width: 160px;
-    height: 155px;
+    width: 150px;
+    height: 145px;
     position: absolute;
-    top: 3.9rem;
+    top: 3.8rem;
     border: 5px solid #EA6A12;
     border-radius: 50%;
     border-style: dashed;
@@ -1426,20 +1425,35 @@ li {
     width: 2.5rem;
     height: 2rem;
     position: absolute;
-    top: 12.8rem;
+    top: 11.8rem;
     border-radius: 25%;
     background-color: #EA6A12;
     font-size:2rem;
     border:none;
     cursor: pointer;
   }
+
+
+  .btnUpdate{
+    cursor: pointer;
+    width: 15rem;
+    border-radius: 11.5px;
+    border: none;
+    background-color: #FF5C00;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    height: 3rem;
+    margin-top: 2rem;
+  }
+
   
   /* Info profile */
   .groupText{
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 15.5rem;
+    top: 14.8rem;
   }
 
   .formProfile{
@@ -1449,13 +1463,13 @@ li {
     width: 88%;
     height: 40%;
     position: absolute;
-    top: 25rem;
+    top: 20rem;
     flex-wrap: wrap;
   }
   
   .containInputs{
     display: flex;
-    width: 42%;
+    width: 39%;
     height: 16%;
     justify-content: flex-start;
     align-items: center;
@@ -1465,6 +1479,16 @@ li {
     margin: 0.8rem;
   }
   
+  
+  .iconHome, .iconNotification, .iconCalendary, .iconStats, .iconProfile{
+    width: 23px;
+    height: 20px;
+    margin: 0;
+  }
+  
+  .listLinks{
+    padding: 25px;
+  }
 }
 
 
