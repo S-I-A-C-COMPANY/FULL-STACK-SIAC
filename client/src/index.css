@@ -738,7 +738,7 @@ li {
   text-decoration: none;
   font-weight: bold;
   width: 18%;
-  background-color: #EA6A12;
+  background-color: #FF5C00;
   padding: 1.2rem;
   border-radius: 5rem;
   font-size: 18px;
@@ -1156,7 +1156,7 @@ li {
   align-items: center;
   height: 100%;
   width: 6.2%;
-  background-color: #EA6A12;
+  background-color: #FF5C00;
 }
 
 .listLinks{
@@ -1203,7 +1203,7 @@ li {
   height: 25%;
   background: url(./Images/banner.png);
   background-size: cover;
-  border: 1.5px solid #EA6A12;
+  border: 1.5px solid #FF5C00;
 }
 
 .imgProfile{
@@ -1211,7 +1211,7 @@ li {
   height: 220px;
   position: absolute;
   top: 5.5rem;
-  border: 5px solid #EA6A12;
+  border: 5px solid #FF5C00;
   border-radius: 50%;
   border-style: dashed;
 }
@@ -1222,7 +1222,7 @@ li {
   position: absolute;
   top: 18rem;
   border-radius: 25%;
-  background-color: #EA6A12;
+  background-color: #FF5C00;
   font-size:2rem;
   border:none;
 
@@ -1361,7 +1361,7 @@ li {
     align-items: center;
     height: 100%;
     width: 6.2%;
-    background-color: #EA6A12;
+    background-color: #FF5C00;
   }
   
   .listLinks{
@@ -1408,7 +1408,7 @@ li {
     height: 25.5%;
     background: url(./Images/banner.png);
     background-size: cover;
-    border: 1.5px solid #EA6A12;
+    border: 1.5px solid #FF5C00;
   }
   
   .imgProfile{
@@ -1416,7 +1416,7 @@ li {
     height: 145px;
     position: absolute;
     top: 3.8rem;
-    border: 5px solid #EA6A12;
+    border: 5px solid #FF5C00;
     border-radius: 50%;
     border-style: dashed;
   }
@@ -1427,7 +1427,7 @@ li {
     position: absolute;
     top: 11.8rem;
     border-radius: 25%;
-    background-color: #EA6A12;
+    background-color: #FF5C00;
     font-size:2rem;
     border:none;
     cursor: pointer;
@@ -1692,7 +1692,7 @@ li {
   margin-left: 2rem;
   margin-right: 2rem;
   background-color: #ffffff;
-  border: 1px solid #EA6A12;
+  border: 1px solid #FF5C00;
   padding: 0.5rem 1.5rem ;
   border-radius: 25px;
 }
@@ -1701,15 +1701,15 @@ li {
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: #EA6A12;
+  color: #FF5C00;
   font-size: 18px;
 }
 
 .active{
   margin-left: 2rem;
   margin-right: 2rem;
-  background-color: #EA6A12;
-  border: 1px solid #EA6A12;
+  background-color: #FF5C00;
+  border: 1px solid #FF5C00;
   padding: 0.5rem 1.5rem ;
   border-radius: 25px;
 }
@@ -1797,7 +1797,7 @@ li {
   height: 70%;
   z-index: 1;
   border-radius: 25px;
-  border: 5px solid #EA6A12;
+  border: 5px solid #FF5C00;
 }
 
 .modalCreateProducts.open{
@@ -1815,7 +1815,7 @@ li {
   height: 4%;
   border-radius: 50px;
   border: none;
-  background: #EA6A12;
+  background: #FF5C00;
   font-size: 1.5rem;
   cursor: pointer;
   transition: opacity 0.3s ease-in-out;
@@ -1871,7 +1871,7 @@ input[type="number"]::-webkit-inner-spin-button {
   height: 8%;
   font-size: 18px;
   border-radius: 25px;
-  background-color: #EA6A12;
+  background-color: #FF5C00;
   color: #ffffff;
   font-weight: bold;
   margin-top: 2%;
@@ -1906,7 +1906,7 @@ input[type="number"]::-webkit-inner-spin-button {
   border-radius: 25px;
   font-size: 4rem;
   background-color: #ffffff;
-  color: #EA6A12;
+  color: #FF5C00;
 }
 
 /* Boton eliminar producto */
@@ -1926,7 +1926,7 @@ input[type="number"]::-webkit-inner-spin-button {
   color: rgb(0, 0, 0);
   border: none;
   font-size: 15px;
-  border: 2px solid #EA6A12;
+  border: 2px solid #FF5C00;
   cursor: pointer;
 }
 
@@ -1949,7 +1949,7 @@ input[type="number"]::-webkit-inner-spin-button {
   color: rgb(0, 0, 0);
   border: none;
   font-size: 15px;
-  border: 2px solid #EA6A12;
+  border: 2px solid #FF5C00;
   cursor: pointer;
 }
 
@@ -2030,7 +2030,7 @@ input[type="number"]::-webkit-inner-spin-button {
     margin-left: 2rem;
     margin-right: 2rem;
     background-color: #ffffff;
-    border: 1px solid #EA6A12;
+    border: 1px solid #FF5C00;
     padding: 0.5rem 1.5rem ;
     border-radius: 25px;
   }
@@ -2039,15 +2039,15 @@ input[type="number"]::-webkit-inner-spin-button {
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: #EA6A12;
+    color: #FF5C00;
     font-size: 18px;
   }
   
   .active{
     margin-left: 2rem;
     margin-right: 2rem;
-    background-color: #EA6A12;
-    border: 1px solid #EA6A12;
+    background-color: #FF5C00;
+    border: 1px solid #FF5C00;
     padding: 0.5rem 1.5rem ;
     border-radius: 25px;
   }
@@ -2136,7 +2136,7 @@ input[type="number"]::-webkit-inner-spin-button {
   height: 70%;
   z-index: 1;
   border-radius: 25px;
-  border: 5px solid #EA6A12;
+  border: 5px solid #FF5C00;
 }
 
 .modalCreateProducts.open{
@@ -2154,7 +2154,7 @@ input[type="number"]::-webkit-inner-spin-button {
   height: 4%;
   border-radius: 50px;
   border: none;
-  background: #EA6A12;
+  background: #FF5C00;
   font-size: 1.5rem;
   cursor: pointer;
   transition: opacity 0.3s ease-in-out;
@@ -2210,7 +2210,7 @@ input[type="number"]::-webkit-inner-spin-button {
   height: 8%;
   font-size: 18px;
   border-radius: 25px;
-  background-color: #EA6A12;
+  background-color: #FF5C00;
   color: #ffffff;
   font-weight: bold;
   margin-top: 2%;
@@ -2245,7 +2245,7 @@ input[type="number"]::-webkit-inner-spin-button {
     border-radius: 25px;
     font-size: 4rem;
     background-color: #ffffff;
-    color: #EA6A12;
+    color: #FF5C00;
   }
   
   /* Boton eliminar producto */
@@ -2265,7 +2265,7 @@ input[type="number"]::-webkit-inner-spin-button {
     color: rgb(0, 0, 0);
     border: none;
     font-size: 15px;
-    border: 2px solid #EA6A12;
+    border: 2px solid #FF5C00;
     cursor: pointer;
   }
   
@@ -2287,7 +2287,7 @@ input[type="number"]::-webkit-inner-spin-button {
     color: rgb(0, 0, 0);
     border: none;
     font-size: 15px;
-    border: 2px solid #EA6A12;
+    border: 2px solid #FF5C00;
     cursor: pointer;
   }
   
