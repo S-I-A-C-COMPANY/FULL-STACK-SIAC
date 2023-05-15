@@ -15,6 +15,8 @@ import { ButtonUI } from '../../UI/ButtonUI/ButtonUI'
 
 // IMG
 import orderExample from '../../../Images/order.png'
+import updateIcon from '../../../Images/updateIcon.png'
+import deleteIcon from '../../../Images/deleteIcon.png'
 
 // Se crea una instancia de socket
 const socket = io({
@@ -91,7 +93,10 @@ export const ModalAndProducts = () => {
                     listProduct.map((producto) => (
                     
                         <div key={producto._id} className='cardOrder'>
-                        <ImgUI style='imgOrder' routeImg={producto.image} />
+                            <div className='containerImgOrder'>
+                                <ImgUI style='imgOrder' routeImg={producto.image} />
+                            </div>
+                        
 
                         <div className='infoOrder'>
                             <h3 className='nameOrder'>Nombre: {producto.name}</h3>
@@ -99,8 +104,12 @@ export const ModalAndProducts = () => {
                             <p className='categoryProduct'>Categoria: {producto.category}</p>
                             <p className='amountProduct'>Cantidad: {producto.amount}</p>
                             <p className='descriptionOrder'>Descripcion: ?? </p>
-                            {/* <ButtonUI onClicks={()=>deleteProduct(producto._id)} style='' text='X' /> */}
-                            <ButtonUI onClicks={()=>dispatch(deleteProducts(producto._id))} style='' text='X' />
+                            
+                            <div className='containerEdits'>
+                                <ButtonUI onClicks={()=>dispatch(deleteProducts(producto._id))} style='btnDeleteProduct' text={<ImgUI style='iconDelete' routeImg={deleteIcon}></ImgUI>} />
+                            
+                                <ButtonUI onClicks={''} style='btnEditProduct' text={<ImgUI style='iconEdit' routeImg={updateIcon}></ImgUI>} />
+                            </div>
                         </div>
                     </div>
                 ))}
