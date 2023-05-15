@@ -318,7 +318,7 @@ li {
 
 .register {
   display: flex;
-  margin-top: 3rem;
+  margin-top: 1.5rem;
   justify-content: center;
   color: #5f5c5c;
 }
@@ -334,7 +334,7 @@ li {
 
 
 /* Laptop */
-@media only screen and (max-width : 1366px) {
+@media only screen and (max-width: 1024px) {
 
   h1,
   h2,
@@ -349,7 +349,6 @@ li {
     text-align: left;
     flex-direction: column;
     font-size: 2rem;
-    margin-bottom: 9%;
   }
 
   .heading2 {
@@ -365,7 +364,7 @@ li {
     display: block;
     justify-content: center;
     align-items: center;
-    width: 60%;
+    width: 65%;
   }
 
   .formRegister {
@@ -393,6 +392,7 @@ li {
     justify-content: center;
     margin-top: 1.5rem;
     color: rgb(64, 63, 63);
+    font-size: 14px;
   }
 
   .reset-password{
@@ -400,21 +400,25 @@ li {
     justify-content: center;
     margin-top: -1rem;
     color: rgb(64, 63, 63);
+    font-size: 14px;
   }
 
   .btn {
+    margin-left: auto;
+    margin-right: auto;
+    height: 2.5rem;
+    width: 8rem;
     border: none;
     border-radius: 30px;
     background: #ff6900;
     color: #fff;
-    font-size: 18px;
+    font-size: 17px;
     cursor: pointer;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 1.2rem;
-    margin-bottom: -1rem;
+    margin-top: 1rem;
   }
 
   .btn2 {
@@ -458,15 +462,17 @@ li {
 
   .orderLogo {
     position: absolute;
-    width: 22%;
+    width: 25%;
     height: 22%;
   }
 
   .imgLogoLogin {
     display: flex;
+    height: 45%;
+    width: 45%;
     margin-left: 4.1vh;
     font-weight: none;
-    margin-bottom: 3rem;
+    margin-bottom: 1.5rem;
   }
 
   .imgLogoRegister {
@@ -529,8 +535,8 @@ li {
   }
 
   .txtInfoLogin {
-    font-size: 1rem;
-    width: 45%;
+    font-size: 14px;
+    width: 70%;
     color: #000000;
   }
 
@@ -543,7 +549,9 @@ li {
   .register {
     display: flex;
     justify-content: center;
+    align-items: center;
     color: #5f5c5c;
+    font-size: 14px;
   }
 
   .info-register {
@@ -555,8 +563,17 @@ li {
     text-decoration: none;
   }
 
-
-
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #f07000;
+    border-radius: 11.5px;
+    margin-bottom: 2px;
+    font-family: inherit;
+    background-color: #fff6f5;
+  }
 }
 
 
@@ -1933,7 +1950,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 /* Laptop - Products */
-@media only screen and (max-width : 1366px) {
+@media only screen and (min-width: 1024px) {
   
   .mainProducts{
     display: flex;
