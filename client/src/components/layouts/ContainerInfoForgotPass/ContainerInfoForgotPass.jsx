@@ -9,7 +9,7 @@ import logoTwo from '../../../Images/searchPerson.svg'
 export const ContainerInfoForgotPass = () => {
   return (
     <section className="info">
-        <p>No te preocupes nosotros te ayudamos!!</p>
+        <p>¡No te preocupes nosotros te ayudamos!</p>
 
         <div className="imgMsg">
             <ImgUI  routeImg={logoTwo}/>

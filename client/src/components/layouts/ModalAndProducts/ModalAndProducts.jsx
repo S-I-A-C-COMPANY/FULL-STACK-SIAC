@@ -108,7 +108,7 @@ export const ModalAndProducts = () => {
                             <div className='containerEdits'>
                                 <ButtonUI onClicks={()=>dispatch(deleteProducts(producto._id))} style='btnDeleteProduct' text={<ImgUI style='iconDelete' routeImg={deleteIcon}></ImgUI>} />
                             
-                                <ButtonUI onClicks={''} style='btnEditProduct' text={<ImgUI style='iconEdit' routeImg={updateIcon}></ImgUI>} />
+                                <ButtonUI style='btnEditProduct' text={<ImgUI style='iconEdit' routeImg={updateIcon}></ImgUI>} />
                             </div>
                         </div>
                     </div>

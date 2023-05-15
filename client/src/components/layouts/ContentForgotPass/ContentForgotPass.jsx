@@ -1,6 +1,6 @@
 // Layout
 import { ContainerImgForgotPass } from '../ContainerImgForgotPass/ContainerImgForgotPass'
-import { ContainerHedingForgotPass } from '../ContainerHeadingForgotPass/ContainerHeadingForgotPass'
+import { ContainerHeadingForgotPass } from '../ContainerHeadingForgotPass/ContainerHeadingForgotPass'
 import { ContainerFormForgotPass } from '../ContainerFormForgotPass/ContainerFormForgotPass'
 
 
@@ -10,7 +10,7 @@ export const ContentForgotPass = () => {
         <div className="content">
             <ContainerImgForgotPass />
             
-            <ContainerHedingForgotPass />
+            <ContainerHeadingForgotPass />
 
             <ContainerFormForgotPass />
         </div>

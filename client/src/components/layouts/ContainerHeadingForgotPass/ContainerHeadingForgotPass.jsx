@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const ContainerHedingForgotPass = () => {
+export const ContainerHeadingForgotPass = () => {
   return (
     <section className="heading">           
         <h1 className='tittleForgotPass'>Recuperar Contraseña</h1>

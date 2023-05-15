@@ -99,11 +99,11 @@ function Login() {
               <p className="register">¿No tienes una cuenta?<Link className="info-register" to="/register">Registrarse</Link></p>
             </div>
 
-            <Link className="recover-password" to="/forgot-password">
+            <Link className="forgot-password" to="/forgot-password">
               Has olvidado tu contraseña
             </Link>
 
-            <Link className="recover-password" to="/reset-password">
+            <Link className="reset-password" to="/reset-password">
               Reestablecer contraseña
             </Link>
 

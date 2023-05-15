@@ -143,7 +143,7 @@ export default function Register() {
               />
             </div>
 
-            <Link className="recover-password" to="/login">
+            <Link className="registerPage" to="/login">
               Tengo Cuenta
             </Link>
 
