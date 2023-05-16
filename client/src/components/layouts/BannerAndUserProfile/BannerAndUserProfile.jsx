@@ -9,13 +9,14 @@ import { useState } from 'react'
 import axios from 'axios'
 
 export const BannerAndUserProfile = () => {
-    var userInfo = JSON.parse(localStorage.getItem('user'));
-    let idInfo = userInfo._id
+
     const [datUser, setUser] = useState([])
 
     const getInfoUser = async ()=>{
         
         try{
+            var userInfo = JSON.parse(localStorage.getItem('user'));
+            let idInfo = userInfo._id
             const res = await axios.get("/api/users/me/"+idInfo)
              setUser(res.data);
             // console.log(res.data)

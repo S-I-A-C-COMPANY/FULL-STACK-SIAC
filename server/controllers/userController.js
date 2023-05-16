@@ -38,26 +38,25 @@ const registerUser = asyncHandler(async(req,res)=>{
 
     
 
-    // Create User
-
-   
     
 
-    const user = new User({
-      name,
-      dni,
-      email,
-      password: hashedPassword
   
-  })
+// Create User
+const user = new User({
+  name,
+  dni,
+  email,
+  password: hashedPassword
 
-  if(roles){
-    const foundRoles = await Role.find({name: {$in: roles}})
-    user.roles = foundRoles.map(role =>role._id)
-  }else{
-    const role = await Role.findOne({name: "user"})
-    user.roles = [role._id]
-  }
+})
+
+if(roles){
+  const foundRoles = await Role.find({name: {$in: roles}})
+  user.roles = foundRoles.map(role =>role._id)
+}else{
+  const role = await Role.findOne({name: "user"})
+  user.roles = [role._id]
+}
 
     if (user) {
     res.status(201).json({

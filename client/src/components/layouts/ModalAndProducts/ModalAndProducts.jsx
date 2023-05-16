@@ -19,9 +19,10 @@ import updateIcon from '../../../Images/updateIcon.png'
 import deleteIcon from '../../../Images/deleteIcon.png'
 
 // Se crea una instancia de socket
-const socket = io({
-    transports: ['websocket']
-})
+// const socket = io({
+//     transports: ['websocket']
+// })
+const socket = io('http://localhost:5000')
 
 export const ModalAndProducts = () => {
     

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { register, reset } from "../../features/auth/authSlice";
 
@@ -13,9 +13,9 @@ import { HeadingFormRegister } from "../../layouts/HeadingFormRegister/HeadingFo
 import { InputUI } from "../../UI/InputUI/InputUI";
 import { ButtonUI } from "../../UI/ButtonUI/ButtonUI";
 
+import { Link } from "react-router-dom";
 
-
-export default function Register() {
+ function Register() {
   const [formData, setFormData] = useState({
     name: "",
     dni: "",
@@ -28,6 +28,7 @@ export default function Register() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
 
   const { user, isError, isSuccess, message } = useSelector(
     (state) => state.auth
@@ -142,14 +143,13 @@ export default function Register() {
                 text="Registrarse"
               />
             </div>
-
-            <Link className="registerPage" to="/login">
+            <Link className="recover-password" to="/login">
               Tengo Cuenta
             </Link>
-
           </form>
         </section>
       </section>
     </div>
   );
 }
+export default Register;
