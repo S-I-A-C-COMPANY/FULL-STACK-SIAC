@@ -9,74 +9,57 @@ const Role = require("../model/roleModel")
 //@Desc     Register user
 //@Route    POST /api/users/register
 //@Access   Public
-const registerUser = asyncHandler(async(req,res)=>{
-  
-    const {name,dni,email,password,roles} = req.body
+const registerUser = asyncHandler(async (req, res) => {
+  const { name, dni, email, password, roles } = req.body;
 
-    if(!name || !dni || !email || !password){
-        res.status(400)
-        throw new Error('Please add all fiels')
-        
-    }
-
-
- 
-
-    // check if user exist
-    const userExists = await User.findOne({dni})
-
-    if(userExists){
-        res.status(400)
-        throw new Error('User already exists')
-    }
-
-    // Hash password
-    // salt valores aleatorios se agg a la contraseña antes de ser hasheada (contra)+salt osea pepepe29+salt =pepe29@+973G
-
-    const salt = await bcrypt.genSalt(10)
-    const hashedPassword = await bcrypt.hash(password,salt)
-
-    
-
-    
-
-  
-// Create User
-const user = new User({
-  name,
-  dni,
-  email,
-  password: hashedPassword
-
-})
-
-if(roles){
-  const foundRoles = await Role.find({name: {$in: roles}})
-  user.roles = foundRoles.map(role =>role._id)
-}else{
-  const role = await Role.findOne({name: "user"})
-  user.roles = [role._id]
-}
-
-    if (user) {
-    res.status(201).json({
-      _id: user.id,
-      name: user.name,
-      email: user.email,
-      token: generateToken(user._id),
-    })
-  } else {
-    res.status(400)
-    throw new Error('Invalid user data')
+  if (!name || !dni || !email || !password) {
+    res.status(400);
+    throw new Error('Please add all fields');
   }
-    // Verify Role
-   
- 
-    const savedUser = await user.save()
 
-    console.log(savedUser);
-  
-})
+  // Check if user exists
+  const userExists = await User.findOne({ dni });
+
+  if (userExists) {
+    res.status(400);
+    throw new Error('User already exists');
+  }
+
+  // Hash password
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+  // Create User
+  const user = new User({
+    name,
+    dni,
+    email,
+    password: hashedPassword,
+  });
+
+  if (roles) {
+    const foundRoles = await Role.find({ name: { $in: roles } });
+    user.roles = foundRoles.map((role) => role._id);
+  } else {
+    const role = await Role.findOne({ name: 'user' });
+    user.roles = [role._id];
+  }
+
+  const savedUser = await user.save();
+
+  if (savedUser) {
+    res.status(201).json({
+      _id: savedUser.id,
+      name: savedUser.name,
+      email: savedUser.email,
+      token: generateToken(savedUser._id),
+    });
+  } else {
+    res.status(400);
+    throw new Error('Invalid user data');
+  }
+});
+
 
 
 
