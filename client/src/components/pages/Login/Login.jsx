@@ -1,3 +1,5 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable react/style-prop-object */
 import { useState, useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -32,12 +34,13 @@ function Login() {
   );
 
   useEffect(() => {
-    if (isError) {
-      toast.error(message);
-    }
 
     if (isSuccess || user) {
       navigate("/profile");
+    }
+
+    if(isSuccess){
+      toast.success("Inicio con exito")
     }
 
     dispatch(reset());
@@ -57,6 +60,14 @@ function Login() {
       dni,
       password,
     };
+
+    if (dni == '' && password == '') {
+      toast.error("Error, Campos Vacios")
+    } else if (dni == '') {
+      toast.error("Campo Dni Vacio")
+    } else if (password == '') {
+      toast.error("Campo Password Vacio")
+    }
 
     dispatch(login(userData));
   };
