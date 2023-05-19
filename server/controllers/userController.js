@@ -70,7 +70,7 @@ const loginUser = asyncHandler(async(req,res)=>{
 
     const {dni,password} = req.body
    
-    // check for user dni
+00    // check for user dni
     const user =  await User.findOne({dni}).populate("roles")
 
     if(user && (await bcrypt.compare(password,user.password))){
@@ -123,10 +123,11 @@ const forgotPw = asyncHandler(async(req,res)=>{
       const {email} = req.body
 
         const authEmail = await User.findOne({email})
-        if(!authEmail){
+        if(!email){
             // res.status(400).json({stack: "invalid data"})
             res.status(400)
-            throw new Error('invalid data')
+            throw new Error('Valide los campos')
+            
         }else{
 
 
@@ -134,7 +135,8 @@ const forgotPw = asyncHandler(async(req,res)=>{
         const token = jwt.sign({email: authEmail.email, id: authEmail._id}, secretKey, {
             expiresIn: "5m"
         })
-        const linkReset = `<a href="https://backend-render-corp.onrender.com/api/users/reset-password/${authEmail._id}/${token}">Click For Reset<a/>`;
+        // const linkReset = `<a href="'https://backend-render-corp.onrender.com/api/users/reset-password/${authEmail._id}/${token}">Click For Reset<a/>`;
+        const linkReset = `<a href="http://localhost:5000/api/users/reset-password/${authEmail._id}/${token}">Click For Reset<a/>`;
         
         contentHTML = `
         <h1>User Information</h1>

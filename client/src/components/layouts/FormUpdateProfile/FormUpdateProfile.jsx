@@ -14,7 +14,8 @@ import imgMail from '../../../Images/forms/Mail.svg'
 import imgPass from '../../../Images/forms/pass.svg'
 import imgDir from '../../../Images/forms/dir.svg'
 
-
+// const render = 'https://backend-render-corp.onrender.com'
+const localHost = 'http://localhost:5000'
 
 export const FormUpdateProfile = () => {
 
@@ -25,7 +26,7 @@ export const FormUpdateProfile = () => {
     const getInfoUser = async ()=>{
         
         try{
-            const res = await axios.get("https://backend-render-corp.onrender.com/api/users/me/"+idInfo)
+            const res = await axios.get(`${localHost}/api/users/me/`+idInfo)
              setUser(res.data);
             // console.log(res.data)
             

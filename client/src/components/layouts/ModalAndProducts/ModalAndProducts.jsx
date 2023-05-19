@@ -22,7 +22,8 @@ import deleteIcon from '../../../Images/deleteIcon.png'
 // const socket = io({
 //     transports: ['websocket']
 // })
-const socket = io('https://backend-render-corp.onrender.com')
+// const socket = io('https://backend-render-corp.onrender.com')
+const socket = io('http://localhost:5000')
 
 export const ModalAndProducts = () => {
     

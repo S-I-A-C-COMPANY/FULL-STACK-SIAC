@@ -8,6 +8,9 @@ import imageBanner from '../../../Images/iconUser.png'
 import { useState } from 'react'
 import axios from 'axios'
 
+// const render = 'https://backend-render-corp.onrender.com'
+const localHost = 'http://localhost:5000'
+
 export const BannerAndUserProfile = () => {
 
     const [datUser, setUser] = useState([])
@@ -17,7 +20,7 @@ export const BannerAndUserProfile = () => {
         try{
             var userInfo = JSON.parse(localStorage.getItem('user'));
             let idInfo = userInfo._id
-            const res = await axios.get("https://backend-render-corp.onrender.com/api/users/me/"+idInfo)
+            const res = await axios.get(`${localHost}/api/users/me/`+idInfo)
              setUser(res.data);
             // console.log(res.data)
             
