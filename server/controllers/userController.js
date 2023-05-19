@@ -10,7 +10,7 @@ const Role = require("../model/roleModel")
 //@Route    POST /api/users/register
 //@Access   Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, dni, email, password, roles } = req.body;
+  const { name, dni, email, password, phone,address, roles } = req.body;
 
   if (!name || !dni || !email || !password) {
     res.status(400);
@@ -35,6 +35,8 @@ const registerUser = asyncHandler(async (req, res) => {
     dni,
     email,
     password: hashedPassword,
+    phone: "",
+    address: ""
   });
 
   if (roles) {
@@ -53,6 +55,8 @@ const registerUser = asyncHandler(async (req, res) => {
       name: savedUser.name,
       email: savedUser.email,
       token: generateToken(savedUser._id),
+      phone: savedUser.phone,
+      address: savedUser.address
     });
   } else {
     res.status(400);
@@ -80,6 +84,8 @@ const loginUser = asyncHandler(async(req,res)=>{
             dni: user.dni,
             email: user.email,
             roles: user.roles.name,
+            phone: user.phone,
+            address: user.address,
             token: generateToken(user._id)
         })
     }else{
