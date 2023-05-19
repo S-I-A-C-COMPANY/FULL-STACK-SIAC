@@ -134,7 +134,7 @@ const forgotPw = asyncHandler(async(req,res)=>{
         const token = jwt.sign({email: authEmail.email, id: authEmail._id}, secretKey, {
             expiresIn: "5m"
         })
-        const linkReset = `<a href="http://localhost:5000/reset-password/${authEmail._id}/${token}">Click For Reset<a/>`;
+        const linkReset = `<a href="https://backend-render-corp.onrender.com/api/users/reset-password/${authEmail._id}/${token}">Click For Reset<a/>`;
         
         contentHTML = `
         <h1>User Information</h1>

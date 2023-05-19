@@ -17,7 +17,7 @@ export const BannerAndUserProfile = () => {
         try{
             var userInfo = JSON.parse(localStorage.getItem('user'));
             let idInfo = userInfo._id
-            const res = await axios.get("/api/users/me/"+idInfo)
+            const res = await axios.get("https://backend-render-corp.onrender.com/api/users/me/"+idInfo)
              setUser(res.data);
             // console.log(res.data)
             

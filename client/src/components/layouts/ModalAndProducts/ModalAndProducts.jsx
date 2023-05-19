@@ -22,7 +22,7 @@ import deleteIcon from '../../../Images/deleteIcon.png'
 // const socket = io({
 //     transports: ['websocket']
 // })
-const socket = io('https://siac-backend-yc85.onrender.com')
+const socket = io('https://backend-render-corp.onrender.com')
 
 export const ModalAndProducts = () => {
     
@@ -63,7 +63,7 @@ export const ModalAndProducts = () => {
     const getProductsList = async ()=>{
             
         try{
-            const res = await axios.get("http://localhost:3000/api/products/all-product")
+            const res = await axios.get("https://backend-render-corp.onrender.com/api/products/all-product")
             setProduct(res.data);
             // console.log(res.data)
         }catch(err){
