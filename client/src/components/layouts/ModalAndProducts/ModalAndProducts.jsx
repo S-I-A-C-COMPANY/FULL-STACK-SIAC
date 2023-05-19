@@ -22,7 +22,7 @@ import deleteIcon from '../../../Images/deleteIcon.png'
 // const socket = io({
 //     transports: ['websocket']
 // })
-const socket = io('https://siac-backend-yc85.onrender.com')
+const socket = io('https://backend-render-corp.onrender.com')
 
 export const ModalAndProducts = () => {
     
