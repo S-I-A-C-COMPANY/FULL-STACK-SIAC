@@ -13,6 +13,7 @@ import iconNotifications from '../../../Images/iconNotifications.png'
 import iconCalendary from '../../../Images/iconCalendary.png'
 import iconStats from '../../../Images/iconStats.png'
 import iconProfile from '../../../Images/iconProfile.png'
+import iconLogout from '../../../Images/iconLogout.png'
 
 
 export const SideBarProfile = () => {
@@ -36,11 +37,13 @@ export const SideBarProfile = () => {
                 </ul>
 
                 <ul>
-                    <Link to="/">
+                    
                         <li className="listLinks">
-                            <ButtonUI onClicks={onSubmit} style='btnLogout' text='Logout' />
+                            <Link onClick={onSubmit} className="toHome" to="/">
+                                <ImgUI style='iconLogout' routeImg={iconLogout}></ImgUI>
+                            </Link>
                         </li>
-                    </Link>
+                    
                 </ul>
             </nav>
         </div>

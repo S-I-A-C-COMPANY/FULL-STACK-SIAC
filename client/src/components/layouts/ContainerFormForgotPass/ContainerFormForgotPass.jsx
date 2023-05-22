@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { forgotPass, reset } from "../../features/auth/authSlice";
 import { Link } from 'react-router-dom'
+import Swal from "sweetalert2";
 // UI
 import { ButtonUI } from '../../UI/ButtonUI/ButtonUI'
 import { InputUI } from '../../UI/InputUI/InputUI'
@@ -16,7 +16,7 @@ export const ContainerFormForgotPass = () => {
     email: ""
   });
 
-  const {email} = formData;
+  const { email } = formData;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -25,12 +25,15 @@ export const ContainerFormForgotPass = () => {
     (state) => state.auth
   );
 
-   useEffect(() => {
-    if (isError) {
-      toast.error(message);
-    }
-
+  useEffect(() => {
     if (isSuccess || user) {
+      Swal.fire({
+        title: "Exito!",
+        text: "Enlace enviado con exito a tu correo",
+        icon: "success",
+        confirmButtonText: "Ok"
+      })
+
       navigate("/");
     }
 
@@ -38,14 +41,14 @@ export const ContainerFormForgotPass = () => {
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
 
-  
+
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   };
-  
+
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -53,26 +56,35 @@ export const ContainerFormForgotPass = () => {
       email,
     };
 
+    if (email == '') {
+      Swal.fire({
+        title: "Error!",
+        text: "El campo E-mail esta vacio",
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
+    }
+
     dispatch(forgotPass(userData));
   };
 
   return (
     <div className="campoDatos">
-        <form onSubmit={onSubmit}>
-            <div className="email">
-                <InputUI 
-                typeInpt='text' 
-                idInpt={'email'}
-                nameInpt='email' 
-                valueInpt={email}
-                textInpt='Introduce Tu Correo'
-                eventInpt={onChange}
-                />
-            </div>
-        <ButtonUI typeBtn="submit" style='btnSendForgotPass' text='Enviar'/>
-        </form>
-        <Link className='back' to='/login'>Volver Al Inicio</Link>
-        
+      <form onSubmit={onSubmit}>
+        <div className="email">
+          <InputUI
+            typeInpt='text'
+            idInpt={'email'}
+            nameInpt='email'
+            valueInpt={email}
+            textInpt='Introduce Tu E-mail'
+            eventInpt={onChange}
+          />
+        </div>
+        <ButtonUI typeBtn="submit" style='btnSendForgotPass' text='Enviar' />
+      </form>
+      <Link className='back' to='/login'>Volver Al Inicio</Link>
+
     </div>
   )
 }

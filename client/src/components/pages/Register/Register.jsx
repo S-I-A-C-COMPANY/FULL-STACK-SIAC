@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 import { register, reset } from "../../features/auth/authSlice";
 
 // LAYOUTS
@@ -15,7 +15,7 @@ import { ButtonUI } from "../../UI/ButtonUI/ButtonUI";
 
 import { Link } from "react-router-dom";
 
- function Register() {
+function Register() {
   const [formData, setFormData] = useState({
     name: "",
     dni: "",
@@ -35,11 +35,14 @@ import { Link } from "react-router-dom";
   );
 
   useEffect(() => {
-    if (isError) {
-      toast.error(message);
-    }
-
     if (isSuccess || user) {
+      Swal.fire({
+        title: "Exito!",
+        text: "Usuario registrado",
+        icon: "success",
+        confirmButtonText: "Ok"
+      })
+
       navigate("/");
     }
 
@@ -56,9 +59,57 @@ import { Link } from "react-router-dom";
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (password !== passwordAuth) {
-      toast.error("Password dont match");
-    } else {
+    if (passwordAuth == '') {
+      Swal.fire({
+        title: "Error!",
+        text: "El campo confirmar contraseña esta vacio",
+        icon: "error",
+        confirmButtonText: "Ok",
+      })
+    } else if (name == '' && dni == '' && email == '' && password == '' && passwordAuth == '') {
+      Swal.fire({
+        title: "Error!",
+        text: "Los campos estan vacios",
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
+    } else if (name == '') {
+      Swal.fire({
+        title: "Error!",
+        text: "El campo nombre esta vacio",
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
+    } else if (dni == '') {
+      Swal.fire({
+        title: "Error!",
+        text: "El campo identificacion esta vacio",
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
+    } else if (email == '') {
+      Swal.fire({
+        title: "Error!",
+        text: "El campo e-mail esta vacio",
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
+    } else if (password == '') {
+      Swal.fire({
+        title: "Error!",
+        text: "El campo contraseña esta vacio",
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
+    } else if (password !== passwordAuth) {
+      Swal.fire({
+        title: "Error!",
+        text: "La contraseña no coincide",
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
+    }
+    else {
       const userData = {
         name,
         dni,
@@ -109,7 +160,7 @@ import { Link } from "react-router-dom";
                 idInpt="email"
                 nameInpt="email"
                 valueInpt={email}
-                textInpt="Ingrese su email"
+                textInpt="Ingrese su e-mail"
                 eventInpt={onChange}
               />
             </div>
@@ -143,7 +194,7 @@ import { Link } from "react-router-dom";
                 text="Registrarse"
               />
             </div>
-            <Link className="recover-password" to="/login">
+            <Link className="login" to="/login">
               Tengo Cuenta
             </Link>
           </form>

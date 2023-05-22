@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { login, reset } from "../../features/auth/authSlice";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 // LAYOUTS
 import { SectionLeft } from "../../layouts/SectionLeft/SectionLeft";
@@ -15,8 +15,6 @@ import { HeadingFormLogin } from "../../layouts/HeadingFormLogin/HeadingFormLogi
 // UI
 import { InputUI } from "../../UI/InputUI/InputUI";
 import { ButtonUI } from "../../UI/ButtonUI/ButtonUI";
-
-
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -34,13 +32,16 @@ function Login() {
   );
 
   useEffect(() => {
-
     if (isSuccess || user) {
-      navigate("/profile");
-    }
+      Swal.fire({
+        title: "Exito!",
+        text: "Inicio de sesion exitoso",
+        icon: "success",
+        timer: 2000,
+        showConfirmButton: false,
+      });
 
-    if(isSuccess){
-      toast.success("Inicio con exito")
+      navigate("/profile");
     }
 
     dispatch(reset());
@@ -61,12 +62,27 @@ function Login() {
       password,
     };
 
-    if (dni == '' && password == '') {
-      toast.error("Error, Campos Vacios")
-    } else if (dni == '') {
-      toast.error("Campo Dni Vacio")
-    } else if (password == '') {
-      toast.error("Campo Password Vacio")
+    if (dni == "" && password == "") {
+      Swal.fire({
+        title: "Error!",
+        text: "Los campos estan vacios",
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
+    } else if (dni == "") {
+      Swal.fire({
+        title: "Error!",
+        text: "El campo identificacion esta vacio",
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
+    } else if (password == "") {
+      Swal.fire({
+        title: "Error!",
+        text: "El campo contraseña esta vacio",
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
     }
 
     dispatch(login(userData));
@@ -77,7 +93,6 @@ function Login() {
       <SectionLeft />
 
       <section className="sectionRight">
-
         <section className="formLogin">
           <HeadingFormLogin />
 
@@ -106,8 +121,17 @@ function Login() {
             </div>
 
             <div className="form-group">
-              <ButtonUI typeBtn="submit" style="btn btn-block" text="Ingresar" />
-              <p className="register">¿No tienes una cuenta?<Link className="info-register" to="/register">Registrarse</Link></p>
+              <ButtonUI
+                typeBtn="submit"
+                style="btn btn-block"
+                text="Ingresar"
+              />
+              <p className="register">
+                ¿No tienes una cuenta?
+                <Link className="info-register" to="/register">
+                  Registrarse
+                </Link>
+              </p>
             </div>
 
             <Link className="forgot-password" to="/forgot-password">
@@ -117,7 +141,6 @@ function Login() {
             <Link className="reset-password" to="/reset-password">
               Reestablecer contraseña
             </Link>
-
           </form>
         </section>
       </section>

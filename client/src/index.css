@@ -69,7 +69,9 @@ h3 {
   margin-top: 2rem;
   color: rgb(64, 63, 63);
   margin-bottom: 2.5rem;
-  margin-left: 0.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 45%;
 }
 
 .registerPage {
@@ -87,7 +89,20 @@ h3 {
   margin-top: 2rem;
   color: rgb(64, 63, 63);
   margin-bottom: 2.5rem;
-  margin-left: 0.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 45%;
+}
+
+.login{
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  color: rgb(64, 63, 63);
+  margin-bottom: 2.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 25%;
 }
 
 .goals {
@@ -1083,8 +1098,13 @@ li {
 }
 
 .back{
+  display: flex;
+  justify-content: center;
   margin-top: 1rem;
-  color: rgb(57, 57, 57);
+  color: rgb(64, 63, 63);
+  margin-left: auto;
+  margin-right: auto;
+  width: 22%;
 }
 
 /* SEGUNDO DIV */
@@ -1225,7 +1245,6 @@ li {
   background-color: #FF5C00;
   font-size:2rem;
   border:none;
-
   cursor: pointer;
 }
 
@@ -1309,12 +1328,13 @@ li {
   margin-top: 2rem;
 }
 
-.btnLogout{
-  width: 4rem;
-  height: 2rem;
+.iconLogout{
+  width: 50px;
+  height: 45px;
+  margin: 0;
   background-color: white;
-  border: none;
-  border-radius: 11.5px;
+  border-radius: 50%;
+  padding: 10px 12px;
 }
 
 .containInputs{
@@ -1583,11 +1603,6 @@ li {
   font-size: 18px;
   cursor: pointer;
   margin-top:3rem;
-}
-
-.back{
-  margin-top: 1rem;
-  color: rgb(57, 57, 57);
 }
 
 

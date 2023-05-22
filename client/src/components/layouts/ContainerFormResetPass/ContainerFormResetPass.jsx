@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { forgotPass, reset } from "../../features/auth/authSlice";
+import Swal from "sweetalert2";
 // UI
 import { ButtonUI } from '../../UI/ButtonUI/ButtonUI'
 import { InputUI } from '../../UI/InputUI/InputUI'
@@ -13,7 +13,7 @@ export const ContainerFormResetPass = () => {
 
     const [formData, setFormData] = useState({
         password: "",
-        passwordAuth: ""
+        passwordAuth: "",
     });
 
     const { password, passwordAuth } = formData;
@@ -26,11 +26,14 @@ export const ContainerFormResetPass = () => {
     );
 
     useEffect(() => {
-        if (isError) {
-            toast.error(message);
-        }
-
         if (isSuccess || user) {
+           Swal.fire({
+              title: "Exito!",
+              text: "Contraseña reestablecida con exito",
+              icon: "success",
+              confirmButtonText: "Ok"
+            })
+
             navigate("/");
         }
 
@@ -53,6 +56,36 @@ export const ContainerFormResetPass = () => {
             passwordAuth,
         };
 
+        if (password == '' && passwordAuth == '') {
+            Swal.fire({
+                title: "Error!",
+                text: "Los campos estan vacios",
+                icon: "error",
+                confirmButtonText: "Ok",
+            });
+        } else if (password == '') {
+            Swal.fire({
+                title: "Error!",
+                text: "El campo contraseña esta vacio",
+                icon: "error",
+                confirmButtonText: "Ok",
+            });
+        } else if (passwordAuth == '') {
+            Swal.fire({
+                title: "Error!",
+                text: "El campo confirmar contraseña esta vacio",
+                icon: "error",
+                confirmButtonText: "Ok",
+            });
+        } else if (password !== passwordAuth) {
+            Swal.fire({
+                title: "Error!",
+                text: "La contraseña no coincide",
+                icon: "error",
+                confirmButtonText: "Ok",
+            });
+        }
+
         dispatch(forgotPass(userData));
     };
 
@@ -63,7 +96,7 @@ export const ContainerFormResetPass = () => {
                 <div className="email">
                     <InputUI
                         typeInpt='text'
-                        idInpt={'email'}
+                        idInpt='email'
                         nameInpt='email'
                         valueInpt={password}
                         textInpt='Introduce Tu Contraseña'
@@ -71,8 +104,8 @@ export const ContainerFormResetPass = () => {
                     />
                     <InputUI
                         style='inputConfirm'
-                        typeInpt='text'
-                        idInpt={'email'}
+                        typeInpt='password'
+                        idInpt='email'
                         nameInpt='email'
                         valueInpt={passwordAuth}
                         textInpt='Confirma Tu Contraseña'
