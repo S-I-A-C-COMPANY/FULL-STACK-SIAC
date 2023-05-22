@@ -74,18 +74,11 @@ const loginUser = asyncHandler(async(req,res)=>{
 
     const {dni,password} = req.body
    
-00    // check for user dni
+    // check for user dni
     const user =  await User.findOne({dni}).populate("roles")
 
     if(user && (await bcrypt.compare(password,user.password))){
         res.json({
-            _id: user.id,
-            name: user.name,
-            dni: user.dni,
-            email: user.email,
-            roles: user.roles.name,
-            phone: user.phone,
-            address: user.address,
             token: generateToken(user._id)
         })
     }else{
@@ -100,25 +93,15 @@ const loginUser = asyncHandler(async(req,res)=>{
 //@Desc     Get data user
 //@Route    GET /api/users/me
 //@Access   Private
-const getMe = asyncHandler(async(req,res)=>{
+const getMe = asyncHandler(async (req, res) => {
+  const {_id, name, email} = await User.findById(req.user.id);
 
-  const {id} = req.params;
-
-  const user = await User.findById( id )
-
-  if(user){
-  
-      res.json({
-        _id: user.id,
-        name: user.name,
-        email: user.email
-      })
-  }else{
-    res.json({ status: "Something Went Wrong" });
-  }
-
-    
-})
+  res.json({
+    id: _id,
+    name,
+    email
+  });
+});
 
 
 //@Desc     Forgot Password

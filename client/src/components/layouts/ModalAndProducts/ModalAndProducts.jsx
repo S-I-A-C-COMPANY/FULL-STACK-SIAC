@@ -64,7 +64,7 @@ export const ModalAndProducts = () => {
     const getProductsList = async ()=>{
             
         try{
-            const res = await axios.get("https://backend-render-corp.onrender.com/api/products/all-product")
+            const res = await axios.get("http://localhost:5000/api/products/all-product")
             setProduct(res.data);
             // console.log(res.data)
         }catch(err){

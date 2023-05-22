@@ -2,8 +2,23 @@
 import React, { useState,useEffect } from 'react';
 
 import { MainProfile } from '../../layouts/MainProfile/MainProfile'
+import axios from 'axios';
 
 export const Profile = () => {
+
+  
+const token = localStorage.getItem('user').replace(/^"(.*)"$/, '$1');
+
+
+// Verificar si el token existe
+if (token) {
+  // Agregar el token a los encabezados de las solicitudes
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+} else {
+  // Redireccionar o manejar la ausencia del token según tus necesidades
+}
+
+
   const [shouldReload, setShouldReload] = useState(true);
 
   useEffect(() => {
