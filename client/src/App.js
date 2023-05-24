@@ -10,6 +10,7 @@ import { ForgotPassword } from "./components/pages/ForgotPassword/ForgotPassword
 import { Profile } from "./components/pages/Profile/Profile";
 import { ResetPassword } from "./components/pages/ResetPassword/ResetPassword";
 import { Products } from "./components/pages/Products/Products";
+import { Notifications } from "./components/pages/Notifications/Notifications";
 
 
 
@@ -27,6 +28,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/products" element={<Products />} />
+            <Route path="/notifications" element={<Notifications />} />
           </Routes>
         </div>
       </Router>

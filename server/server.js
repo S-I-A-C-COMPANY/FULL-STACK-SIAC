@@ -65,9 +65,3 @@ server.listen(app.get("port"), () => {
 
 module.exports = app;
 
-
-// ANTES
-// app.set("port",process.env.PORT || 5000)
-// app.listen(app.get("port"),()=>console.log(`Listen on port : ${app.get("port")}`))
-
-// module.exports = app;

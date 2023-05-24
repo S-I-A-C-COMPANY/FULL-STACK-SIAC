@@ -17,7 +17,7 @@ export const SideBarProducts = () => {
                     <li className="listLinks"><Link className="links" to=''><ImgUI style='imgIcon' routeImg={logoWhite} /></Link></li>
                     <li className="listLinks"><Link className="links" to='/profile'><ImgUI style='iconHome' routeImg={iconHome}></ImgUI></Link></li>
                     <li className="listLinks"><Link className="links" to='/profile'><ImgUI style='iconProfile' routeImg={iconProfile}></ImgUI></Link></li>
-                    <li className="listLinks"><Link className="links" to=''><ImgUI style='iconNotification' routeImg={iconNotifications}></ImgUI></Link></li>
+                    <li className="listLinks"><Link className="links" to='/notifications'><ImgUI style='iconNotification' routeImg={iconNotifications}></ImgUI></Link></li>
                 </ul>
             </nav>
         </div>

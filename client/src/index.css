@@ -1159,6 +1159,7 @@ li {
   flex-direction: row;
   width: 100vw;
   height: 100vh;
+  background-color: #FCEDE3;
 }
 
 .navBarInSideBar{
@@ -2114,9 +2115,6 @@ input[type="number"]::-webkit-inner-spin-button {
     transform: scale(1.1);
   }
   
-  .infoOrder{
-    margin-top: 1.3rem;
-  }
   
   .nameOrder, .priceOrder, .descriptionOrder, .amountProduct, .categoryProduct {
     text-align: left;
@@ -2328,6 +2326,108 @@ input[type="number"]::-webkit-inner-spin-button {
   }
 }
 
+/* Page-notifications */
+.mainNotifications{
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+  background-color: #FCEDE3;
+}
+
+.contentNotifications{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.containerNotifications{
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  overflow-y: auto;
+  flex-wrap: wrap;
+  width: 85%;
+  height: 85%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  /* border: 3px solid rgb(0, 0, 0); */
+  border-radius: 25px;
+}
+
+  /* ocultar barra de scroll */
+  .containerNotifications::-webkit-scrollbar {
+    width: 0px;
+    background-color: transparent;
+  }
+
+.containerNotification{
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:0.5%;
+    margin-bottom: 0.2%;
+    background-color: #ffffff;
+    border-radius: 25px;
+    width: 98%;
+    height: 15%;
+}
+
+.containerNotification:hover{
+  border: 2px solid #000000;
+}
 
 
+.containerImageOrder{
+  width:6%;
+  height:75%;
+}
+
+.img{
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+}
+
+.infoO{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btnSelectOrder{
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 3px solid #FF5C00;
+  cursor: pointer;
+}
+
+.iconSelected{
+  width: 50%;
+  height: 65%;
+  cursor: pointer;
+}
+
+.containerButton{
+  width: 4%;
+  height: 40%;;
+  margin-left: 2%;
+}
+
+.nameNotification ,.priceNotification, .descriptionNotification{
+  font-size: 18px;
+  margin-left: 5%;
+  color: rgb(0, 0, 0);
+  flex-wrap: wrap;
+  /* border: 1px solid rgb(0, 0, 0); */
+  border-radius: 25px;
+  padding: 1%;
+}
 
