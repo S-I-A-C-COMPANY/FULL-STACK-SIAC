@@ -122,6 +122,13 @@ function Login() {
             </div>
 
             <div className="form-group">
+              <Link className="forgot-password-mobile" to="/forgot-password">
+                ¿Has olvidado tu contraseña?
+              </Link>
+              <Link className="reset-password-mobile" to="/reset-password">
+                Reestablecer contraseña
+              </Link>
+
               <ButtonUI
                 typeBtn="submit"
                 style="btn btn-block"

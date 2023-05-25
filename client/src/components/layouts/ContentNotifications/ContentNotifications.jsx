@@ -1,5 +1,8 @@
 // Importo socket
 import io from "socket.io-client";
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import axios from "axios";
 // UI
 import { ButtonUI } from "../../UI/ButtonUI/ButtonUI";
 import { ImgUI } from "../../UI/ImgUI/ImgUI";
@@ -9,9 +12,14 @@ import orderExample from "../../../Images/order.png";
 import iconSelected from "../../../Images/selectOrder.png";
 import Swal from "sweetalert2";
 
-// const socket = io("http://localhost:5000");
+// const socket = io('https://backend-render-corp.onrender.com')
+const socket = io("http://localhost:5000");
 
 export const ContentNotifications = () => {
+  const dispatch = useDispatch();
+  // para pintar productos de la bd
+  const [listProduct, setProduct] = useState([]);
+
   const notificationSelected = () => {
     Swal.fire({
       title: "Deseas tomar esta orden?",
@@ -28,34 +36,51 @@ export const ContentNotifications = () => {
     });
   };
 
-  const productos = [
-    { id: 1, nombre: "Sopa 1", precio: 5000, descripcion: "lorem ipsum" },
-    { id: 2, nombre: "Sopa 2", precio: 2500, descripcion: "lorem ipsum" },
-    { id: 3, nombre: "Sopa 3", precio: 3000, descripcion: "lorem ipsum" },
-    { id: 4, nombre: "Sopa 4", precio: 5002, descripcion: "lorem ipsum" },
-    { id: 5, nombre: "Sopa 5", precio: 1000, descripcion: "lorem ipsum" },
-    { id: 6, nombre: "Sopa 6", precio: 5800, descripcion: "lorem ipsum" },
-    { id: 7, nombre: "Sopa 7", precio: 9100, descripcion: "lorem ipsum" },
-  ];
+  // traer productos bd
+  useEffect(() => {
+    // cuando el componente se monta, nos conectamos al servidor WebSocket y solicitamos la lista de productos
+    socket.on("productos", (listProduct) => {
+      setProduct(listProduct);
+    });
+
+    // cuando se agrega un nuevo producto, lo agregamos a la lista de productos
+    socket.on("nuevoProducto", (producto) => {
+      setProduct([...listProduct, producto]);
+    });
+
+    // cuando el componente se desmonta, desconectamos el socket
+    return () => {
+      socket.disconnect();
+    };
+  }, [listProduct]);
+
+  const getProductsList = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/api/products/all-product");
+      setProduct(res.data);
+      // console.log(res.data)
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  getProductsList();
+
 
   return (
     <div className="contentNotifications">
       <div className="containerNotifications">
-        {productos.map((producto) => (
-          <div key={producto.id} className="containerNotification">
+        {listProduct.map((producto) => (
+          <div key={producto._id} className="containerNotification">
             <div className="containerImageOrder">
               <ImgUI style="img" routeImg={orderExample} />
             </div>
 
             <div className="infoO">
-              <p className="nameNotification">Nombre: {producto.nombre}</p>
-              <p className="priceNotification">Precio: {producto.precio}</p>
-              <p className="descriptionNotification">
-                Descripcion: {producto.descripcion}
-              </p>
-              <p className="descriptionNotification">
-                Descripcion: {producto.descripcion}
-              </p>
+              <p className="nameNotification">Nombre: {producto.name}</p>
+              <p className="priceNotification">Precio: {producto.price}</p>
+              <p className="descriptionNotification">Categoria: {producto.category}</p>
+              <p className="descriptionNotification">Cantidad: {producto.amount}</p>
+              <p className="descriptionNotification">Descripcion: ?? </p>
             </div>
 
             <div className="containerButton">

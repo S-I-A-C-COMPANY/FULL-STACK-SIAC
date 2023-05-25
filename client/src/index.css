@@ -347,6 +347,18 @@ li {
   text-decoration: none;
 }
 
+.forgot-password-mobile {
+  display: none;
+}
+
+.reset-password-mobile{
+  display: none;
+  color: #FF5C00;
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
 
 /* Laptop */
 @media only screen and (max-width : 1366px) {
@@ -416,6 +428,10 @@ li {
     margin-top: -1rem;
     color: rgb(64, 63, 63);
     font-size: 14px;
+  }
+
+  .forgot-password-mobile {
+    display: none;
   }
 
   .btn {
@@ -525,6 +541,14 @@ li {
     margin-right: 0rem;
   }
 
+  .reset-password-mobile{
+    display: none;
+    color: #FF5C00;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
   ul {
     list-style: none;
   }
@@ -592,8 +616,9 @@ li {
 }
 
 
-/* Mobile - acomodar */
-@media only screen and (max-width : 600px) {
+/* Tablet */
+@media only screen and (min-width: 600px) and (max-width:768px) {
+
 
   .imgLogoLogin {
     display: none;
@@ -601,22 +626,18 @@ li {
     font-weight: none;
   }
 
-  .imgLogoRegister {
-    display: none;
-    margin-left: 4.1vh;
-    font-weight: none;
-  }
-
   .formLogin {
-    background-color: white;
-    width: 70%;
-    height: 100%;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
   }
 
   .formRegister {
-    background-color: white;
-    width: 70%;
-    height: 100%;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
   }
 
   .heading h1 {
@@ -634,18 +655,17 @@ li {
 
   .forgot-password {
     display: flex;
-    justify-content: left;
+    justify-content: center;
+    margin-top: 5%;
   }
 
   .reset-password {
     display: flex;
-    justify-content: left;
+    justify-content: center;
   }
 
-
-
-  .btn {
-    font-size: 20px;
+  .btn{
+    font-size: 17px;
   }
 
   .sectionLeft {
@@ -655,11 +675,13 @@ li {
   .imgLogoLogin {
     display: flex;
     margin-top: 2rem;
+    width: 30%;
   }
 
   .imgLogoRegister {
     display: flex;
     margin-top: 2rem;
+    width: 30%
   }
 
   .btn-block {
@@ -683,23 +705,170 @@ li {
     background-color: white;
   }
 
-  .forgot-password {
+  .forgot-password-mobile {
     display: none;
   }
 
   .register {
     display: flex;
+    text-align: center;
+    justify-content: center;
+    color: #5f5c5c;
+    margin-top: 5%;
+  }
+
+  .reset-password-mobile{
+    display: none;
+    color: #FF5C00;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+  }
+}
+
+
+/* Mobile */
+@media only screen and (max-width : 600px) {
+  .login{
+    width: 100%;
+    font-size: 15px;
+  }
+
+  .imgLogoLogin {
+    display: none;
+    margin-left: 4.1vh;
+    font-weight: none;
+  }
+
+  .imgLogoRegister {
+    display: none;
+    margin-left: 4.1vh;
+    font-weight: none;
+  }
+
+  .formLogin {
+    display: block;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    width: 80%;
+  }
+
+  .formRegister {
+    display: block;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+  }
+
+  .heading h1 {
+    font-size: 2rem;
+    text-align: left;
+    margin-top: 1.5rem;
+  }
+
+  .heading p {
+    font-size: 1rem;
+    width: 80%;
+    text-align: left;
+    color: #555;
+  }
+
+  .txtInfoRegister{
+    width: 100%;
+  }
+
+  .forgot-password {
+    display: flex;
+    justify-content: left;
+  }
+
+  .reset-password {
+    display: none;
+    justify-content: left;
+  }
+
+  .reset-password-mobile{
+    display: flex;
+    justify-content: center;
+    color: #FF5C00;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .btn {
+    font-size: 16px;
+  }
+
+  .sectionLeft {
+    display: none;
+  }
+
+  .imgLogoLogin {
+    display: flex;
+    margin-top: 2rem;
+    width: 65%;
+  }
+
+  .imgLogoRegister {
+    display: flex;
+    margin-top: 2rem;
+    width: 65%
+  }
+
+  .btn-block {
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  .navBarLogin {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    margin-right: 0rem;
+  }
+
+  .navBarRegister {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    margin-right: 0rem;
+  }
+
+  .sectionRight {
+    background-color: white;
+  }
+
+  .forgot-password{
+    display: none;
+  }
+
+  .forgot-password-mobile {
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+    text-decoration: none;
+    color: #FF5C00;
+    font-weight: bold;
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+
+  .register {
+    display: block;
+    text-align: center;
+    justify-content: center;
     color: #5f5c5c;
+  }
+
+  .btn2{
+    width: 100%;
+    border-radius: 12px;
+    font-size: 15px;
   }
 
 }
 
 
 /* HomePage */
-
 .mainHome {
   display: flex;
   justify-content: center;
@@ -830,16 +999,18 @@ li {
   }
 }
 
+
 /* Tablet */
 @media only screen and (max-width: 768px) {
 
   .mainHome{
     display: flex;
+    justify-content: center;
     flex-direction: column;
     text-align: center;
     flex-wrap: wrap;
     width: 100vw;
-    height: 100%;
+    height: 100vh;
     background-color: #FFEFD8;
     overflow-y: scroll;
   }
@@ -849,51 +1020,49 @@ li {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 50%;
   }
   
   .containImage{
     display: flex;
-    justify-content: space-evenly ;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 50%;
     align-items: center;
     background-color: #FFEFD8;
-    margin-top: 2rem;
-    margin-bottom: 5rem;
   }
   
   .imgPlate{
-    width: 45%;
-    height: 65%;
+    width: 50%;
+    height: 50%;
   }
   
   .information{
     margin: 1rem;
-    width: 70%;
+    width: 75%;
+    font-size: 28px;
     text-align: center;
     flex-wrap: wrap;
   }
   
   .titleInfo{
-    width: 50%;
-    margin-top: 3rem;
+    width: 85%;
     text-align: center;
     flex-wrap: wrap;
-    font-size: 53px;
+    font-size: 50px;
+    margin-top: 5rem;
   }
   
   .btnExplore{
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0.9rem;
-    width:27%;
-    font-size: 14px;
+    padding: 1rem;
+    width:25%;
+    font-size: 22px;
     font-weight: bold;
     margin-left: auto;
-    margin-top: 0.5rem;
+    margin-top: 2rem;
     margin-bottom: 2rem;
   }
    
@@ -901,6 +1070,11 @@ li {
     background-color: #bf8914;
   }
 }
+
+
+
+
+
 
 /* Mobile HomePage */
 @media only screen and (max-width: 600px) {
@@ -911,7 +1085,7 @@ li {
     text-align: center;
     flex-wrap: wrap;
     width: 100vw;
-    height: 100%;
+    height: 100vh;
     overflow-y: scroll;
   }
 
@@ -921,51 +1095,47 @@ li {
     align-items: center;
     flex-direction: column;
     width: 100%;
-    height: 100%;
+    height: 50%;
   }
   
   .containImage{
     display: flex;
-    justify-content: space-evenly;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
+    justify-content: center;
     align-items: center;
+    width: 100%;
+    height: 50%;
     background-color: #FFEFD8;
-    margin-top: 2rem;
-    margin-bottom: 5rem;
   }
   
   .imgPlate{
-    width: 60%;
-    height: 20%;
-    margin-bottom: 2rem;
+    width: 80%;
+    height: 40%;
   }
   
   .information{
     margin: 0.5rem;
-    width: 85%;
-    font-size: 17px;
+    width: 90%;
+    font-size: 20px;
     text-align: center;
     flex-wrap: wrap;
   }
   
   .titleInfo{
-    width: 70%;
+    width: 75%;
     margin-top: 3rem;
     margin-bottom: 1rem;
     text-align: center;
     flex-wrap: wrap;
-    font-size: 35px;
+    font-size: 32px;
   }
   
   .btnExplore{
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0.9rem;
-    width:27%;
-    font-size: 14px;
+    padding: 1rem;
+    width:40%;
+    font-size: 18px;
     font-weight: bold;
     margin-left: auto;
     margin-top: 2rem;
