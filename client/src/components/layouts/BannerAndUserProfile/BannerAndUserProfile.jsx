@@ -16,9 +16,7 @@ export const BannerAndUserProfile = () => {
     const [datUser, setUser] = useState([])
 
     const getInfoUser = async ()=>{
-        
         try{
-            let idInfo;
             const res = await axios.get(`${localHost}/api/users/me`)
              setUser(res.data);
             // console.log(res.data)

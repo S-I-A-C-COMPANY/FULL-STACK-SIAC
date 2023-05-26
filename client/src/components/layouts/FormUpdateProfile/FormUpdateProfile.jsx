@@ -20,7 +20,6 @@ const localHost = 'http://localhost:5000'
 export const FormUpdateProfile = () => {
 
     var userInfo = JSON.parse(localStorage.getItem('user'));
-    let idInfo = userInfo._id
     const [datUser, setUser] = useState([])
 
     const getInfoUser = async ()=>{
