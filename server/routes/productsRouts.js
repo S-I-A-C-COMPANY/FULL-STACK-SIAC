@@ -10,8 +10,7 @@ router.get('/get-product/', getProduct)
 
 
 //traer todos productos
-router.get('/all-product',protect, allProduct)
-
+router.get('/all-product', allProduct)
 
 
 //actualizr un producto

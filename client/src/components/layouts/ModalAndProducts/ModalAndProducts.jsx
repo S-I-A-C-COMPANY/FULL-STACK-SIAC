@@ -14,14 +14,9 @@ import { ImgUI } from '../../UI/ImgUI/ImgUI'
 import { ButtonUI } from '../../UI/ButtonUI/ButtonUI'
 
 // IMG
-import orderExample from '../../../Images/order.png'
 import updateIcon from '../../../Images/updateIcon.png'
 import deleteIcon from '../../../Images/deleteIcon.png'
 
-// Se crea una instancia de socket
-// const socket = io({
-//     transports: ['websocket']
-// })
 // const socket = io('https://backend-render-corp.onrender.com')
 const socket = io('http://localhost:5000')
 
@@ -66,18 +61,15 @@ export const ModalAndProducts = () => {
         try{
             const res = await axios.get("http://localhost:5000/api/products/all-product")
             setProduct(res.data);
-            // console.log(res.data)
         }catch(err){
             console.log(err)
         }
     }
     getProductsList()
 
-    // const deleteProduct =  async(id)=>{
 
-    //     dispatch(deleteProducts(id));
-        
-    // }
+     
+
 
     return (
         <>

@@ -22,6 +22,11 @@ const login = async (userData) =>{
 const forgotPass = async (userData) =>{
    const response = await axios.post(API_URL + '/forgot-password',userData)
 }
+const profileUpdate = async (userData) =>{
+    // console.log(userData);
+   const response = await axios.put(API_URL + '/profile',userData)
+   console.log(response.data);
+}
 
 // Logout User
 const logout = ()=>{
@@ -32,6 +37,7 @@ const authService = {
     logout,
     forgotPass,
     login,
+    profileUpdate,
 }
 
 export default authService

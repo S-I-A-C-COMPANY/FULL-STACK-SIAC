@@ -79,6 +79,23 @@ export const forgotPass = createAsyncThunk(
   }
 )
 
+export const profileUpdate = createAsyncThunk(
+  'auth/profile',
+  async ( user, thunkAPI) => {
+    try {
+      return await authService.profileUpdate(user)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+)
+
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -143,6 +160,10 @@ export const authSlice = createSlice({
             state.message = action.payload
             state.user = null
           })
+
+          // pofile-update
+        
+          
     }
 })
 

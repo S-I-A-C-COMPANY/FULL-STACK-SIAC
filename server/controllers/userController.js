@@ -85,7 +85,7 @@ const loginUser = asyncHandler(async(req,res)=>{
         res.status(400)
         throw new Error('Invalid Credentials')
     }
-    console.log(user);
+    // console.log(user);
     // res.json({message: 'Login User'})
 })
 
@@ -283,10 +283,51 @@ const deleteUser = asyncHandler( async (req, res) => {
   // }
 });
 
+
+//@Desc     Update Information
+//@Route    PUT /api/users/profile
+//@Access   Private
 const profileUser = asyncHandler(async(req,res)=>{
-  res.status(200)
-  res.send(localStorage.getItem("user"))
+  // res.status(200)
+  // res.send(localStorage.getItem("user"))
+
+  const {emailFound,name,email,phone,address,password} = req.body
+
+  const emailVerify = await User.findOne({ email: emailFound });
+
+  if (!emailVerify) {
+    return res.json({ status: "User Not Exists!!" , email: emailFound });
+  }
+
+  if(emailVerify){
+
+    try {
+      // password
+     
+      await User.updateOne(
+        {
+          $set: {
+            name: name,
+            email: email,
+            phone: phone,
+            address: address,
+            password: password,
+          },
+        }
+      );
+ 
+      res.status(200).json(
+        {
+        
+        status: "Actualizado"
+       }
+        );
   
+    } catch (error) {
+      console.log(error);
+    res.json({ status: "Something Went Wrong" });
+    }
+  }
 })
 
 
