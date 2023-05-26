@@ -18,9 +18,8 @@ export const BannerAndUserProfile = () => {
     const getInfoUser = async ()=>{
         
         try{
-            var userInfo = JSON.parse(localStorage.getItem('user'));
-            let idInfo = userInfo._id
-            const res = await axios.get(`${localHost}/api/users/me/`+idInfo)
+            let idInfo;
+            const res = await axios.get(`${localHost}/api/users/me`)
              setUser(res.data);
             // console.log(res.data)
             

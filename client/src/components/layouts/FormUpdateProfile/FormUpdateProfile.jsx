@@ -26,7 +26,7 @@ export const FormUpdateProfile = () => {
     const getInfoUser = async ()=>{
         
         try{
-            const res = await axios.get(`${localHost}/api/users/me/`+idInfo)
+            const res = await axios.get(`${localHost}/api/users/me`)
              setUser(res.data);
             // console.log(res.data)
             
