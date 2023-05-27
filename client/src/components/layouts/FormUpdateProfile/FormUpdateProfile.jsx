@@ -24,64 +24,96 @@ const localHost = 'http://localhost:5000'
 
 export const FormUpdateProfile = () => {
 
-    const [datUser, setUser] = useState([])
-
-    const getInfoUser = async ()=>{
-        
-        try{
-            const res = await axios.get(`${localHost}/api/users/me`)
-             setUser(res.data);
-            // console.log(res.data)
-            
-        }catch(err){
-            console.log(err)
-        }
-    }
-    getInfoUser()
-
-
-    // update user:
-
-     const [formData, setFormData] = useState({});
-
-  const { emailFound,  name,email,phone,address,password,passwordAuth} = formData;
-// console.log(emailFound);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-//   const { user, isError, isSuccess, message } = useSelector(
-//     (state) => state.auth
-//   );
-
-//   useEffect(() => {
-//     if (isSuccess || user) {
-   
-
-//       navigate("");
-//     }
-
-//     dispatch(reset());
-//   }, [user, isError, isSuccess, message, navigate, dispatch]);
-
-
-
-  const onChange = (e) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-
-    const userData = {
-        emailFound : datUser.email, name,email,phone,address,password
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    
+    const initialFormData = {
+        name:"",
+        email:"",
+        phone: "",
+        address: "",
+        password: "",
+        passwordAuth: "",
+      };
+    const [formData, setFormData] = useState(initialFormData);
+    
+    const { name, email, phone, address, password, passwordAuth } = formData;
+    
+    const onChange = (e) => {
+      setFormData((prevState) => ({
+        ...prevState,
+        [e.target.name]: e.target.value,
+      }));
     };
-
-
-    dispatch(profileUpdate(userData));
-  };
+    
+    const onSubmit = async (e) => {
+      e.preventDefault();
+    
+      const isEmptyFields = !name || !email || !phone || !address || !password || !passwordAuth;
+    
+      if (isEmptyFields) {
+        const confirmResult = await Swal.fire({
+          title: "¿Está seguro?",
+          text: "Hay campos vacíos en el formulario. ¿Desea continuar?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Sí, enviar",
+          cancelButtonText: "Cancelar",
+        });
+    
+        if (confirmResult.isConfirmed) {
+            
+          await sendForm();
+        }
+      } else {
+        await sendForm();
+      }
+    };
+    
+    const sendForm = async () => {
+        const userData = {
+          name,
+          email,
+          phone,
+          address,
+        };
+      
+        if (password) {
+          userData.password = password;
+        }
+      
+        // Filtrar propiedades vacías
+        const nonEmptyUserData = {
+            ...(userData.name !== "" && { name: userData.name }),
+            ...(userData.email !== "" && { email: userData.email }),
+            ...(userData.phone !== "" && { phone: userData.phone }),
+            ...(userData.address !== "" && { address: userData.address }),
+            ...(userData.password !== "" && { password: userData.password }),
+          };
+    
+      try {
+        await dispatch(profileUpdate(nonEmptyUserData));
+        Swal.fire({
+          title: "Éxito",
+          text: "Actualización exitosa",
+          icon: "success",
+          timer: 2000,
+          showConfirmButton: false,
+        }).then(() => {
+            setFormData(initialFormData)
+          navigate("/profile");
+        });
+      } catch (error) {
+        Swal.fire({
+          title: "Error",
+          text: "No se pudo actualizar la información",
+          icon: "error",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+      }
+    };
+    
 
 
     return (
@@ -95,7 +127,7 @@ export const FormUpdateProfile = () => {
                 nameInpt='name'
                 valueInpt={name}
                 style='inputs' 
-                textInpt={datUser.name}
+                textInpt={"Ingrese su nombre"}
                 eventInpt={onChange}
                 
                 
@@ -110,7 +142,7 @@ export const FormUpdateProfile = () => {
                 nameInpt='email'
                 valueInpt={email}
                 style='inputs' 
-                textInpt={datUser.email}
+                textInpt={"TuCorreo@gmail.com"}
                 eventInpt={onChange}
 
 
@@ -151,7 +183,7 @@ export const FormUpdateProfile = () => {
                 nameInpt='password'
                 valueInpt={password}
                 style='inputs' 
-                textInpt='Contraseña'
+                textInpt='Nueva Contraseña'
                 eventInpt={onChange}
                 
                 />

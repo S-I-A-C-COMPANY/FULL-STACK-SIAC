@@ -283,52 +283,58 @@ const deleteUser = asyncHandler( async (req, res) => {
   // }
 });
 
-
 //@Desc     Update Information
 //@Route    PUT /api/users/profile
 //@Access   Private
-const profileUser = asyncHandler(async(req,res)=>{
-  // res.status(200)
-  // res.send(localStorage.getItem("user"))
+const profileUser = asyncHandler(async (req, res) => {
+  const { name, email, phone, address, password } = req.body;
 
-  const {emailFound,name,email,phone,address,password} = req.body
-
-  const emailVerify = await User.findOne({ email: emailFound });
-
-  if (!emailVerify) {
-    return res.json({ status: "User Not Exists!!" , email: emailFound });
+  // Verificar si se proporcionó una contraseña
+  let hashedPassword = null;
+  if (password) {
+    const salt = await bcrypt.genSalt(10);
+    hashedPassword = await bcrypt.hash(password, salt);
   }
 
-  if(emailVerify){
-
-    try {
-      // password
-     
-      await User.updateOne(
-        {
-          $set: {
-            name: name,
-            email: email,
-            phone: phone,
-            address: address,
-            password: password,
-          },
-        }
-      );
- 
-      res.status(200).json(
-        {
-        
-        status: "Actualizado"
-       }
-        );
-  
-    } catch (error) {
-      console.log(error);
-    res.json({ status: "Something Went Wrong" });
+  try {
+    // Verificar el token de autenticación
+    const token = req.headers.authorization;
+    if (!token || !token.startsWith('Bearer ')) {
+      return res.status(401).json({ status: 'Invalid Authorization Header' });
     }
+
+    // Extraer el token sin la parte "Bearer"
+    const authToken = token.split(' ')[1];
+
+    // Verificar y decodificar el token para obtener el ID de usuario
+    const decodedToken = jwt.verify(authToken, process.env.JWT_SECRET);
+    const userId = decodedToken.id;
+
+    // Construir el objeto de actualización con los campos correspondientes
+    const updateFields = {
+      name: name,
+      email: email,
+      phone: phone,
+      address: address,
+    };
+
+    // Actualizar la contraseña si se proporcionó una
+    if (hashedPassword) {
+      updateFields.password = hashedPassword;
+    }
+
+    // Actualizar el usuario en la base de datos
+    await User.updateOne({ _id: userId }, { $set: updateFields });
+
+    res.status(200).json({ status: 'Actualizado' });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ status: 'Something Went Wrong' });
   }
-})
+});
+
+
+
 
 
 
