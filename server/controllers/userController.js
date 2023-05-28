@@ -74,6 +74,11 @@ const loginUser = asyncHandler(async(req,res)=>{
 
     const {dni,password} = req.body
    
+    if (!dni || !password) {
+      res.status(400);
+      throw new Error('Campos Vacios');
+    }
+
     // check for user dni
     const user =  await User.findOne({dni}).populate("roles")
 
@@ -160,7 +165,7 @@ const forgotPw = asyncHandler(async(req,res)=>{
                res.json({
                 email: authEmail.email
               })
-              console.log("Envio Exitoso");
+              console.log("Env");
               //  throw new Error("Envio Exitoso")
            }
           });

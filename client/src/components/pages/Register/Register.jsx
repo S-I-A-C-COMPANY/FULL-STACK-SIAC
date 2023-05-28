@@ -33,8 +33,20 @@ function Register() {
   const { user, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
-
+  
+  
   useEffect(() => {
+    if (isError) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: message,
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    }
     if (isSuccess || user) {
       Swal.fire({
         title: "Exito!",
@@ -59,56 +71,17 @@ function Register() {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (passwordAuth == '') {
+    if (password !== passwordAuth) {
       Swal.fire({
         title: "Error!",
-        text: "El campo confirmar contraseña esta vacio",
+        text: "confirmar contraseña esta vacio",
         icon: "error",
-        confirmButtonText: "Ok",
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2000,
       })
-    } else if (name == '' && dni == '' && email == '' && password == '' && passwordAuth == '') {
-      Swal.fire({
-        title: "Error!",
-        text: "Los campos estan vacios",
-        icon: "error",
-        confirmButtonText: "Ok",
-      });
-    } else if (name == '') {
-      Swal.fire({
-        title: "Error!",
-        text: "El campo nombre esta vacio",
-        icon: "error",
-        confirmButtonText: "Ok",
-      });
-    } else if (dni == '') {
-      Swal.fire({
-        title: "Error!",
-        text: "El campo identificacion esta vacio",
-        icon: "error",
-        confirmButtonText: "Ok",
-      });
-    } else if (email == '') {
-      Swal.fire({
-        title: "Error!",
-        text: "El campo e-mail esta vacio",
-        icon: "error",
-        confirmButtonText: "Ok",
-      });
-    } else if (password == '') {
-      Swal.fire({
-        title: "Error!",
-        text: "El campo contraseña esta vacio",
-        icon: "error",
-        confirmButtonText: "Ok",
-      });
-    } else if (password !== passwordAuth) {
-      Swal.fire({
-        title: "Error!",
-        text: "La contraseña no coincide",
-        icon: "error",
-        confirmButtonText: "Ok",
-      });
-    }
+    } 
     else {
       const userData = {
         name,

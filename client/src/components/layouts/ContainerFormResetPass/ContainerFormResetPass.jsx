@@ -26,6 +26,18 @@ export const ContainerFormResetPass = () => {
     );
 
     useEffect(() => {
+        if (isError) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: message,
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000,
+            });
+          }
+
         if (isSuccess || user) {
            Swal.fire({
               title: "Exito!",
@@ -56,39 +68,8 @@ export const ContainerFormResetPass = () => {
             passwordAuth,
         };
 
-        if (password == '' && passwordAuth == '') {
-            Swal.fire({
-                title: "Error!",
-                text: "Los campos estan vacios",
-                icon: "error",
-                confirmButtonText: "Ok",
-            });
-        } else if (password == '') {
-            Swal.fire({
-                title: "Error!",
-                text: "El campo contraseña esta vacio",
-                icon: "error",
-                confirmButtonText: "Ok",
-            });
-        } else if (passwordAuth == '') {
-            Swal.fire({
-                title: "Error!",
-                text: "El campo confirmar contraseña esta vacio",
-                icon: "error",
-                confirmButtonText: "Ok",
-            });
-        } else if (password !== passwordAuth) {
-            Swal.fire({
-                title: "Error!",
-                text: "La contraseña no coincide",
-                icon: "error",
-                confirmButtonText: "Ok",
-            });
-        }
-
         dispatch(forgotPass(userData));
-    };
-
+    }
 
     return (
         <div className="campoDatos">
@@ -96,17 +77,17 @@ export const ContainerFormResetPass = () => {
                 <div className="email">
                     <InputUI
                         typeInpt='text'
-                        idInpt='email'
-                        nameInpt='email'
+                        idInpt='password'
+                        nameInpt='password'
                         valueInpt={password}
                         textInpt='Introduce Tu Contraseña'
                         eventInpt={onChange}
                     />
                     <InputUI
                         style='inputConfirm'
-                        typeInpt='password'
-                        idInpt='email'
-                        nameInpt='email'
+                        typeInpt='passwordAuth'
+                        idInpt='passwordAuth'
+                        nameInpt='passwordAuth'
                         valueInpt={passwordAuth}
                         textInpt='Confirma Tu Contraseña'
                         eventInpt={onChange}

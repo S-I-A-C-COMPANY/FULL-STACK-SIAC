@@ -15,9 +15,10 @@ import { HeadingFormLogin } from "../../layouts/HeadingFormLogin/HeadingFormLogi
 // UI
 import { InputUI } from "../../UI/InputUI/InputUI";
 import { ButtonUI } from "../../UI/ButtonUI/ButtonUI";
+import { toast } from "react-toastify";
+
 
 function Login() {
-  
   const [formData, setFormData] = useState({
     dni: "",
     password: "",
@@ -33,15 +34,26 @@ function Login() {
   );
 
   useEffect(() => {
+    if (isError) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: message,
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    }
+
     if (isSuccess || user) {
       Swal.fire({
-        title: "Exito!",
-        text: "Inicio de sesion exitoso",
+        title: "Éxito",
+        text: "Ingreso Exitoso",
         icon: "success",
-        timer: 2000,
+        timer: 2500,
         showConfirmButton: false,
-      });
-
+      })
       navigate("/profile");
     }
 
@@ -62,33 +74,10 @@ function Login() {
       dni,
       password,
     };
-
-    if (dni == "" && password == "") {
-      Swal.fire({
-        title: "Error!",
-        text: "Los campos estan vacios",
-        icon: "error",
-        confirmButtonText: "Ok",
-      });
-    } else if (dni == "") {
-      Swal.fire({
-        title: "Error!",
-        text: "El campo identificacion esta vacio",
-        icon: "error",
-        confirmButtonText: "Ok",
-      });
-    } else if (password == "") {
-      Swal.fire({
-        title: "Error!",
-        text: "El campo contraseña esta vacio",
-        icon: "error",
-        confirmButtonText: "Ok",
-      });
-    }
+    
 
     dispatch(login(userData));
   };
-
   return (
     <div className="containerPrincipal">
       <SectionLeft />

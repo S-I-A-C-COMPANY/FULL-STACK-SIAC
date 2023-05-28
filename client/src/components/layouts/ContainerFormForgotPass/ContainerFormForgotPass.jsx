@@ -26,12 +26,26 @@ export const ContainerFormForgotPass = () => {
   );
 
   useEffect(() => {
+
+    if (isError) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: message,
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    }
     if (isSuccess || user) {
       Swal.fire({
         title: "Exito!",
-        text: "Enlace enviado con exito a tu correo",
+        text: "Enviado con exito",
         icon: "success",
+        showConfirmButton: false,
         confirmButtonText: "Ok"
+        
       })
 
       navigate("/");
@@ -55,15 +69,6 @@ export const ContainerFormForgotPass = () => {
     const userData = {
       email,
     };
-
-    if (email == '') {
-      Swal.fire({
-        title: "Error!",
-        text: "El campo E-mail esta vacio",
-        icon: "error",
-        confirmButtonText: "Ok",
-      });
-    }
 
     dispatch(forgotPass(userData));
   };
