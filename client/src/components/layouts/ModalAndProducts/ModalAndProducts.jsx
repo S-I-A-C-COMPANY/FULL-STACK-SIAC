@@ -1,32 +1,22 @@
-import { useState , useEffect} from 'react'
-import axios from 'axios'
-import {  useDispatch } from "react-redux";
+import { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
 import { deleteProducts } from '../../features/products/productSlice';
-
-// Importo socket
 import io from 'socket.io-client';
-
+import { ModalAndProductsContext } from '../ContainerProducts/ContainerProducts';
+import { ImgUI } from '../../UI/ImgUI/ImgUI';
+import { ButtonUI } from '../../UI/ButtonUI/ButtonUI';
+import updateIcon from '../../../Images/updateIcon.png';
+import deleteIcon from '../../../Images/deleteIcon.png';
 // LAYOUT
 import { FormCreateProducts } from '../FormCreateProducts/FormCreateProducts'
 
-// UI
-import { ImgUI } from '../../UI/ImgUI/ImgUI'
-import { ButtonUI } from '../../UI/ButtonUI/ButtonUI'
-
-// IMG
-import updateIcon from '../../../Images/updateIcon.png'
-import deleteIcon from '../../../Images/deleteIcon.png'
-
-// const socket = io('https://backend-render-corp.onrender.com')
-const socket = io('http://localhost:5000')
-
+const socket = io('http://localhost:5000');
 export const ModalAndProducts = () => {
-    
+    const { activeCategory } = useContext(ModalAndProductsContext);
     const [modalOpen, setModalOpen] = useState(false);
-    
     const dispatch = useDispatch();
-    // para pintar productos de la bd
-    const [listProduct, setProduct] = useState([])
+    const [listProduct, setProduct] = useState([]);
 
     const openModal = () => {
         setModalOpen(true);
@@ -36,40 +26,34 @@ export const ModalAndProducts = () => {
         setModalOpen(false);
     }
 
-    // traer productos bd
-    useEffect(()=>{
-        // cuando el componente se monta, nos conectamos al servidor WebSocket y solicitamos la lista de productos
+    useEffect(() => {
         socket.on('productos', (listProduct) => {
             setProduct(listProduct);
         });
     
-        // cuando se agrega un nuevo producto, lo agregamos a la lista de productos
         socket.on('nuevoProducto', (producto) => {
             setProduct([...listProduct, producto]);
         });
     
-        // cuando el componente se desmonta, desconectamos el socket
         return () => {
             socket.disconnect();
         };
     
-    },[listProduct])
+    }, [])
 
-
-    const getProductsList = async ()=>{
-            
-        try{
-            const res = await axios.get("http://localhost:5000/api/products/all-product")
-            setProduct(res.data);
-        }catch(err){
-            console.log(err)
+    useEffect(() => {
+        const getProductsList = async () => {
+            try {
+                const res = await axios.get(`http://localhost:5000/api/products/all/${activeCategory.toLowerCase()}`);
+                setProduct(res.data);
+                console.log(res.data);
+            } catch (err) {
+                console.log(err);
+            }
         }
-    }
-    getProductsList()
 
-
-     
-
+        getProductsList();
+    }, [activeCategory]);
 
     return (
         <>
@@ -83,15 +67,11 @@ export const ModalAndProducts = () => {
                     <ButtonUI onClicks={openModal} style='btnOpenModal' text='+' />
                 </div>
 
-                {
-                    listProduct.map((producto) => (
-                    
-                        <div key={producto._id} className='cardOrder'>
-                            <div className='containerImgOrder'>
-                                <ImgUI style='imgOrder' routeImg={producto.image} />
-                            </div>
-                        
-
+                {listProduct.map((producto) => (
+                    <div key={producto._id} className='cardOrder'>
+                        <div className='containerImgOrder'>
+                            <ImgUI style='imgOrder' routeImg={producto.image} />
+                        </div>
                         <div className='infoOrder'>
                             <h3 className='nameOrder'>Nombre: {producto.name}</h3>
                             <p className='priceOrder'>Precio: {producto.price}</p>
@@ -100,9 +80,8 @@ export const ModalAndProducts = () => {
                             <p className='descriptionOrder'>Descripcion: ?? </p>
                             
                             <div className='containerEdits'>
-                                <ButtonUI onClicks={()=>dispatch(deleteProducts(producto._id))} style='btnDeleteProduct' text={<ImgUI style='iconDelete' routeImg={deleteIcon}></ImgUI>} />
-                            
-                                <ButtonUI style='btnEditProduct' text={<ImgUI style='iconEdit' routeImg={updateIcon}></ImgUI>} />
+                                <ButtonUI onClicks={() => dispatch(deleteProducts(producto._id))} style='btnDeleteProduct' text={<ImgUI style='iconDelete' routeImg={deleteIcon} />} />
+                                <ButtonUI style='btnEditProduct' text={<ImgUI style='iconEdit' routeImg={updateIcon} />} />
                             </div>
                         </div>
                     </div>

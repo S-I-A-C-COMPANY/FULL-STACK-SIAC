@@ -4,13 +4,13 @@ const { registerProduct, deleteProduct, getProduct, updateProduct,allProduct, im
 const router = express.Router()
 
 //registar un producto
-router.post('/register-products', protect, registerProduct)
-//traer un producto
-router.get('/get-product/', getProduct)
+router.post('/register-products', registerProduct)
+//traer productos especificos categoria
+router.get('/all/:name', getProduct)
 
 
 //traer todos productos
-router.get('/all-product',protect, allProduct)
+// router.get('/all-product', allProduct)
 
 
 //actualizr un producto

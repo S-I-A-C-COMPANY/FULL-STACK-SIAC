@@ -7,48 +7,53 @@ const { cloudinary } = require('../utils/cloudinary');
 //@Desc     Register Product
 //@Route    POST /api/products/register-products
 //@Access   Public
-const registerProduct = asyncHandler(async(req,res)=>{
+const registerProduct = asyncHandler(async (req, res) => {
+  const { name, price, category, amount, image } = req.body;
 
-    const {name, price, category, amount,image} = req.body
+  if (!name || !price || !category || !amount || !image) {
+    res.status(400);
+    throw new Error('Please add all fields');
+  }
 
-    if(!name || !price || !category || !amount || !image){
-        res.status(400)
-        throw new Error('Please add all fiels')
-    }
+  try {
+    // Check if Product exists
+    const productExists = await Product.findOne({ name });
 
-    // check if Product exist
-    const productExists = await Product.findOne({name})
-
-    if(productExists){
-        res.status(400)
-        throw new Error('Product already exists')
+    if (productExists) {
+      res.status(400);
+      throw new Error('Product already exists');
     }
 
     // Create Product
+    const newProduct = new Product({
+      name,
+      price,
+      category,
+      amount,
+      image
+    });
 
-    const product = await Product.create({
-        name,
-        price,
-        category,
-        amount,
-        image
-
-    })
+    const product = await newProduct.save();
 
     if (product) {
-    res.status(201).json({
-      _id: product.id,
-      name: product.name,
-      price: product.price,
-      category: product.category,
-      amount: product.amount,
-      image: product.image
-    })
-  } else {
-    res.status(400)
-    throw new Error('Invalid Product data')
+      res.status(201).json({
+        _id: product.id,
+        name: product.name,
+        price: product.price,
+        category: product.category,
+        amount: product.amount,
+        image: product.image
+      });
+    } else {
+      res.status(400);
+      throw new Error('Invalid Product data');
+    }
+  } catch (error) {
+    res.status(500);
+    throw new Error('Server error');
   }
-})
+});
+
 
 
 //@Desc     Get data product
@@ -62,30 +67,28 @@ const allProduct = asyncHandler(async(req,res)=>{
 
 
 //@Desc     Get data product
-//@Route    GET /api/products/get-product/
+//@Route    GET /api/all/:category
 //@Access   Private
-const getProduct = asyncHandler(async(req,res)=>{
+const getProduct = async (req, res) => {
+  const { name } = req.params;
+  let products = {};
 
-  const {name} = req.body;
+  try {
+    if (name === "all") {
+      products = await Product.find();
+    } else {
+      products = await Product.find({ category: name });
+    }
 
-  const product = await Product.findOne({ name: name })
-
-  if(product){
-    
-    res.status(201).json({
-      _id: product.id,
-      name: product.name,
-      price: product.price,
-      category: product.category,
-      amount: product.amount,
-    })
-
-  } else{
-    res.status(200).json({ status: "product Not Exists!!"})
+    if (products.length > 0) {
+      res.status(200).json(products);
+    } else {
+      res.status(404).json({ status: 'Product Not Found' });
+    }
+  } catch (error) {
+    res.status(500).json({ status: 'Error retrieving products', error });
   }
-
-  
-})
+};
 
 
 //@Desc     update Product

@@ -7,7 +7,10 @@ import axios from 'axios';
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 
+
 import {createProducts} from '../../features/products/productSlice'
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 export const FormCreateProducts = () => {
 
@@ -23,8 +26,32 @@ export const FormCreateProducts = () => {
   });
 
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const { name, price, category, amount } = formData;
+
+  
+  const { user, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
+
+  useEffect(() => {
+
+    if (isError) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: message,
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    }
+
+    // dispatch(reset());
+  }, [user, isError, isSuccess, message, ]);
+
 
   const uploadImage = async (e) => {
     try {
@@ -76,13 +103,24 @@ export const FormCreateProducts = () => {
     // Verificar si la imagen se ha cargado antes de enviar el formulario
     if (imageLoaded) {
       dispatch(createProducts(formData));
-      setFormData({
-        name: "",
-        price: "",
-        category: "",
-        amount: "",
-        image: ""
-      });
+      Swal.fire({
+        title: "Exito!",
+        text: "Enviado con exito",
+        icon: "success",
+        showConfirmButton: false,
+        confirmButtonText: "Ok",
+        timer: 2000,        
+      }).then(() => {
+        setFormData({
+          name: "",
+          price: "",
+          category: "",
+          amount: "",
+          image: ""
+        });
+      navigate("/products");
+    });
+      
     } else {
       console.log("La imagen aún se está cargando");
     }
