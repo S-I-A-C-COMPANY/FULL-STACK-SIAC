@@ -16,7 +16,7 @@ router.get('/all/:name', getProduct)
 //actualizr un producto
 router.put('/update-product/:id',protect,updateProduct )
 //borrar un producto
-router.delete('/delete-products/:id', protect, deleteProduct)
+router.delete('/delete-products/:id', deleteProduct)
 router.post('/uploadImg',protect, imgProduct)
 
 
