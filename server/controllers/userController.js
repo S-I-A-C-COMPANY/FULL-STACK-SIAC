@@ -109,6 +109,17 @@ const getMe = asyncHandler(async (req, res) => {
 });
 
 
+
+//@Desc     Get Users
+//@Route    GET /api/users/all
+//@Access   Private
+const getUsers = asyncHandler(async(req,res)=>{
+    const users = await User.find()
+    res.json(users)
+    
+})
+
+
 //@Desc     Forgot Password
 //@Route    POST /api/users/forgot-password
 //@Access   Public
@@ -359,5 +370,6 @@ module.exports = {
     resetUpdate,
     updateUsers,
     deleteUser,
-    profileUser
+    profileUser,
+    getUsers
 }

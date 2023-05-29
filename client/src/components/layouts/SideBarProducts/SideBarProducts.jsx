@@ -3,6 +3,7 @@ import logoWhite from "../../../Images/whiteIcon.png";
 import iconNotifications from "../../../Images/iconNotifications.png";
 import iconProfile from "../../../Images/iconProfile.png";
 import iconStats from "../../../Images/iconStats.png";
+import iconUsers from "../../../Images/iconUsers.png"
 
 // UI
 import { Link } from "react-router-dom";
@@ -14,9 +15,7 @@ export const SideBarProducts = () => {
       <nav className="navBarInSideBar">
         <ul>
           <li className="listLinks">
-            <Link className="links" to="">
               <ImgUI style="imgIcon" routeImg={logoWhite} />
-            </Link>
           </li>
           <li className="listLinks">
             <Link className="links" to="/profile">
@@ -25,15 +24,17 @@ export const SideBarProducts = () => {
           </li>
           <li className="listLinks">
             <Link className="links" to="/notifications">
-              <ImgUI
-                style="iconNotification"
-                routeImg={iconNotifications}
-              ></ImgUI>
+              <ImgUI style="iconNotification" routeImg={iconNotifications}></ImgUI>
             </Link>
           </li>
           <li className="listLinks">
-            <Link className="links" to="">
+            <Link className="links" to="/">
               <ImgUI style="iconStats" routeImg={iconStats}></ImgUI>
+            </Link>
+          </li>
+          <li className="listLinks">
+            <Link className="links" to="/users">
+              <ImgUI style="iconStats" routeImg={iconUsers}></ImgUI>
             </Link>
           </li>
         </ul>

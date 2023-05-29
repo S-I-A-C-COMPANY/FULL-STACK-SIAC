@@ -5,7 +5,7 @@ import { ModalAndProducts } from '../ModalAndProducts/ModalAndProducts'
 export const ModalAndProductsContext = createContext();
 
 export const ContainerProducts = () => {
-  const [listProduct, setProduct] = useState([]);
+
   const [activeCategory, setActiveCategory] = useState('All');
 
   

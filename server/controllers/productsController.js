@@ -56,14 +56,6 @@ const registerProduct = asyncHandler(async (req, res) => {
 
 
 
-//@Desc     Get data product
-//@Route    GET /api/products/all-product
-//@Access   Private
-const allProduct = asyncHandler(async(req,res)=>{
-  const product = await Product.find()
-  res.json(product)
-  
-})
 
 
 //@Desc     Get data product
@@ -86,6 +78,7 @@ const getProduct = async (req, res) => {
       res.status(404).json({ status: 'Product Not Found' });
     }
   } catch (error) {
+    
     res.status(500).json({ status: 'Error retrieving products', error });
   }
 };
@@ -198,6 +191,5 @@ module.exports = {
   getProduct,
   updateProduct,
   deleteProduct,
-  allProduct,
   imgProduct
 }

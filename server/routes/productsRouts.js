@@ -1,6 +1,6 @@
 const express = require("express")
 const { protect } = require("../middleware/authMiddleware")
-const { registerProduct, deleteProduct, getProduct, updateProduct,allProduct, imgProduct} = require("../controllers/productsController")
+const { registerProduct, deleteProduct, getProduct, updateProduct, imgProduct} = require("../controllers/productsController")
 const router = express.Router()
 
 //registar un producto

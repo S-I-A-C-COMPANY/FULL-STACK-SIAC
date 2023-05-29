@@ -56,7 +56,7 @@ export const ContentNotifications = () => {
 
   const getProductsList = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/products/all-product");
+      const res = await axios.get("http://localhost:5000/api/products/all/all");
       setProduct(res.data);
       // console.log(res.data)
     } catch (err) {
@@ -72,7 +72,7 @@ export const ContentNotifications = () => {
         {listProduct.map((producto) => (
           <div key={producto._id} className="containerNotification">
             <div className="containerImageOrder">
-              <ImgUI style="img" routeImg={orderExample} />
+              <ImgUI style="img" routeImg={producto.image} />
             </div>
 
             <div className="infoO">

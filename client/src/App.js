@@ -11,6 +11,7 @@ import { Profile } from "./components/pages/Profile/Profile";
 import { ResetPassword } from "./components/pages/ResetPassword/ResetPassword";
 import { Products } from "./components/pages/Products/Products";
 import { Notifications } from "./components/pages/Notifications/Notifications";
+import { Users } from "./components/pages/Users/Users";
 
 
 
@@ -29,6 +30,7 @@ function App() {
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/products" element={<Products />} />
             <Route path="/notifications" element={<Notifications />} />
+            <Route path="/users" element={<Users />} />
           </Routes>
         </div>
       </Router>

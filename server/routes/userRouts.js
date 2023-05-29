@@ -9,7 +9,8 @@ const {
     resetUpdate, 
     updateUsers,
     deleteUser,
-    profileUser
+    profileUser,
+    getUsers
 } = require("../controllers/userController")
 
 
@@ -22,6 +23,7 @@ router.post('/reset-password/:id/:token', resetUpdate)
 router.put('/updateInfo/:id',protect ,updateUsers)
 router.delete('/deleteUser/:id',protect ,deleteUser)
 
+router.get('/all', getUsers)
 router.get('/me',protect,getMe)
 router.put('/profile',protect, profileUser)
 

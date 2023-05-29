@@ -12,6 +12,7 @@ import iconMenu from "../../../Images/iconCalendary.png";
 import iconStats from "../../../Images/iconStats.png";
 import iconProfile from "../../../Images/iconProfile.png";
 import iconLogout from "../../../Images/iconLogout.png";
+import iconUsers from "../../../Images/iconUsers.png"
 
 export const SideBarProfile = () => {
   const dispatch = useDispatch();
@@ -25,9 +26,7 @@ export const SideBarProfile = () => {
       <nav className="navBarInSideBar">
         <ul>
           <li className="listLinks">
-            <Link className="links" to="/">
               <ImgUI style="imgIcon" routeImg={logoWhite} />
-            </Link>
           </li>
           <li className="listLinks">
             <Link className="links" to="/profile">
@@ -50,6 +49,11 @@ export const SideBarProfile = () => {
           <li className="listLinks">
             <Link className="links" to="">
               <ImgUI style="iconStats" routeImg={iconStats}></ImgUI>
+            </Link>
+          </li>
+          <li className="listLinks">
+            <Link className="links" to="/users">
+              <ImgUI style="iconStats" routeImg={iconUsers}></ImgUI>
             </Link>
           </li>
         </ul>
