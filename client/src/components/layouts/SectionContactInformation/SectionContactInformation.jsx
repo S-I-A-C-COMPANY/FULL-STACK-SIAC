@@ -26,7 +26,7 @@ export const SectionContactInformation = () => {
         Email:<p className="emailProfile">{datUser.email}</p>
       </label>
       <label className="type">
-        Phone:<p className="emailProfile">????????</p>
+        Phone:<p className="phoneProfile">????????</p>
       </label>
       <label className="type">
         Address:<p className="addressProfile">??????</p>

@@ -1755,7 +1755,7 @@ li {
   text-align: left;
   flex-direction: column;
   width: 50%;
-  font-size: 20px;
+  font-size: 18px;
   gap: 35px;
   border-right: 1px solid rgb(153, 149, 149);
 }
@@ -1765,7 +1765,7 @@ li {
 }
 
 .emailProfile{
-  color: ;
+  color: #FF5C00;
 }
 
 .type{
@@ -1783,7 +1783,7 @@ li {
 }
 
 .infoToUpdate{
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .anchorToUpdateProfile{
