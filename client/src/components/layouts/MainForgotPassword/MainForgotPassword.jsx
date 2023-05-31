@@ -1,3 +1,6 @@
+
+
+import React from 'react';
 // Layout
 import { ContentForgotPass } from '../ContentForgotPass/ContentForgotPass';
 import { ContainerInfoForgotPass } from '../ContainerInfoForgotPass/ContainerInfoForgotPass';

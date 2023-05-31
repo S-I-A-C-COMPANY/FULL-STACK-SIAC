@@ -1,3 +1,5 @@
+
+import React from 'react';
 // LAYOUT
 import { BannerAndUserProfile } from '../BannerAndUserProfile/BannerAndUserProfile';
 import { FormUpdateProfile } from '../FormUpdateProfile/FormUpdateProfile';

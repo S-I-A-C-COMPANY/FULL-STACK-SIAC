@@ -1,3 +1,6 @@
+
+import React from 'react';
+
 // Layout
 import { ContainerImgForgotPass } from '../ContainerImgForgotPass/ContainerImgForgotPass'
 import { ContainerHeadingForgotPass } from '../ContainerHeadingForgotPass/ContainerHeadingForgotPass'

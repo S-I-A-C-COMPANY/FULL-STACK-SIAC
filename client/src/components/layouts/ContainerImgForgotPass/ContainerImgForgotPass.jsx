@@ -1,3 +1,5 @@
+
+import React from 'react';
 // IMG
 import logo from '../../../Images/logo.png'
 
