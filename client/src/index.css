@@ -1760,11 +1760,12 @@ li {
   border-right: 1px solid rgb(153, 149, 149);
 }
 
-.emailProfile, .addressProfile, .dniProfile{
+.emailProfile, .addressProfile, .dniProfile, .phoneProfile{
   font-weight: normal;
 }
 
 .emailProfile{
+  font-weight: bold;
   color: #FF5C00;
 }
 
