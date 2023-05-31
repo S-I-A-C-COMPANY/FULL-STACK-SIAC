@@ -144,8 +144,7 @@ const updateProduct = asyncHandler (async (req,res)=>{
 //@Desc     delete Product
 //@Route    DELETE /api/products/delete-products/:id
 //@Access   private
-const  .
-deleteProduct = asyncHandler ( async (req,res)=>{
+const deleteProduct = asyncHandler ( async (req,res)=>{
   const {id} = req.params;
   const idProduct = await Product.findById(id)
 
