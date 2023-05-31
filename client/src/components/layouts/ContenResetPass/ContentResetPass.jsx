@@ -1,3 +1,5 @@
+
+import React from 'react';
 // Layout
 import { ContainerImgResetPass } from '../ContainerImgResetPass/ContainerImgResetPass'
 import { ContainerHeadingResetPass } from '../ContainerHeadingResetPass/ContainerHeadingResetPass'

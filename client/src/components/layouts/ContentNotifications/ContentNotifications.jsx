@@ -1,3 +1,5 @@
+
+import React from 'react';
 // Importo socket
 import io from "socket.io-client";
 import { useState, useEffect } from "react";

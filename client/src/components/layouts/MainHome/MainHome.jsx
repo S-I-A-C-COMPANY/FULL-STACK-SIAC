@@ -1,3 +1,5 @@
+
+import React from 'react';
 // LAYOUTS
 import { ContainerLeft } from '../ContainerLeft/ContainerLeft'
 import { ContainerRight } from '../ContainerRight/ContainerRight'

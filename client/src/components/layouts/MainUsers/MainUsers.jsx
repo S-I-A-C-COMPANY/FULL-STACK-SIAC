@@ -1,3 +1,5 @@
+
+import React from 'react';
 // Layout
 import { ContentUsers } from '../ContentUsers/ContentUsers'
 import { SideBarProducts } from '../SideBarProducts/SideBarProducts'

@@ -1,3 +1,6 @@
+
+import React from 'react';
+
 // UI
 import { ImgUI } from '../../UI/ImgUI/ImgUI'
 import { ButtonUI } from '../../UI/ButtonUI/ButtonUI'

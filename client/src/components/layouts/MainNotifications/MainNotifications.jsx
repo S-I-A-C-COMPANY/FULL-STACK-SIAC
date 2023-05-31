@@ -1,3 +1,5 @@
+
+import React from 'react';
 // Layout
 import { ContentNotifications } from '../ContentNotifications/ContentNotifications'
 import { SideBarProfile } from '../SideBarProfile/SideBarProfile'

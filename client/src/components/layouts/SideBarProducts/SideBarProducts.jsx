@@ -1,3 +1,5 @@
+
+import React from 'react';
 // IMG
 import logoWhite from "../../../Images/whiteIcon.png";
 import iconNotifications from "../../../Images/iconNotifications.png";

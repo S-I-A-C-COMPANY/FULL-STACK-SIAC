@@ -1,15 +1,17 @@
+
+import React from 'react';
+
 // UI
 import { ImgUI } from "../../UI/ImgUI/ImgUI";
 import { InputUI } from "../../UI/InputUI/InputUI";
 import { ButtonUI } from "../../UI/ButtonUI/ButtonUI";
 
-import axios from "axios";
 
-import { useState, useEffect } from "react";
+import { useState,  } from "react";
 
-import { useSelector, useDispatch } from "react-redux";
+import {  useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { profileUpdate, reset } from "../../features/auth/authSlice";
+import { profileUpdate,  } from "../../features/auth/authSlice";
 import Swal from "sweetalert2";
 
 //IMG

@@ -1,3 +1,5 @@
+
+import React from 'react';
 // LAYOUTS
 import { MainHome } from '../../layouts/MainHome/MainHome'
 
