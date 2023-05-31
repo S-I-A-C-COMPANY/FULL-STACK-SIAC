@@ -1,10 +1,13 @@
 
 import React, { useState,useEffect } from 'react';
+import { MainUpdateProfile } from '../../layouts/MainUpdateProfile/MainUpdateProfile'
 import axios from 'axios';
-import { MainProfile } from '../../layouts/MainProfile/MainProfile';
 
-export const Profile = () => {
+export const UpdateProfile = () => {
+
+  
 const token = localStorage.getItem('user').replace(/^"(.*)"$/, '$1');
+
 
 // Verificar si el token existe
 if (token) {
@@ -39,6 +42,6 @@ if (token) {
     };
   }, []);
   return (
-    <MainProfile />
+    <MainUpdateProfile /> 
   )
 }

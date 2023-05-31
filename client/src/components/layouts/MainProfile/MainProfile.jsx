@@ -1,16 +1,14 @@
+import React from 'react'
+import { ContentProfile } from '../ContentProfile/ContentProfile'
+import { SideBarProfile } from '../SideBarProfile/SideBarProfile'
 
-
-import { SideBarProfile } from "../SideBarProfile/SideBarProfile";
-import { ContentProfile } from "../ContentProfile/ContentProfile";
 
 export const MainProfile = () => {
- 
-
   return (
-    <main className='mainProfile'>
+    <div className='mainProfile'>
         <SideBarProfile />
-
+        
         <ContentProfile />
-    </main>
+    </div>
   )
 }

@@ -1,17 +1,16 @@
 // UI
 import { ImgUI } from '../../UI/ImgUI/ImgUI'
 import { ButtonUI } from '../../UI/ButtonUI/ButtonUI'
-
+import { useState } from 'react'
+import axios from 'axios'
 
 //IMG
 import imageBanner from '../../../Images/iconUser.png'
-import { useState } from 'react'
-import axios from 'axios'
 
 // const render = 'https://backend-render-corp.onrender.com'
 const localHost = 'http://localhost:5000'
 
-export const BannerAndUserProfile = () => {
+export const BannerUpdateProfile = () => {
 
     const [datUser, setUser] = useState([])
 
@@ -30,12 +29,12 @@ export const BannerAndUserProfile = () => {
 
     return (
         <div className="banner">
-            <ImgUI style='imgProfile' routeImg={imageBanner} />
+            <ImgUI style='imgUpdatedProfile' routeImg={imageBanner} />
             <ButtonUI style='btnUpload' text='+' />
 
             <div className="groupText">
-                <p className="nameProfile">{datUser.name}</p>
-                <p className="emailProfile">{datUser.email}</p>
+                <p className="nameUpdatedProfile">{datUser.name}</p>
+                <p className="emailUpdatedProfile">{datUser.email}</p>
             </div>
         </div>
     )

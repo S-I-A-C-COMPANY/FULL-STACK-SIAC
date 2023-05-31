@@ -12,6 +12,7 @@ import { ResetPassword } from "./components/pages/ResetPassword/ResetPassword";
 import { Products } from "./components/pages/Products/Products";
 import { Notifications } from "./components/pages/Notifications/Notifications";
 import { Users } from "./components/pages/Users/Users";
+import { UpdateProfile } from "./components/pages/UpdateProfile/UpdateProfile";
 
 
 
@@ -27,6 +28,9 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/profile" element={<Profile />} />
+
+            <Route path="/update-profile" element={<UpdateProfile />} />
+
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/products" element={<Products />} />
             <Route path="/notifications" element={<Notifications />} />
