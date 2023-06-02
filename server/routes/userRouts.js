@@ -25,7 +25,7 @@ router.delete('/deleteUser/:id',protect ,deleteUser)
 
 router.get('/all', getUsers)
 router.get('/me',protect,getMe)
-router.put('/profile',protect, profileUser)
+router.put('/update-profile',protect, profileUser)
 
 
 

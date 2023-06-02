@@ -1,4 +1,4 @@
-
+import React from "react";
 
 import { SideBarProfile } from "../SideBarProfile/SideBarProfile";
 import { ContentUpdateProfile } from "../ContentUpdateProfile/ContentUpdateProfile";

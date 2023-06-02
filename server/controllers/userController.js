@@ -99,12 +99,15 @@ const loginUser = asyncHandler(async(req,res)=>{
 //@Route    GET /api/users/me
 //@Access   Private
 const getMe = asyncHandler(async (req, res) => {
-  const {_id, name, email} = await User.findById(req.user.id);
+  const {_id, dni, name, email,phone,address,} = await User.findById(req.user.id);
 
   res.json({
     id: _id,
+    dni,
     name,
-    email
+    email,
+    phone,
+    address
   });
 });
 
@@ -300,7 +303,7 @@ const deleteUser = asyncHandler( async (req, res) => {
 });
 
 //@Desc     Update Information
-//@Route    PUT /api/users/profile
+//@Route    PUT /api/users/update-profile
 //@Access   Private
 const profileUser = asyncHandler(async (req, res) => {
   const { name, email, phone, address, password } = req.body;

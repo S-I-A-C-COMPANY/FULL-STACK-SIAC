@@ -1732,12 +1732,14 @@ li {
 }
 
 .nameProfile{
+  font-weight: bold;
+  color: #FF5C00;
   font-size: 25px;
 }
 
-.nameProfile::first-letter{
+/* .nameProfile, .nameUpdatedProfile::first-letter{
   text-transform: uppercase;
-}
+} */
 
 /* contenedor de las 2 secciones inferiores */
 .containersInfomation{
@@ -1764,6 +1766,10 @@ li {
   font-weight: normal;
 }
 
+.dniProfile{
+  font-weight: bold;
+  color: #FF5C00;
+}
 .emailProfile{
   font-weight: bold;
   color: #FF5C00;

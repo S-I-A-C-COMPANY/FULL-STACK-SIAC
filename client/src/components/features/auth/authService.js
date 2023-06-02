@@ -24,7 +24,7 @@ const forgotPass = async (userData) =>{
 }
 const profileUpdate = async (userData) =>{
     // console.log(userData);
-   const response = await axios.put(API_URL + '/profile',userData)
+   const response = await axios.put(API_URL + '/update-profile',userData)
    console.log(response.data);
 }
 
