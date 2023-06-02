@@ -223,58 +223,58 @@ const resetUpdate = asyncHandler( async (req, res) => {
   }
 });
 
-//@Desc     Update Information
-//@Route    PUT /api/users/updateInfo/:id
-//@Access   Private
-const updateUsers = asyncHandler( async (req, res) => {
-  const { id } = req.params;
-  const { password,email } = req.body;
+// //@Desc     Update Information
+// //@Route    PUT /api/users/updateInfo/:id
+// //@Access   Private
+// const updateUsers = asyncHandler( async (req, res) => {
+//   const { id } = req.params;
+//   const { password,email } = req.body;
 
-  const user = await User.findOne({ _id: id });
-  if (!user) {
-    return res.json({ status: "User Not Exists!!" });
-  }
+//   const user = await User.findOne({ _id: id });
+//   if (!user) {
+//     return res.json({ status: "User Not Exists!!" });
+//   }
 
-    try {
-      // password
-    const salt = await bcrypt.genSalt(10)
-    const encryptedPassword = await bcrypt.hash(password, salt);
+//     try {
+//       // password
+//     const salt = await bcrypt.genSalt(10)
+//     const encryptedPassword = await bcrypt.hash(password, salt);
 
-      await User.updateOne(
-        {
-          _id: id,
-        },
-        {
-          $set: {
-            password: encryptedPassword,
-            email: email
-          },
-        }
-      );
+//       await User.updateOne(
+//         {
+//           _id: id,
+//         },
+//         {
+//           $set: {
+//             password: encryptedPassword,
+//             email: email
+//           },
+//         }
+//       );
   
-      res.status(200).json(
-        {
-        _id: user.id,
-        name: user.name,
-        dni: user.dni,
-        email: user.email,
-        roles: user.roles.name,
-        status: "Actualizado"
-       }
-        );
+//       res.status(200).json(
+//         {
+//         _id: user.id,
+//         name: user.name,
+//         dni: user.dni,
+//         email: user.email,
+//         roles: user.roles.name,
+//         status: "Actualizado"
+//        }
+//         );
 
-    } catch (error) {
-      console.log(error);
-    res.json({ status: "Something Went Wrong" });
-    }
+//     } catch (error) {
+//       console.log(error);
+//     res.json({ status: "Something Went Wrong" });
+//     }
   
    
-  // } catch (error) {
-  //   console.log(error);
-  //   res.json({ status: "Something Went Wrong" });
+//   // } catch (error) {
+//   //   console.log(error);
+//   //   res.json({ status: "Something Went Wrong" });
     
-  // }
-});
+//   // }
+// });
 
 
 //@Desc     Update Information
@@ -371,7 +371,7 @@ module.exports = {
     getMe,
     forgotPw,
     resetUpdate,
-    updateUsers,
+    // updateUsers,
     deleteUser,
     profileUser,
     getUsers

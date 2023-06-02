@@ -20,7 +20,7 @@ router.post('/login', loginUser)
 router.post('/forgot-password', forgotPw)
 router.post('/reset-password/:id/:token', resetUpdate)
 // ruta para actualizar
-router.put('/updateInfo/:id',protect ,updateUsers)
+// router.put('/updateInfo/:id',protect ,updateUsers)
 router.delete('/deleteUser/:id',protect ,deleteUser)
 
 router.get('/all', getUsers)

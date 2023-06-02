@@ -9,6 +9,12 @@ const createProducto = async (productData, token)=>{
     console.log(productData)
     return response.data
 }
+const updateProducts = async (productData, token)=>{
+
+    const response = await axios.post(API_URL + '/update-product',  productData)
+    console.log(productData)
+    return response.data
+}
 
 
 const deleteProducto = async (productId)=>{
@@ -19,7 +25,8 @@ const deleteProducto = async (productId)=>{
 
 const productService = {
     createProducto,
-    deleteProducto
+    deleteProducto,
+    updateProducts
 }
 
 export default productService

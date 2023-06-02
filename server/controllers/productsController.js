@@ -89,55 +89,43 @@ const getProduct = async (req, res) => {
 //@Access   private
 const updateProduct = asyncHandler (async (req,res)=>{
   
-  const {id} = req.params;
-  const { name, price, category, amount} = req.body;
+  const { name, price, category, amount, image} = req.body;
 
-  const product = await Product.findOne({_id: id })
-
-  if (product) {
 
     try {
-      await Product.updateOne(
-        {
-          _id: id,
-        },
-        {
-          $set:{
-            name:name,
-            price:price,
-            category:category,
-            amount:amount
-          },
-        }
-      );
-      
-      res.status(201).json({
-        _id: product.id,
-        name: product.name,
-        price: product.price,
-        category: product.category,
-        amount: product.amount,
-        status: "verified"
-      })
-  
-    } catch (error) {
-  
-      res.json({ status: "Something Went Wrong" });
+
+      // Verificar el token de autenticación
+    const token = req.headers.authorization;
+    if (!token || !token.startsWith('Bearer ')) {
+      return res.status(401).json({ status: 'Invalid Authorization Header' });
     }
 
-  }else{
-    res.status(200).json({ status: "product Not Exists!!" });
+    // Extraer el token sin la parte "Bearer"
+    const authToken = token.split(' ')[1];
+
+    // Verificar y decodificar el token para obtener el ID de usuario
+    const decodedToken = jwt.verify(authToken, process.env.JWT_SECRET);
+    const userId = decodedToken.id;
+
+      // Construir el objeto de actualización con los campos correspondientes
+      const updateFields = {
+        name: name,
+        price: price,
+        category: category,
+        amount: amount,
+        image: image
+      };
+
+    
+    // Actualizar el usuario en la base de datos
+    await Product.updateOne({ _id: userId }, { $set: updateFields });
+      
+    res.status(200).json({ status: 'Actualizado' });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ status: 'Something Went Wrong' });
   }
-  
-  res.status(201).json({
-    _id: product.id,
-    name: product.name,
-    price: product.price,
-    category: product.category,
-    amount: product.amount,
-    status: "verified"
-  })
-})
+});
 
 
 

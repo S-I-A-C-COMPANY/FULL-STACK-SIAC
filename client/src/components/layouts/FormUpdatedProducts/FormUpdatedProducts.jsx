@@ -1,3 +1,4 @@
+import React from 'react';
 // UI
 import { InputUI } from '../../UI/InputUI/InputUI'
 import { ButtonUI } from '../../UI/ButtonUI/ButtonUI'
@@ -6,50 +7,103 @@ import axios from 'axios';
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 
+
 // import {createProducts} from '../../features/products/productSlice'
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import { updateProducts } from '../../features/products/productSlice';
 
 export const FormUpdatedProducts = () => {
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
     const [image, setImage] = useState("");
     const [loading, setLoading] = useState(false);
-    const [imageLoaded, setImageLoaded] = useState(false);
-    const [formData, setFormData] = useState({
+    const [imageLoaded, setImageLoaded] = useState(false)
+    
+    const initialFormData = {
       name: "",
       price: "",
       category: "",
       amount: "",
       image: ""
-    });
-  
-    const dispatch = useDispatch();
-    const navigate = useNavigate()
-  
+  };
+
+    const [formData, setFormData] = useState(initialFormData);
+
     const { name, price, category, amount } = formData;
   
+    const onChange = (e) => {
+      setFormData((prevState) => ({
+        ...prevState,
+        [e.target.name]: e.target.value,
+      }));
+    };
+
+    const onSubmit = async (e) => {
+      e.preventDefault();
     
-    const { user, isError, isSuccess, message } = useSelector(
-      (state) => state.auth
-    );
-  
-    useEffect(() => {
-  
-      if (isError) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: message,
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 2000,
+      const isEmptyFields = !name || !price || !category || !amount || !image 
+    
+      if (isEmptyFields) {
+        const confirmResult = await Swal.fire({
+          title: "¿Está seguro?",
+          text: "Hay campos vacíos en el formulario. ¿Desea continuar?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Sí, enviar",
+          cancelButtonText: "Cancelar",
         });
+    
+        if (confirmResult.isConfirmed) {
+            
+          await sendForm();
+        }
+      } else {
+        await sendForm();
       }
+    };
+
+    const sendForm = async () => {
+      const productData = {
+        name,
+        price,
+        category,
+        amount,
+        image
+      };
+    
+      // Filtrar propiedades vacías
+      const nonEmptyproductData = {
+          ...(productData.name !== "" && { name: productData.name }),
+          ...(productData.price !== "" && { price: productData.price }),
+          ...(productData.category !== "" && { category: productData.category }),
+          ...(productData.amount !== "" && { amount: productData.amount }),
+          ...(productData.image !== "" && { image: productData.image }),
+        };
   
-      // dispatch(reset());
-    }, [user, isError, isSuccess, message, ]);
-  
+    try {
+      await dispatch(updateProducts(nonEmptyproductData));
+      Swal.fire({
+        title: "Éxito",
+        text: "Actualización exitosa",
+        icon: "success",
+        timer: 2000,
+        showConfirmButton: false,
+      }).then(() => {
+          setFormData(initialFormData)
+        navigate("/products");
+      });
+    } catch (error) {
+      Swal.fire({
+        title: "Error",
+        text: "No se pudo actualizar la información",
+        icon: "error",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+    }
+  };
   
     const uploadImage = async (e) => {
       try {
@@ -96,46 +150,10 @@ export const FormUpdatedProducts = () => {
       }
     };
   
-    // const onSubmit = (e) => {
-    //   e.preventDefault();
-    //   // Verificar si la imagen se ha cargado antes de enviar el formulario
-    //   if (imageLoaded) {
-    //     dispatch(createProducts(formData));
-    //     Swal.fire({
-    //       title: "Exito!",
-    //       text: "Enviado con exito",
-    //       icon: "success",
-    //       showConfirmButton: false,
-    //       confirmButtonText: "Ok",
-    //       timer: 2000,        
-    //     }).then(() => {
-    //       setFormData({
-    //         name: "",
-    //         price: "",
-    //         category: "",
-    //         amount: "",
-    //         image: ""
-    //       });
-    //     navigate("/products");
-    //   });
-        
-    //   } else {
-    //     console.log("La imagen aún se está cargando");
-    //   }
-    // };
-  
-  
-    const onChange = (e) => {
-      setFormData((prevState) => ({
-        ...prevState,
-        [e.target.name]: e.target.value
-      }));
-    
-    }
 
   return (
         <form className='formCreateProduct'>
-        {/* onSubmit={onSubmit} */}
+          onSubmit={onSubmit}
           <InputUI 
           typeInpt='text' 
           style='inputProduct' 
@@ -146,15 +164,7 @@ export const FormUpdatedProducts = () => {
           eventInpt={onChange}
           />
 
-          {/* <InputUI 
-          typeInpt='text' 
-          style='inputProduct' 
-          textInpt='Ingrese detalis' 
-          idInpt="detalis"
-          nameInpt="detalis"
-          valueInpt={detalis}
-          eventInpt={onChange}
-          /> */}
+      
 
           <InputUI 
           typeInpt='number' 
@@ -192,6 +202,7 @@ export const FormUpdatedProducts = () => {
             style='inputProduct' 
             textInpt='Inserte Imagen'
             eventInpt={uploadImage}
+            
           />
 
           <ButtonUI typeBtn="submit"  style='btnCreateProduct' text='Actualizar producto' />

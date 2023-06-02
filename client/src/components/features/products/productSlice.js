@@ -29,6 +29,27 @@ export const createProducts = createAsyncThunk(
    
         }
     })
+
+// update product
+
+export const updateProducts = createAsyncThunk(
+    'auth//update-product', async(productData, thunkAPI)=>{
+    
+        try {
+            const token = thunkAPI.getState().auth.user.token
+            return await productService.updateProducts(productData, token)
+            // return await productService.
+        } catch (error) {
+            const message =
+        (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+            error.message ||
+            error.toString()
+            return thunkAPI.rejectWithValue(message)
+   
+        }
+    })
 // delete  product
 
 export const deleteProducts = createAsyncThunk(
