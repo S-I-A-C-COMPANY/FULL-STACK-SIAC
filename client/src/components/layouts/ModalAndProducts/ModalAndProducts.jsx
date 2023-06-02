@@ -1,33 +1,49 @@
 
-import React from 'react';
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { deleteProducts } from '../../features/products/productSlice';
 import io from 'socket.io-client';
-import { ModalAndProductsContext } from '../ContainerProducts/ContainerProducts';
+// UI
 import { ImgUI } from '../../UI/ImgUI/ImgUI';
 import { ButtonUI } from '../../UI/ButtonUI/ButtonUI';
-import updateIcon from '../../../Images/updateIcon.png';
-import deleteIcon from '../../../Images/deleteIcon.png';
+
 // LAYOUT
 import { FormCreateProducts } from '../FormCreateProducts/FormCreateProducts';
+import { FormUpdatedProducts } from '../FormUpdatedProducts/FormUpdatedProducts';
+import { ModalAndProductsContext } from '../ContainerProducts/ContainerProducts';
+
+// IMG
+import updateIcon from '../../../Images/updateIcon.png';
+import deleteIcon from '../../../Images/deleteIcon.png';
+
 
 const socket = io('http://localhost:5000');
 
 export const ModalAndProducts = () => {
   const { activeCategory } = useContext(ModalAndProductsContext);
-  const [modalOpen, setModalOpen] = useState(false);
+
+  // Modal de crear producto
+  const [modalCreateProductOpen, setModalCreateProductOpen] = useState(false);
+  const openModalCreateProduct = () => {
+    setModalCreateProductOpen(true);
+  };
+  const closeModalCreateProduct = () => {
+    setModalCreateProductOpen(false);
+  };
+
+  // Modal de actualizar producto
+  const [modalUpdatedProductOpen, setModalUpdatedProductOpen] = useState(false);
+  const openModalUpdatedProduct = () => {
+    setModalUpdatedProductOpen(true);
+  };
+  const closeModalUpdatedProduct = () => {
+    setModalUpdatedProductOpen(false);
+  };
+
   const dispatch = useDispatch();
   const [listProduct, setProduct] = useState([]);
 
-  const openModal = () => {
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-  };
 
   useEffect(() => {
     const getProductsList = async () => {
@@ -65,14 +81,19 @@ export const ModalAndProducts = () => {
 
   return (
     <>
-      <div className={`modalCreateProducts ${modalOpen ? 'open' : ''}`}>
-        <ButtonUI onClicks={closeModal} style='btnCloseModal' text='x' />
+      <div className={`modalCreateProducts ${modalCreateProductOpen ? 'open' : ''}`}>
+        <ButtonUI onClicks={closeModalCreateProduct} style='btnCloseModal' text='x' />
         <FormCreateProducts />
+      </div>
+
+      <div className={`modalCreateProducts ${modalUpdatedProductOpen ? 'open' : ''}`}>
+        <ButtonUI onClicks={closeModalUpdatedProduct} style='btnCloseModal' text='x' />
+        <FormUpdatedProducts />
       </div>
 
       <div className='containerCards'>
         <div className='cardCreateProduct'>
-          <ButtonUI onClicks={openModal} style='btnOpenModal' text='+' />
+          <ButtonUI onClicks={openModalCreateProduct} style='btnOpenModal' text='+' />
         </div>
 
         {listProduct.map((producto) => (
@@ -88,7 +109,7 @@ export const ModalAndProducts = () => {
 
               <div className='containerEdits'>
                 <ButtonUI onClicks={() => dispatch(deleteProducts(producto._id))} style='btnDeleteProduct' text={<ImgUI style='iconDelete' routeImg={deleteIcon} />} />
-                <ButtonUI style='btnEditProduct' text={<ImgUI style='iconEdit' routeImg={updateIcon} />} />
+                <ButtonUI onClicks={() => openModalUpdatedProduct()} style='btnEditProduct' text={<ImgUI style='iconEdit' routeImg={updateIcon} />} />
               </div>
             </div>
           </div>
