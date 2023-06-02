@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
 // UI
@@ -12,16 +13,21 @@ export const BannerProfile = () => {
 
   const [datUser, setUser] = useState([]);
 
+  
+  useEffect(() => {
+    
   const getInfoUser = async () => {
     try {
       const res = await axios.get(`${localHost}/api/users/me`);
       setUser(res.data);
-      // console.log(res.data)
+      
     } catch (err) {
       console.log(err);
     }
+    // console.log(datUser.name)
   };
   getInfoUser();
+  },[])
 
   return (
     <div className="bannerProfile">

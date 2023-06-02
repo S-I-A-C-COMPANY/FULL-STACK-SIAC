@@ -1,3 +1,4 @@
+import React from "react";
 // Layout
 import { BannerProfile } from "../BannerProfile/BannerProfile";
 import { SectionContactInformation } from "../SectionContactInformation/SectionContactInformation";

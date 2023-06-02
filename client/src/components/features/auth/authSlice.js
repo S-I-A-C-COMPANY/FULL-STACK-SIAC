@@ -80,7 +80,7 @@ export const forgotPass = createAsyncThunk(
 )
 
 export const profileUpdate = createAsyncThunk(
-  'auth/profile',
+  'auth/update-profile',
   async ( user, thunkAPI) => {
     try {
       return await authService.profileUpdate(user)

@@ -1,3 +1,4 @@
+import React from "react";
 // LAYOUT
 import { BannerUpdateProfile } from '../BannerUpdateProfile/BannerUpdateProfile';
 import { FormUpdateProfile } from '../FormUpdateProfile/FormUpdateProfile';

@@ -4,7 +4,7 @@ import React from 'react';
 // UI
 import { ImgUI } from '../../UI/ImgUI/ImgUI'
 import { ButtonUI } from '../../UI/ButtonUI/ButtonUI'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 //IMG
@@ -17,17 +17,21 @@ export const BannerUpdateProfile = () => {
 
     const [datUser, setUser] = useState([])
 
-    const getInfoUser = async ()=>{
-        try{
-            const res = await axios.get(`${localHost}/api/users/me`)
-             setUser(res.data);
-            // console.log(res.data)
+    useEffect(() => {
+    
+        const getInfoUser = async () => {
+          try {
+            const res = await axios.get(`${localHost}/api/users/me`);
+            setUser(res.data);
             
-        }catch(err){
-            console.log(err)
-        }
-    }
-    getInfoUser()
+          } catch (err) {
+            console.log(err);
+          }
+          // console.log(datUser.name)
+        };
+        getInfoUser();
+        },[])
+      
 
 
     return (
