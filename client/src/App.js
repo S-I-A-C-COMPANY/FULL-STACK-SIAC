@@ -1,11 +1,8 @@
-
-import React from 'react';
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-
+// Layout
 import Login from "./components/pages/Login/Login";
 import Register from "./components/pages/Register/Register";
 import { Home } from "./components/pages/Home/Home";
@@ -16,7 +13,7 @@ import { Products } from "./components/pages/Products/Products";
 import { Notifications } from "./components/pages/Notifications/Notifications";
 import { Users } from "./components/pages/Users/Users";
 import { UpdateProfile } from "./components/pages/UpdateProfile/UpdateProfile";
-
+import { ProductsUser } from "./components/pages/ProductsUser/ProductsUser"
 
 
 function App() {
@@ -36,6 +33,7 @@ function App() {
 
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/products" element={<Products />} />
+            <Route path="/products-user" element={<ProductsUser />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/users" element={<Users />} />
           </Routes>

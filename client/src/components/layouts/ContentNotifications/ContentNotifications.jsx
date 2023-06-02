@@ -1,5 +1,6 @@
 
 import React from 'react';
+import Swal from "sweetalert2";
 // Importo socket
 import io from "socket.io-client";
 import { useState, useEffect } from "react";
@@ -12,7 +13,7 @@ import { ImgUI } from "../../UI/ImgUI/ImgUI";
 // IMG
 import orderExample from "../../../Images/order.png";
 import iconSelected from "../../../Images/selectOrder.png";
-import Swal from "sweetalert2";
+
 
 // const socket = io('https://backend-render-corp.onrender.com')
 const socket = io("http://localhost:5000");

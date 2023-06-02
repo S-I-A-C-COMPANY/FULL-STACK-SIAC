@@ -1,5 +1,4 @@
 
-import React from 'react';
 import { createContext, useState } from 'react';
 import { ContainerTittleMenu } from '../ContainerTittleMenu/ContainerTittleMenu'
 import { ContainerCategories } from '../ContainerCategories/ContainerCategories'
@@ -10,7 +9,6 @@ export const ContainerProducts = () => {
 
   const [activeCategory, setActiveCategory] = useState('All');
 
-  
   return (
     <div className="containerProducts">
       <ContainerTittleMenu />
