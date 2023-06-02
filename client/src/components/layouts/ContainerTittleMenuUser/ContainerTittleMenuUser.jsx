@@ -13,7 +13,7 @@ export const ContainerTittleMenuUser = () => {
             <h1 className='tittleUser'>Menú</h1>   
         </div>
 
-        <Link className='containerIcon' to='/products-user'>
+        <Link className='containerIcon' to='/shopping-cart'>
             <ImgUI style='iconToCar' routeImg={iconToCar} />
         </Link>
     </div>

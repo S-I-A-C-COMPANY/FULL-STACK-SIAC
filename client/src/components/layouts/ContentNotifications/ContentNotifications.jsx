@@ -1,17 +1,13 @@
-
-import React from 'react';
 import Swal from "sweetalert2";
 // Importo socket
 import io from "socket.io-client";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import axios from "axios";
 // UI
 import { ButtonUI } from "../../UI/ButtonUI/ButtonUI";
 import { ImgUI } from "../../UI/ImgUI/ImgUI";
 
 // IMG
-import orderExample from "../../../Images/order.png";
 import iconSelected from "../../../Images/selectOrder.png";
 
 
@@ -19,7 +15,7 @@ import iconSelected from "../../../Images/selectOrder.png";
 const socket = io("http://localhost:5000");
 
 export const ContentNotifications = () => {
-  const dispatch = useDispatch();
+
   // para pintar productos de la bd
   const [listProduct, setProduct] = useState([]);
 
