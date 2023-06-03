@@ -4,13 +4,17 @@ import io from "socket.io-client";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
+
+// Layout
+import { CounterCart } from "../CounterCart/CounterCart";
 // UI
 import { ButtonUI } from "../../UI/ButtonUI/ButtonUI";
 import { ImgUI } from "../../UI/ImgUI/ImgUI";
 
 // IMG
-import iconSelected from "../../../Images/selectOrder.png";
+import iconDeleteToCar from "../../../Images/deleteToCar.png";
 import iconTypeOfPay from "../../../Images/typeOfPay.svg"
+
 
 // const socket = io('https://backend-render-corp.onrender.com')
 const socket = io("http://localhost:5000");
@@ -35,6 +39,7 @@ export const MainShoppingCart = () => {
           // }
         });
       };
+
 
     // traer productos bd
     useEffect(() => {
@@ -83,14 +88,15 @@ export const MainShoppingCart = () => {
                         <ImgUI style="img" routeImg={producto.image} />
                     </div>
 
-                    <div className="infoO">
-                        <p className="">{producto.name}</p>
-                    
+                    <div className="infoProduct">
+                        <p className="productName">{producto.name}</p>
+
+                        <CounterCart />
                     </div>
 
-                    <div className="containerButton">
-                <ButtonUI style="btnDeleteCart" text={<ImgUI style="iconSelected" routeImg={iconSelected}></ImgUI>}/>
-                <p className="priceNotification">Precio: {producto.price}</p>
+                    <div className="containerButtonCart">
+                        <ButtonUI style="btnDeleteCart" text={<ImgUI style="deleteToCar" routeImg={iconDeleteToCar}></ImgUI>}/>
+                        <p className="priceProduct">${producto.price}</p>
                     </div>
                     
                 </div>
