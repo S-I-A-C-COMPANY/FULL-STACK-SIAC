@@ -1,9 +1,9 @@
-import React from 'react';
-import { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { deleteProducts } from '../../features/products/productSlice';
 import io from 'socket.io-client';
+
 // UI
 import { ImgUI } from '../../UI/ImgUI/ImgUI';
 import { ButtonUI } from '../../UI/ButtonUI/ButtonUI';
@@ -17,40 +17,36 @@ import { ModalAndProductsContext } from '../ContainerProducts/ContainerProducts'
 import updateIcon from '../../../Images/updateIcon.png';
 import deleteIcon from '../../../Images/deleteIcon.png';
 
-
 const socket = io('http://localhost:5000');
 
 export const ModalAndProducts = () => {
   const { activeCategory } = useContext(ModalAndProductsContext);
-
-  // Modal de crear producto
+  const dispatch = useDispatch();
+  const [listProduct, setProduct] = useState([]);
   const [modalCreateProductOpen, setModalCreateProductOpen] = useState(false);
+  const [modalUpdatedProductOpen, setModalUpdatedProductOpen] = useState(false);
+
   const openModalCreateProduct = () => {
     setModalCreateProductOpen(true);
   };
+
   const closeModalCreateProduct = () => {
     setModalCreateProductOpen(false);
   };
 
-  // Modal de actualizar producto
-  const [modalUpdatedProductOpen, setModalUpdatedProductOpen] = useState(false);
   const openModalUpdatedProduct = () => {
     setModalUpdatedProductOpen(true);
   };
+
   const closeModalUpdatedProduct = () => {
     setModalUpdatedProductOpen(false);
   };
-
-  const dispatch = useDispatch();
-  const [listProduct, setProduct] = useState([]);
-
 
   useEffect(() => {
     const getProductsList = async () => {
       try {
         const res = await axios.get(`http://localhost:5000/api/products/all/${activeCategory.toLowerCase()}`);
         setProduct(res.data);
-        // console.log(res.data);
       } catch (err) {
         console.log(err);
       }
@@ -58,26 +54,24 @@ export const ModalAndProducts = () => {
 
     getProductsList();
 
-    // Conexión inicial del socket
+    return () => {
+      socket.disconnect();
+    };
+  }, [activeCategory,listProduct]);
+
+  useEffect(() => {
     socket.connect();
 
-    // Manejar el evento de nuevos productos y actualización de productos
     socket.on('productos', (listProduct) => {
       setProduct(listProduct);
     });
 
-    // Manejar el evento de nuevo producto emitido desde el servidor
     socket.on('nuevoProducto', (producto) => {
-      setProduct((prevListProduct) => [...prevListProduct, producto]);
+      if (producto.category.toLowerCase() === activeCategory.toLowerCase()) {
+        setProduct((prevListProduct) => [...prevListProduct, producto]);
+      }
     });
-
-    // Manejar el evento de producto eliminado emitido desde el servidor
-    // socket.on('productoEliminado', (productoId) => {
-    //   setProduct((prevListProduct) => prevListProduct.filter((producto) => producto._id !== productoId));
-    // });
-
-
-  }, [activeCategory,listProduct]);
+  }, [activeCategory, ]);
 
   return (
     <>

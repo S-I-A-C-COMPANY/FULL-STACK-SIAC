@@ -1,7 +1,7 @@
 import { useState } from 'react'
 // UI
 import { ButtonUI } from '../../UI/ButtonUI/ButtonUI';
-
+import React from 'react';
 export const CounterCart = () => {
 
     // para sumar o restar en el contador

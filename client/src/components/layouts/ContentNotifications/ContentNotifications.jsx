@@ -1,5 +1,6 @@
 import Swal from "sweetalert2";
 // Importo socket
+import React from 'react';
 import io from "socket.io-client";
 import { useState, useEffect } from "react";
 import axios from "axios";
