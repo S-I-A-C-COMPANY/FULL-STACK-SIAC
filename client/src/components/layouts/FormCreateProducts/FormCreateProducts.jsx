@@ -148,16 +148,6 @@ export const FormCreateProducts = () => {
           eventInpt={onChange}
           />
 
-          {/* <InputUI 
-          typeInpt='text' 
-          style='inputProduct' 
-          textInpt='Ingrese detalis' 
-          idInpt="detalis"
-          nameInpt="detalis"
-          valueInpt={detalis}
-          eventInpt={onChange}
-          /> */}
-
           <InputUI 
           typeInpt='number' 
           style='inputProduct' 

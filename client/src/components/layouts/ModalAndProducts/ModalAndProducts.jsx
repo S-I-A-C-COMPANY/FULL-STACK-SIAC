@@ -25,6 +25,7 @@ export const ModalAndProducts = () => {
   const [listProduct, setProduct] = useState([]);
   const [modalCreateProductOpen, setModalCreateProductOpen] = useState(false);
   const [modalUpdatedProductOpen, setModalUpdatedProductOpen] = useState(false);
+  const [idProduct, setIdProduct] = useState('')
 
   const openModalCreateProduct = () => {
     setModalCreateProductOpen(true);
@@ -36,6 +37,7 @@ export const ModalAndProducts = () => {
 
   const openModalUpdatedProduct = () => {
     setModalUpdatedProductOpen(true);
+
   };
 
   const closeModalUpdatedProduct = () => {
@@ -71,7 +73,7 @@ export const ModalAndProducts = () => {
         setProduct((prevListProduct) => [...prevListProduct, producto]);
       }
     });
-  }, [activeCategory, ]);
+  }, [activeCategory]);
 
   return (
     <>
@@ -82,7 +84,7 @@ export const ModalAndProducts = () => {
 
       <div className={`modalCreateProducts ${modalUpdatedProductOpen ? 'open' : ''}`}>
         <ButtonUI onClicks={closeModalUpdatedProduct} style='btnCloseModal' text='x' />
-        <FormUpdatedProducts />
+        <FormUpdatedProducts idProduct={idProduct} />
       </div>
 
       <div className='containerCards'>
@@ -103,7 +105,7 @@ export const ModalAndProducts = () => {
 
               <div className='containerEdits'>
                 <ButtonUI onClicks={() => dispatch(deleteProducts(producto._id))} style='btnDeleteProduct' text={<ImgUI style='iconDelete' routeImg={deleteIcon} />} />
-                <ButtonUI onClicks={() => openModalUpdatedProduct()} style='btnEditProduct' text={<ImgUI style='iconEdit' routeImg={updateIcon} />} />
+                <ButtonUI onClicks={() => openModalUpdatedProduct(setIdProduct(producto._id))} style='btnEditProduct' text={<ImgUI style='iconEdit' routeImg={updateIcon} />} />
               </div>
             </div>
           </div>

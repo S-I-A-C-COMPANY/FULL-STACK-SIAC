@@ -9,9 +9,9 @@ const createProducto = async (productData, token)=>{
     console.log(productData)
     return response.data
 }
-const updateProducts = async (productData, token)=>{
+const updateProducts = async (idProduct,productData)=>{
 
-    const response = await axios.post(API_URL + '/update-product',  productData)
+    const response = await axios.post(API_URL + '/update-product' + idProduct ,  productData)
     console.log(productData)
     return response.data
 }

@@ -13,8 +13,9 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { updateProducts } from '../../features/products/productSlice';
 
-export const FormUpdatedProducts = () => {
+export const FormUpdatedProducts = (idProduct) => {
 
+  console.log(idProduct);
     const dispatch = useDispatch();
     const navigate = useNavigate()
     const [image, setImage] = useState("");
@@ -83,7 +84,7 @@ export const FormUpdatedProducts = () => {
         };
   
     try {
-      await dispatch(updateProducts(nonEmptyproductData));
+      await dispatch(updateProducts(idProduct.idProduct,nonEmptyproductData));
       Swal.fire({
         title: "Éxito",
         text: "Actualización exitosa",

@@ -88,7 +88,7 @@ const getProduct = async (req, res) => {
 //@Route    PUT /api/products/update-product/
 //@Access   private
 const updateProduct = asyncHandler (async (req,res)=>{
-  
+  const {id} = req.params;
   const { name, price, category, amount, image} = req.body;
 
 
@@ -100,12 +100,7 @@ const updateProduct = asyncHandler (async (req,res)=>{
       return res.status(401).json({ status: 'Invalid Authorization Header' });
     }
 
-    // Extraer el token sin la parte "Bearer"
-    const authToken = token.split(' ')[1];
-
-    // Verificar y decodificar el token para obtener el ID de usuario
-    const decodedToken = jwt.verify(authToken, process.env.JWT_SECRET);
-    const userId = decodedToken.id;
+  
 
       // Construir el objeto de actualización con los campos correspondientes
       const updateFields = {
@@ -118,7 +113,7 @@ const updateProduct = asyncHandler (async (req,res)=>{
 
     
     // Actualizar el usuario en la base de datos
-    await Product.updateOne({ _id: userId }, { $set: updateFields });
+    await Product.updateOne({ _id: id }, { $set: updateFields });
       
     res.status(200).json({ status: 'Actualizado' });
   } catch (error) {

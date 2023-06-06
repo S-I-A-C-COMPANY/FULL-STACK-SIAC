@@ -33,11 +33,11 @@ export const createProducts = createAsyncThunk(
 // update product
 
 export const updateProducts = createAsyncThunk(
-    'auth//update-product', async(productData, thunkAPI)=>{
+    'auth//update-product', async(idProduct,productData, thunkAPI)=>{
     
         try {
             const token = thunkAPI.getState().auth.user.token
-            return await productService.updateProducts(productData, token)
+            return await productService.updateProducts(idProduct,productData, )
             // return await productService.
         } catch (error) {
             const message =
