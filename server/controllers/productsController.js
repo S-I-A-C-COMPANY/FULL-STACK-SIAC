@@ -87,41 +87,29 @@ const getProduct = async (req, res) => {
 //@Desc     update Product
 //@Route    PUT /api/products/update-product/
 //@Access   private
-const updateProduct = asyncHandler (async (req,res)=>{
-  const {id} = req.params;
-  const { name, price, category, amount, image} = req.body;
+const updateProducto = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { name, price, category, amount, image } = req.body;
 
+  try {
+    // Construir el objeto de actualización con los campos correspondientes
+    const updateFields = {
+      name: name,
+      price: price,
+      category: category,
+      amount: amount,
+      image: image
+    };
 
-    try {
-
-      // Verificar el token de autenticación
-    const token = req.headers.authorization;
-    if (!token || !token.startsWith('Bearer ')) {
-      return res.status(401).json({ status: 'Invalid Authorization Header' });
-    }
-
-  
-
-      // Construir el objeto de actualización con los campos correspondientes
-      const updateFields = {
-        name: name,
-        price: price,
-        category: category,
-        amount: amount,
-        image: image
-      };
-
-    
-    // Actualizar el usuario en la base de datos
+    // Actualizar el producto en la base de datos utilizando el modelo Product
     await Product.updateOne({ _id: id }, { $set: updateFields });
-      
+
     res.status(200).json({ status: 'Actualizado' });
   } catch (error) {
     console.log(error);
     res.status(500).json({ status: 'Something Went Wrong' });
   }
 });
-
 
 
 //@Desc     delete Product
@@ -172,7 +160,7 @@ const imgProduct = asyncHandler ( async (req,res)=>{
 module.exports = {
   registerProduct,
   getProduct,
-  updateProduct,
+  updateProducto,
   deleteProduct,
   imgProduct
 }
