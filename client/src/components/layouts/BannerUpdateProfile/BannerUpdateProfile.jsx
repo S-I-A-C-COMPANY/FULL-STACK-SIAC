@@ -4,6 +4,8 @@ import React from 'react';
 // UI
 import { ImgUI } from '../../UI/ImgUI/ImgUI'
 import { ButtonUI } from '../../UI/ButtonUI/ButtonUI'
+import { InputUI } from '../../UI/InputUI/InputUI';
+
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
@@ -27,7 +29,6 @@ export const BannerUpdateProfile = () => {
           } catch (err) {
             console.log(err);
           }
-          // console.log(datUser.name)
         };
         getInfoUser();
         },[])
@@ -36,8 +37,8 @@ export const BannerUpdateProfile = () => {
 
     return (
         <div className="banner">
-            <ImgUI style='imgUpdatedProfile' routeImg={imageBanner} />
-            <ButtonUI style='btnUpload' text='+' />
+            <ImgUI style='imgUpdatedProfile' routeImg={ datUser.image || imageBanner} />
+            <InputUI typeInpt="file"  style="inputUpload"/>
 
             <div className="groupText">
                 <p className="nameUpdatedProfile">{datUser.name}</p>
