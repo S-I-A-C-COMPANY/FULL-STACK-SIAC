@@ -25,7 +25,8 @@ export const ModalAndProducts = () => {
   const [listProduct, setProduct] = useState([]);
   const [modalCreateProductOpen, setModalCreateProductOpen] = useState(false);
   const [modalUpdatedProductOpen, setModalUpdatedProductOpen] = useState(false);
-  const [idProduct, setIdProduct] = useState('')
+  const [idProduct, setIdProduct] = useState('');
+  const [resetFormKey, setResetFormKey] = useState(0); // Nuevo estado para reiniciar el formulario
 
   const openModalCreateProduct = () => {
     setModalCreateProductOpen(true);
@@ -35,13 +36,14 @@ export const ModalAndProducts = () => {
     setModalCreateProductOpen(false);
   };
 
-  const openModalUpdatedProduct = () => {
+  const openModalUpdatedProduct = (id) => {
     setModalUpdatedProductOpen(true);
-
+    setIdProduct(id);
   };
 
   const closeModalUpdatedProduct = () => {
     setModalUpdatedProductOpen(false);
+    setResetFormKey((prevKey) => prevKey + 1); // Incrementar la clave para reiniciar el formulario
   };
 
   useEffect(() => {
@@ -59,7 +61,7 @@ export const ModalAndProducts = () => {
     return () => {
       socket.disconnect();
     };
-  }, [activeCategory,listProduct]);
+  }, [activeCategory, listProduct]);
 
   useEffect(() => {
     socket.connect();
@@ -84,7 +86,7 @@ export const ModalAndProducts = () => {
 
       <div className={`modalCreateProducts ${modalUpdatedProductOpen ? 'open' : ''}`}>
         <ButtonUI onClicks={closeModalUpdatedProduct} style='btnCloseModal' text='x' />
-        <FormUpdatedProducts idProduct={idProduct} />
+        <FormUpdatedProducts key={resetFormKey} idProduct={idProduct} onClose={closeModalUpdatedProduct} />
       </div>
 
       <div className='containerCards'>
@@ -105,7 +107,7 @@ export const ModalAndProducts = () => {
 
               <div className='containerEdits'>
                 <ButtonUI onClicks={() => dispatch(deleteProducts(producto._id))} style='btnDeleteProduct' text={<ImgUI style='iconDelete' routeImg={deleteIcon} />} />
-                <ButtonUI onClicks={() => openModalUpdatedProduct(setIdProduct(producto._id))} style='btnEditProduct' text={<ImgUI style='iconEdit' routeImg={updateIcon} />} />
+                <ButtonUI onClicks={() => openModalUpdatedProduct(producto._id)} style='btnEditProduct' text={<ImgUI style='iconEdit' routeImg={updateIcon} />} />
               </div>
             </div>
           </div>

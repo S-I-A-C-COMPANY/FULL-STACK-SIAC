@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { InputUI } from '../../UI/InputUI/InputUI';
 import { ButtonUI } from '../../UI/ButtonUI/ButtonUI';
 import axios from 'axios';
@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { updateProducts } from '../../features/products/productSlice';
 
-export const FormUpdatedProducts = ({ idProduct }) => {
+export const FormUpdatedProducts = ({ idProduct, resetForm, onClose }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -20,6 +20,8 @@ export const FormUpdatedProducts = ({ idProduct }) => {
   });
 
   const { name, price, category, amount, image } = formData;
+
+  const formRef = useRef(null);
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -66,7 +68,8 @@ export const FormUpdatedProducts = ({ idProduct }) => {
     );
 
     try {
-       dispatch(updateProducts({ idProduct, productData: nonEmptyProductData }));
+      dispatch(updateProducts({ idProduct, productData: nonEmptyProductData }));
+
       Swal.fire({
         title: 'Éxito',
         text: 'Actualización exitosa',
@@ -74,14 +77,9 @@ export const FormUpdatedProducts = ({ idProduct }) => {
         timer: 2000,
         showConfirmButton: false,
       }).then(() => {
-        setFormData({
-          name: '',
-          price: '',
-          category: '',
-          amount: '',
-          image: '',
-        });
+        formRef.current.reset(); // Restablecer el formulario
         navigate('/products');
+        onClose(); // Cerrar la modal
       });
     } catch (error) {
       Swal.fire({
@@ -97,43 +95,44 @@ export const FormUpdatedProducts = ({ idProduct }) => {
   const uploadImage = async (e) => {
     try {
       const { files } = e.target;
-    const fileName = files[0].name; // Obtener el nombre del archivo
+      const fileName = files[0].name; // Obtener el nombre del archivo
 
-    // Verificar si todos los campos del formulario han sido llenados
+      // Verificar si todos los campos del formulario han sido llenados
 
-    const data = new FormData();
-    data.append('file', files[0], fileName);
-    data.append('upload_preset', 'imageProducts');
+      const data = new FormData();
+      data.append('file', files[0], fileName);
+      data.append('upload_preset', 'imageProducts');
 
-    const res = await axios.post(
-      'https://api.cloudinary.com/v1_1/duodkaexg/image/upload',
-      data,
-      {
+      const res = await axios.post('https://api.cloudinary.com/v1_1/duodkaexg/image/upload', data, {
         params: {
           public_id: fileName, // Utilizar el nombre como el ID público
         },
-      }
-    );
+      });
 
       console.log(res.data.secure_url);
-
       setFormData((prevState) => ({
         ...prevState,
         image: res.data.secure_url,
       }));
     } catch (error) {
       console.log(error);
-      Swal.fire({
-        title: 'Error',
-        text: 'No se pudo cargar la imagen',
-        icon: 'error',
-        timer: 2000,
-        showConfirmButton: false,
-      });
     }
   };
+
+  useEffect(() => {
+    if (resetForm) {
+      setFormData({
+        name: '',
+        price: '',
+        category: '',
+        amount: '',
+        image: '',
+      });
+    }
+  }, [resetForm]);
+
   return (
-    <form className="formCreateProduct" onSubmit={onSubmit}>
+    <form className="formCreateProduct" onSubmit={onSubmit} ref={formRef}>
       <InputUI
         typeInpt="text"
         style="inputProduct"
@@ -143,7 +142,7 @@ export const FormUpdatedProducts = ({ idProduct }) => {
         valueInpt={name}
         eventInpt={onChange}
       />
-  
+
       <InputUI
         typeInpt="number"
         style="inputProduct"
@@ -153,7 +152,7 @@ export const FormUpdatedProducts = ({ idProduct }) => {
         valueInpt={price}
         eventInpt={onChange}
       />
-  
+
       <InputUI
         typeInpt="text"
         style="inputProduct"
@@ -163,7 +162,7 @@ export const FormUpdatedProducts = ({ idProduct }) => {
         valueInpt={category}
         eventInpt={onChange}
       />
-  
+
       <InputUI
         typeInpt="text"
         style="inputProduct"
@@ -173,10 +172,10 @@ export const FormUpdatedProducts = ({ idProduct }) => {
         valueInpt={amount}
         eventInpt={onChange}
       />
-  
+
       <InputUI typeInpt="file" style="inputProduct" textInpt="Inserte Imagen" eventInpt={uploadImage} />
-  
+
       <ButtonUI typeBtn="submit" style="btnCreateProduct" text="Actualizar producto" />
     </form>
   );
-  }  
+};
