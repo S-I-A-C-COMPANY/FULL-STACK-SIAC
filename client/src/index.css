@@ -2753,7 +2753,7 @@ input[type="number"]::-webkit-inner-spin-button {
   /* cartas */
   .cardUser {
     width: 25%;
-    height: 45%;
+    height: 55%;
     padding-top: 1%;
     padding-bottom: 1%;
     padding-left: 3%;
@@ -2812,6 +2812,40 @@ input[type="number"]::-webkit-inner-spin-button {
   
   .cardBack p {
     margin: 5px 0;
+  }
+
+  /* contenedor de inputs-radio */
+  .containerOptions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* border: 2px solid green; */
+    width: 80%;
+    margin-top: 5%;
+  }
+
+  .radio-text {
+    margin-left: 8px; /* Aplica un margen izquierdo para separar el texto del círculo de opción */
+  }
+
+  .btnAssignRole{
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45%;
+    height: 20%;
+    background-color: #000000;
+    color: white;
+    margin-top: 5%;
+    padding:7%;
+    border-radius: 25px;
+    border: none;
+  }
+
+  .btnAssignRole:hover{
+    background-color: #464343;
   }
 
 
@@ -3161,3 +3195,4 @@ input[type="number"]::-webkit-inner-spin-button {
   width: 20%;
   height: 80%;
 }
+
