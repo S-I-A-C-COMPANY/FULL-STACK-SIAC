@@ -34,6 +34,7 @@ export const ModalAndProducts = () => {
 
   const closeModalCreateProduct = () => {
     setModalCreateProductOpen(false);
+    setResetFormKey((prevKey) => prevKey + 1);
   };
 
   const openModalUpdatedProduct = (id) => {
@@ -81,7 +82,7 @@ export const ModalAndProducts = () => {
     <>
       <div className={`modalCreateProducts ${modalCreateProductOpen ? 'open' : ''}`}>
         <ButtonUI onClicks={closeModalCreateProduct} style='btnCloseModal' text='x' />
-        <FormCreateProducts />
+        <FormCreateProducts key={resetFormKey} onClose={closeModalCreateProduct}/>
       </div>
 
       <div className={`modalCreateProducts ${modalUpdatedProductOpen ? 'open' : ''}`}>
