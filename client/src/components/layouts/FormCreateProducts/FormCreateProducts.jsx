@@ -1,43 +1,32 @@
-import React from 'react';
-
-// UI
-import { InputUI } from '../../UI/InputUI/InputUI'
-import { ButtonUI } from '../../UI/ButtonUI/ButtonUI'
-
+import React, { useState, useRef, useEffect } from 'react';
+import { InputUI } from '../../UI/InputUI/InputUI';
+import { ButtonUI } from '../../UI/ButtonUI/ButtonUI';
 import axios from 'axios';
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux';
-
-
-import {createProducts} from '../../features/products/productSlice'
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import { createProducts } from '../../features/products/productSlice';
+import { useSelector, useDispatch } from 'react-redux';
 
-export const FormCreateProducts = () => {
-
-  const [image, setImage] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
+export const FormCreateProducts = ({ resetForm, onClose }) => {
   const [formData, setFormData] = useState({
-    name: "",
-    price: "",
-    category: "",
-    amount: "",
-    image: ""
+    name: '',
+    price: '',
+    category: '',
+    amount: '',
+    image: '',
   });
 
+  const [isUploading, setIsUploading] = useState(false);
+
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { name, price, category, amount } = formData;
 
-  
-  const { user, isError, isSuccess, message } = useSelector(
-    (state) => state.auth
-  );
+  const { isError, isSuccess, message } = useSelector((state) => state.auth);
+  const formRef = useRef(null);
 
   useEffect(() => {
-
     if (isError) {
       Swal.fire({
         icon: 'error',
@@ -49,147 +38,154 @@ export const FormCreateProducts = () => {
         timer: 2000,
       });
     }
-
-    // dispatch(reset());
-  }, [user, isError, isSuccess, message, ]);
-
+  }, [isError, isSuccess, message]);
 
   const uploadImage = async (e) => {
     try {
       const { files } = e.target;
-      const { name } = formData;
-  
-      // Verificar si todos los campos del formulario han sido llenados
-      if (!name || !formData.price || !formData.category || !formData.amount) {
-        console.log('Debe llenar todos los campos antes de cargar la imagen');
-        setImage('')
-        return;
-      }
-  
-      setLoading(true);
+
+      setIsUploading(true);
+
       const data = new FormData();
-      data.append("file", files[0], `${name}.jpg`);
-      data.append("upload_preset", "imageProducts");
+      const uniqueFileName = `${Date.now()}_${name}`;
+      data.append('file', files[0], uniqueFileName);
+      data.append('upload_preset', 'imageProducts');
 
       const res = await axios.post(
-        "https://api.cloudinary.com/v1_1/duodkaexg/image/upload",
+        'https://api.cloudinary.com/v1_1/duodkaexg/image/upload',
         data,
         {
           params: {
-            public_id: `${name}`
-          }
+            public_id: uniqueFileName,
+          },
         }
       );
-      console.log(res.data.secure_url);
-      setImage(res.data.secure_url);
-      setLoading(false);
 
-      // Actualizar el objeto formData con la URL de la imagen
+      console.log(res.data.secure_url);
       setFormData((prevState) => ({
         ...prevState,
-        image: res.data.secure_url
-      }))
+        image: res.data.secure_url,
+      }));
 
-      // Establecer la variable de estado imageLoaded en true después de cargar la imagen
-      setImageLoaded(true);
+      setIsUploading(false);
     } catch (error) {
       console.log(error);
-      setLoading(false);
-     
+      setIsUploading(false);
     }
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    // Verificar si la imagen se ha cargado antes de enviar el formulario
-    if (imageLoaded) {
-      dispatch(createProducts(formData));
+
+    // Verificar si todos los campos del formulario han sido llenados
+    if (!name || !price || !category || !amount) {
       Swal.fire({
-        title: "Exito!",
-        text: "Enviado con exito",
-        icon: "success",
+        icon: 'error',
+        title: 'Error',
+        text: 'Debe llenar todos los campos antes de enviar el formulario',
+        // toast: true,
+        // position: 'top-end',
         showConfirmButton: false,
-        confirmButtonText: "Ok",
-        timer: 2000,        
+        timer: 3000,
+      });
+      return;
+    }
+
+    // Verificar si la imagen se ha cargado antes de enviar el formulario
+    if (formData.image !== '') {
+      dispatch(createProducts(formData));
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Éxito',
+        text: 'Enviado con éxito',
+        showConfirmButton: false,
+        timer: 2000,
       }).then(() => {
         setFormData({
-          name: "",
-          price: "",
-          category: "",
-          amount: "",
-          image: ""
+          name: '',
+          price: '',
+          category: '',
+          amount: '',
+          image: '',
         });
-      navigate("/products");
-    });
-      
+        formRef.current.reset();
+        navigate('/products');
+        onClose();
+      });
     } else {
-      console.log("La imagen aún se está cargando");
+      console.log('La imagen aún se está cargando');
     }
   };
-
 
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
-  
-  }
-      
-    return (
-        <form className='formCreateProduct' onSubmit={onSubmit}>
-          <InputUI 
-          typeInpt='text' 
-          style='inputProduct' 
-          textInpt='Ingrese Nombre' 
-          idInpt="name"
-          nameInpt="name"
-          valueInpt={name}
-          eventInpt={onChange}
-          />
+  };
 
-          <InputUI 
-          typeInpt='number' 
-          style='inputProduct' 
-          textInpt='Ingrese Precio' 
-          idInpt="price"
-          nameInpt="price"
-          valueInpt={price}
-          eventInpt={onChange}
-          />
+  useEffect(() => {
+    if (resetForm) {
+      setFormData({
+        name: '',
+        price: '',
+        category: '',
+        amount: '',
+        image: '',
+      });
+    }
+  }, [resetForm]);
 
-            
-          <InputUI 
-          typeInpt='text' 
-          style='inputProduct' 
-          textInpt='Ingrese Categoria' 
-          idInpt="category"
-          nameInpt="category"
-          valueInpt={category}
-          eventInpt={onChange}
-          
-          />
-          <InputUI 
-          typeInpt='text' 
-          style='inputProduct' 
-          textInpt='Ingrese Cantidad' 
-          idInpt="amount"
-          nameInpt="amount"
-          valueInpt={amount}
-          eventInpt={onChange}
-          
-          />
-          <InputUI 
-            typeInpt="file"
-            style='inputProduct' 
-            textInpt='Inserte Imagen'
-            eventInpt={uploadImage}
-          />
+  return (
+    <form className='formCreateProduct' onSubmit={onSubmit} ref={formRef}>
+      <InputUI
+        typeInpt='text'
+        style='inputProduct'
+        textInpt='Ingrese Nombre'
+        idInpt='name'
+        nameInpt='name'
+        valueInpt={name}
+        eventInpt={onChange}
+      />
 
-          <ButtonUI typeBtn="submit"  style='btnCreateProduct' text='Crear producto' />
-        </form>
-    )
-}
+      <InputUI
+        typeInpt='number'
+        style='inputProduct'
+        textInpt='Ingrese Precio'
+        idInpt='price'
+        nameInpt='price'
+        valueInpt={price}
+        eventInpt={onChange}
+      />
 
+      <InputUI
+        typeInpt='text'
+        style='inputProduct'
+        textInpt='Ingrese Categoria'
+        idInpt='category'
+        nameInpt='category'
+        valueInpt={category}
+        eventInpt={onChange}
+      />
 
+      <InputUI
+        typeInpt='text'
+        style='inputProduct'
+        textInpt='Ingrese Cantidad'
+        idInpt='amount'
+        nameInpt='amount'
+        valueInpt={amount}
+        eventInpt={onChange}
+      />
 
+      <InputUI typeInpt='file' style='inputProduct' textInpt='Inserte Imagen' eventInpt={uploadImage} />
+
+      {isUploading ? (
+        <div className='loader'></div>
+      ) : (
+        <ButtonUI typeBtn='submit' style='btnCreateProduct' text='Crear producto' />
+      )}
+    </form>
+  );
+};
