@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { updateProducts } from '../../features/products/productSlice';
 
+
 export const FormUpdatedProducts = ({ idProduct, resetForm, onClose }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -18,6 +19,8 @@ export const FormUpdatedProducts = ({ idProduct, resetForm, onClose }) => {
     amount: '',
     image: '',
   });
+
+  const [isUploading, setIsUploading] = useState(false);
 
   const { name, price, category, amount, image } = formData;
 
@@ -97,17 +100,21 @@ export const FormUpdatedProducts = ({ idProduct, resetForm, onClose }) => {
       const { files } = e.target;
       const fileName = files[0].name; // Obtener el nombre del archivo
 
-      // Verificar si todos los campos del formulario han sido llenados
+      setIsUploading(true); // Activar la animación de carga
 
       const data = new FormData();
       data.append('file', files[0], fileName);
       data.append('upload_preset', 'imageProducts');
 
-      const res = await axios.post('https://api.cloudinary.com/v1_1/duodkaexg/image/upload', data, {
-        params: {
-          public_id: fileName, // Utilizar el nombre como el ID público
-        },
-      });
+      const res = await axios.post(
+        'https://api.cloudinary.com/v1_1/duodkaexg/image/upload',
+        data,
+        {
+          params: {
+            public_id: fileName, // Utilizar el nombre como el ID público
+          },
+        }
+      );
 
       console.log(res.data.secure_url);
       setFormData((prevState) => ({
@@ -116,6 +123,8 @@ export const FormUpdatedProducts = ({ idProduct, resetForm, onClose }) => {
       }));
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsUploading(false); // Desactivar la animación de carga
     }
   };
 
@@ -175,7 +184,11 @@ export const FormUpdatedProducts = ({ idProduct, resetForm, onClose }) => {
 
       <InputUI typeInpt="file" style="inputProduct" textInpt="Inserte Imagen" eventInpt={uploadImage} />
 
-      <ButtonUI typeBtn="submit" style="btnCreateProduct" text="Actualizar producto" />
+      {isUploading ? (
+        <div className="loader"></div>
+      ) : (
+        <ButtonUI typeBtn="submit" style="btnCreateProduct" text="Actualizar producto" />
+      )}
     </form>
   );
 };
