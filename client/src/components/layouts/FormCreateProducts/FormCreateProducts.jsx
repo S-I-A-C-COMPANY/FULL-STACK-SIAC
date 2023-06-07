@@ -12,7 +12,6 @@ export const FormCreateProducts = ({ resetForm, onClose }) => {
     name: '',
     price: '',
     category: '',
-    amount: '',
     image: '',
   });
 
@@ -21,7 +20,7 @@ export const FormCreateProducts = ({ resetForm, onClose }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { name, price, category, amount } = formData;
+  const { name, price, category } = formData;
 
   const { isError, isSuccess, message } = useSelector((state) => state.auth);
   const formRef = useRef(null);
@@ -78,7 +77,7 @@ export const FormCreateProducts = ({ resetForm, onClose }) => {
     e.preventDefault();
 
     // Verificar si todos los campos del formulario han sido llenados
-    if (!name || !price || !category || !amount) {
+    if (!name || !price || !category) {
       Swal.fire({
         icon: 'error',
         title: 'Error',
@@ -106,7 +105,6 @@ export const FormCreateProducts = ({ resetForm, onClose }) => {
           name: '',
           price: '',
           category: '',
-          amount: '',
           image: '',
         });
         formRef.current.reset();
@@ -131,7 +129,6 @@ export const FormCreateProducts = ({ resetForm, onClose }) => {
         name: '',
         price: '',
         category: '',
-        amount: '',
         image: '',
       });
     }
@@ -166,16 +163,6 @@ export const FormCreateProducts = ({ resetForm, onClose }) => {
         idInpt='category'
         nameInpt='category'
         valueInpt={category}
-        eventInpt={onChange}
-      />
-
-      <InputUI
-        typeInpt='text'
-        style='inputProduct'
-        textInpt='Ingrese Cantidad'
-        idInpt='amount'
-        nameInpt='amount'
-        valueInpt={amount}
         eventInpt={onChange}
       />
 

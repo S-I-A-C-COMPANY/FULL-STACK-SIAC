@@ -31,7 +31,7 @@ export const BannerProfile = () => {
 
   return (
     <div className="bannerProfile">
-      <ImgUI style="imgProfile" routeImg={imageBanner} />
+      <ImgUI style="imgProfile" routeImg={ datUser.image|| imageBanner} />
       <p className="nameProfile">{datUser.name}</p>
     </div>
   );

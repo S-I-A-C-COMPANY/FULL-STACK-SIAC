@@ -16,11 +16,6 @@ const productSchema = mongoose.Schema({
         type: String,
         required: [true, 'Please add an category'],
     },
-    amount: {
-        type: String,
-        required: [true, 'Please add an amount'],
-    },
-    
     image: {
         type: String,
         required: [true, 'Please add an image'],

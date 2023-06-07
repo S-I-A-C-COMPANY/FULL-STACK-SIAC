@@ -29,6 +29,11 @@ const userSchema = mongoose.Schema({
         type: String,
         required: [true, 'Please add a password']
     }, 
+     image: {
+        type: String,
+        required: [false, 'Please add an image'],
+    },
+
     roles: {
         
           type: mongoose.Schema.Types.ObjectId,

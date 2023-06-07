@@ -104,7 +104,6 @@ export const ModalAndProducts = () => {
               <h3 className='nameOrder'>Nombre: {producto.name}</h3>
               <p className='priceOrder'>Precio: {producto.price}</p>
               <p className='categoryProduct'>Categoria: {producto.category}</p>
-              <p className='amountProduct'>Cantidad: {producto.amount}</p>
 
               <div className='containerEdits'>
                 <ButtonUI onClicks={() => dispatch(deleteProducts(producto._id))} style='btnDeleteProduct' text={<ImgUI style='iconDelete' routeImg={deleteIcon} />} />

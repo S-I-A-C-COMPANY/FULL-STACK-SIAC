@@ -8,9 +8,9 @@ const { cloudinary } = require('../utils/cloudinary');
 //@Route    POST /api/products/register-products
 //@Access   Public
 const registerProduct = asyncHandler(async (req, res) => {
-  const { name, price, category, amount, image } = req.body;
+  const { name, price, category, image } = req.body;
 
-  if (!name || !price || !category || !amount || !image) {
+  if (!name || !price || !category || !image) {
     res.status(400);
     throw new Error('Please add all fields');
   }
@@ -29,7 +29,6 @@ const registerProduct = asyncHandler(async (req, res) => {
       name,
       price,
       category,
-      amount,
       image
     });
 
@@ -41,7 +40,6 @@ const registerProduct = asyncHandler(async (req, res) => {
         name: product.name,
         price: product.price,
         category: product.category,
-        amount: product.amount,
         image: product.image
       });
     } else {
@@ -89,7 +87,7 @@ const getProduct = async (req, res) => {
 //@Access   private
 const updateProducto = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { name, price, category, amount, image } = req.body;
+  const { name, price, category, image } = req.body;
 
   try {
     // Construir el objeto de actualización con los campos correspondientes
@@ -97,7 +95,6 @@ const updateProducto = asyncHandler(async (req, res) => {
       name: name,
       price: price,
       category: category,
-      amount: amount,
       image: image
     };
 

@@ -16,13 +16,12 @@ export const FormUpdatedProducts = ({ idProduct, resetForm, onClose }) => {
     name: '',
     price: '',
     category: '',
-    amount: '',
     image: '',
   });
 
   const [isUploading, setIsUploading] = useState(false);
 
-  const { name, price, category, amount, image } = formData;
+  const { name, price, category,image } = formData;
 
   const formRef = useRef(null);
 
@@ -36,7 +35,7 @@ export const FormUpdatedProducts = ({ idProduct, resetForm, onClose }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const isEmptyFields = !name || !price || !category || !amount || !image;
+    const isEmptyFields = !name || !price || !category  || !image;
 
     if (isEmptyFields) {
       const confirmResult = await Swal.fire({
@@ -61,7 +60,6 @@ export const FormUpdatedProducts = ({ idProduct, resetForm, onClose }) => {
       name,
       price,
       category,
-      amount,
       image,
     };
 
@@ -134,7 +132,6 @@ export const FormUpdatedProducts = ({ idProduct, resetForm, onClose }) => {
         name: '',
         price: '',
         category: '',
-        amount: '',
         image: '',
       });
     }
@@ -172,15 +169,6 @@ export const FormUpdatedProducts = ({ idProduct, resetForm, onClose }) => {
         eventInpt={onChange}
       />
 
-      <InputUI
-        typeInpt="text"
-        style="inputProduct"
-        textInpt="Ingrese Cantidad"
-        idInpt="amount"
-        nameInpt="amount"
-        valueInpt={amount}
-        eventInpt={onChange}
-      />
 
       <InputUI typeInpt="file" style="inputProduct" textInpt="Inserte Imagen" eventInpt={uploadImage} />
 
