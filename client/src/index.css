@@ -3003,7 +3003,10 @@ input[type="number"]::-webkit-inner-spin-button {
   /* border: 2px solid black; */
 }
 
-.containerIcon{
+.containerIconToCart{
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 15%;
   height: 100%;
   background-color: white;
