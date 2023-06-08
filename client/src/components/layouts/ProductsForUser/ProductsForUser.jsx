@@ -27,16 +27,18 @@ export const ProductsUser = () => {
   
     const [listProduct, setProduct] = useState([]);
 
-    const addToCar = () => {
-      Swal.fire({
-        icon: 'success',
-        title: 'Mensaje',
-        text: 'Agregado al carrito',
-        toast: true,
-        position: 'top-right',
-        showConfirmButton: false,
-        timer: 2000,
-      });
+    const addToCar = (producto) => {
+
+      console.log(producto);
+    //   Swal.fire({
+    //     icon: 'success',
+    //     title: 'Mensaje',
+    //     text: 'Agregado al carrito',
+    //     toast: true,
+    //     position: 'top-right',
+    //     showConfirmButton: false,
+    //     timer: 2000,
+    //   });
     }
   
   
@@ -76,8 +78,11 @@ export const ProductsUser = () => {
 
   return (
     <>
+    {listProduct.length === 0 ? (
+      
+      <p className='cart-empty'>No hay productos disponibles</p>
+    ) : (
       <div className='containerCards'>
-
         {listProduct.map((producto) => (
           <div key={producto._id} className='cardOrderUser'>
             <div className='containerImgOrder'>
@@ -88,13 +93,14 @@ export const ProductsUser = () => {
               <p className='categoryProduct'>Categoria: {producto.category}</p>
               <div className='containerButtons'>
                 <p className='priceOrderUser'>${producto.price}</p>
-                <ButtonUI onClicks={() => addToCar()} style='btnAddToCar' text='+' />
+                <ButtonUI onClicks={() => addToCar(producto)} style='btnAddToCar' text='+' />
               </div>
 
             </div>
           </div>
         ))}
       </div>
+    )}
     </>
   );
 };
