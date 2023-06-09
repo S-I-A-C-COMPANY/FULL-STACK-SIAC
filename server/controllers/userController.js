@@ -56,7 +56,8 @@ const registerUser = asyncHandler(async (req, res) => {
       email: savedUser.email,
       token: generateToken(savedUser._id),
       phone: savedUser.phone,
-      address: savedUser.address
+      address: savedUser.address,
+      roles: savedUser.roles
     });
   } else {
     res.status(400);
@@ -117,8 +118,11 @@ const getMe = asyncHandler(async (req, res) => {
 //@Route    GET /api/users/all
 //@Access   Private
 const getUsers = asyncHandler(async(req,res)=>{
-    const users = await User.find()
+    const users = await User.find().populate('roles', 'name');
     res.json(users)
+    
+
+  
     
 })
 
@@ -126,79 +130,68 @@ const getUsers = asyncHandler(async(req,res)=>{
 //@Desc     Forgot Password
 //@Route    POST /api/users/forgot-password
 //@Access   Public
-const forgotPw = asyncHandler(async(req,res)=>{
-  
-      const {email} = req.body
+const forgotPw = asyncHandler(async (req, res) => {
+  const { email } = req.body;
 
-        const authEmail = await User.findOne({email})
-        if(!email){
-            // res.status(400).json({stack: "invalid data"})
-            res.status(400)
-            throw new Error('Valide los campos')
-            
-        }else{
+  const authEmail = await User.findOne({ email });
+  if (!authEmail) {
+    res.status(400);
+    throw new Error('Invalid email');
+  } else {
+    const secretKey = process.env.JWT_SECRET + authEmail.password;
+    const token = jwt.sign({ email: authEmail.email, id: authEmail._id }, secretKey, {
+      expiresIn: '5m',
+    });
+    const linkReset = `<a href="http://localhost:5000/api/users/reset-password/${authEmail._id}/${token}">Click For Reset<a/>`;
 
-
-        const secretKey = process.env.JWT_SECRET + authEmail.password
-        const token = jwt.sign({email: authEmail.email, id: authEmail._id}, secretKey, {
-            expiresIn: "5m"
-        })
-        // const linkReset = `<a href="'https://backend-render-corp.onrender.com/api/users/reset-password/${authEmail._id}/${token}">Click For Reset<a/>`;
-        const linkReset = `<a href="http://localhost:5000/api/users/reset-password/${authEmail._id}/${token}">Click For Reset<a/>`;
-        
-        contentHTML = `
-        <h1>User Information</h1>
-        <p>"Desde la logistica de SIAC CORPORATION le hacemos envio de su link para el restablecimiento de su contraseña. 
-        Muchas Gracias por usar nuestro aplicativo."</p>
-        <ul>
-            <li>Reset Password: ${linkReset}</li>
-        </ul>
+    const contentHTML = `
+      <h1>User Information</h1>
+      <p>Desde la logistica de SIAC CORPORATION le hacemos envio de su link para el restablecimiento de su contraseña. 
+      Muchas Gracias por usar nuestro aplicativo.</p>
+      <ul>
+        <li>Reset Password: ${linkReset}</li>
+      </ul>
     `;
-        let transporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-              user: "corporationsiac@gmail.com",
-              pass: "mwbtsbmxjymgkhgu",
-            },
-          });
-      
-          let mailOptions = {
-            from: '"SIAC COMPANY" <corporationsiac@gmail.com>',
-            to: authEmail.email,
-            subject: "Forgot password ✔",
-            html: contentHTML,
-          };
-      
-          transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-              // res.status(400).json({stack: "Email error"})
-              res.status(400)
-              throw new Error('Email error')
-            } else {
-              
-               res.json({
-                email: authEmail.email
-              })
-              console.log("Env");
-              //  throw new Error("Envio Exitoso")
-           }
-          });
-          
-  
-        }
-         
-      });
+
+    let transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'corporationsiac@gmail.com',
+        pass: 'mwbtsbmxjymgkhgu',
+      },
+    });
+
+    let mailOptions = {
+      from: '"SIAC COMPANY" <corporationsiac@gmail.com>',
+      to: authEmail.email,
+      subject: 'Forgot password ✔',
+      html: contentHTML,
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        res.status(400);
+        throw new Error('Email error');
+      } else {
+        res.json({
+          email: authEmail.email,
+        });
+        console.log('Envio Exitoso');
+      }
+    });
+  }
+});
 
 //@Desc     Reset Password
-//@Route    POST /api/users/reset-password
+//@Route    POST /api/users/reset-password/:id/:token
 //@Access   Public
-const resetUpdate = asyncHandler( async (req, res) => {
+const resetUpdate = asyncHandler(async (req, res) => {
   const { id, token } = req.params;
   const { password } = req.body;
 
   const authEmail = await User.findOne({ _id: id });
   if (!authEmail) {
-    return res.json({ status: "User Not Exists!!" });
+    return res.json({ status: 'User Not Exists!!' });
   }
   const secret = process.env.JWT_SECRET + authEmail.password;
   try {
@@ -215,13 +208,13 @@ const resetUpdate = asyncHandler( async (req, res) => {
       }
     );
 
-    res.json({ email: verify.email, data: password,  status: "verified" });
+    res.json({ email: verify.email, data: password, status: 'verified' });
   } catch (error) {
     console.log(error);
-    res.json({ status: "Something Went Wrong" });
-    
+    res.json({ status: 'Something Went Wrong' });
   }
 });
+
 
 // //@Desc     Update Information
 // //@Route    PUT /api/users/updateInfo/:id
@@ -352,8 +345,35 @@ const profileUser = asyncHandler(async (req, res) => {
   }
 });
 
+//@Desc     Update Information
+//@Route    PUT /api/users/update-role
+//@Access   Private
 
+const roleUser = asyncHandler(async (req, res) => {
 
+  const { userId, roles } = req.body;
+
+  console.log(userId,roles);
+  const userExists = await User.findById(userId);
+  if (userExists) {
+
+  try {
+   
+    // Construir el objeto de actualización con los campos correspondientes
+    const updateFields = {
+      roles: roles,
+    };
+
+    // Actualizar el usuario en la base de datos
+    await User.updateOne({ _id: userId }, { $set: updateFields });
+
+    res.status(200).json({ status: 'Actualizado' });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ status: 'Something Went Wrong' });
+  }
+}
+});
 
 
 
@@ -372,6 +392,7 @@ module.exports = {
     forgotPw,
     resetUpdate,
     // updateUsers,
+    roleUser,
     deleteUser,
     profileUser,
     getUsers

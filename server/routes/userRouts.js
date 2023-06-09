@@ -10,7 +10,8 @@ const {
     updateUsers,
     deleteUser,
     profileUser,
-    getUsers
+    getUsers,
+    roleUser
 } = require("../controllers/userController")
 
 
@@ -20,13 +21,14 @@ router.post('/login', loginUser)
 router.post('/forgot-password', forgotPw)
 router.post('/reset-password/:id/:token', resetUpdate)
 // ruta para actualizar
-// router.put('/updateInfo/:id',protect ,updateUsers)
+
 router.delete('/deleteUser/:id',protect ,deleteUser)
 
 router.get('/all', getUsers)
 router.get('/me',protect,getMe)
-router.put('/update-profile',protect, profileUser)
 
+router.put('/update-profile',protect, profileUser)
+router.put('/update-role',roleUser)
 
 
 module.exports = router

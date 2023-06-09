@@ -68,7 +68,7 @@ export const ContainerFormResetPass = () => {
             passwordAuth,
         };
 
-        dispatch(forgotPass(userData));
+        // dispatch(forgotPass(userData));
     }
 
     return (

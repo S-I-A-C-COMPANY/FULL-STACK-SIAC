@@ -19,8 +19,8 @@ export const RadioButtonGroup = ({ groupId ,onOptionChange }) => {
             <InputUI 
                 typeInpt='radio'
                 nameInpt={`radioGroup-${groupId}`}
-                valueInpt="Mesero"
-                checked={selectedOption === 'Mesero'}
+                valueInpt="6436cfad37e8445eaf93aec3"
+                checked={selectedOption === '6436cfad37e8445eaf93aec3'}
                 eventInpt={handleOptionChange}
             />
                 <span className="radio-text">Mesero</span>
@@ -29,8 +29,8 @@ export const RadioButtonGroup = ({ groupId ,onOptionChange }) => {
             <InputUI 
                 typeInpt='radio'
                 nameInpt={`radioGroup-${groupId}`}
-                valueInpt="Jefe de cocina"
-                checked={selectedOption === 'Jefe de cocina'}
+                valueInpt="6436cfad37e8445eaf93aec2"
+                checked={selectedOption === '6436cfad37e8445eaf93aec2'}
                 eventInpt={handleOptionChange}
             />
                 <span className="radio-text">Jefe de cocina</span>
