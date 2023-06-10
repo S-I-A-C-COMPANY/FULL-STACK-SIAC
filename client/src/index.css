@@ -2238,6 +2238,66 @@ li {
   background-color: #fff6f5;
 }
 
+
+.inputProducts {
+  display: flex;
+  flex-direction: column;
+  margin: 2%;
+  width: 75%; 
+}
+
+.inputProductLabel {
+  width: 100%;
+  margin-bottom: 5px;
+}
+.inputProducts .react-select-container {
+  width: 100%; /* Asegura que el contenedor del Select ocupe todo el ancho del contenedor */
+}
+.inputProductSelect{
+  display: flex;
+  justify-content: center;
+  
+}
+.inputProductSelect .custom-select__control {
+  height: 40px;
+  font-family: inherit;
+}
+
+.inputProductSelect .custom-select__control,
+.inputProductSelect .custom-select__menu {
+  border: 2px solid #cf6406;
+  border-radius: 8px;
+}
+
+.inputProductSelect .custom-select__indicator-separator {
+  display: none;
+}
+
+.inputProductSelect .custom-select__single-value {
+  color: #333;
+}
+
+.inputProductSelect .custom-select__menu {
+  margin-top: 0;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.inputProductSelect .custom-select__option {
+  color: #333;
+  padding: 8px 12px;
+}
+
+.inputProductSelect .custom-select__option--is-selected {
+  background-color: #f0f0f0;
+}
+
+.inputProductSelect .custom-select__option--is-focused {
+  background-color: #e0e0e0;
+}
+
+
+
 input:focus{
   outline: none;
 }
@@ -2251,8 +2311,8 @@ input[type="number"]::-webkit-inner-spin-button {
 .btnCreateProduct{
   cursor: pointer;
   border: none;
-  width: 25%;
-  height: 8%;
+  width: 28%;
+  height: 10%;
   font-size: 18px;
   border-radius: 25px;
   background-color: #FF5C00;
@@ -2438,6 +2498,18 @@ input[type="number"]::-webkit-inner-spin-button {
     font-size: 18px;
   }
   
+  .custom-select {
+    /* Agrega estilos personalizados al componente Select */
+    width: 200px;
+  }
+  
+ 
+  
+ 
+
+
+
+  
   .active{
     display: flex;
   justify-content: flex-end;
@@ -2604,8 +2676,8 @@ input[type="number"]::-webkit-inner-spin-button {
 .btnCreateProduct{
   cursor: pointer;
   border: none;
-  width: 25%;
-  height: 8%;
+  width: 35%;
+  height: 10%;
   font-size: 18px;
   border-radius: 25px;
   background-color: #FF5C00;

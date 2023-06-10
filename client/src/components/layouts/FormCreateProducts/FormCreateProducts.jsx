@@ -142,6 +142,7 @@ export const FormCreateProducts = ({ resetForm, onClose }) => {
 
   return (
     <form className='formCreateProduct' onSubmit={onSubmit} >
+      <h1>Crear Producto</h1>
       <InputUI
         typeInpt='text'
         style='inputProduct'
@@ -162,14 +163,22 @@ export const FormCreateProducts = ({ resetForm, onClose }) => {
         eventInpt={onChange}
       />
 
-      <div className='inputProduct'>
-        <label htmlFor='category'>Seleccione Categoría</label>
-        <Select
-          options={categoryOptions}
-          value={selectedCategory}
-          onChange={handleCategoryChange}
-        />
+      <div className="inputProducts">
+        <label className="inputProductLabel" htmlFor="inputProducts">
+          Seleccione Categoría
+        </label>
+        <div className="inputProductSelect">
+          <Select
+            options={categoryOptions}
+            value={selectedCategory}
+            placeholder="Categorias"
+            onChange={handleCategoryChange}
+            classNamePrefix="custom-select"
+            className="custom-select"
+          />
+        </div>
       </div>
+
 
       <InputUI typeInpt='file' style='inputProduct' textInpt='Inserte Imagen' eventInpt={uploadImage} />
 

@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { updateProducts } from '../../features/products/productSlice';
+import Select from 'react-select';
+
 
 
 export const FormUpdatedProducts = ({ idProduct, resetForm, onClose }) => {
@@ -20,10 +22,17 @@ export const FormUpdatedProducts = ({ idProduct, resetForm, onClose }) => {
   });
 
   const [isUploading, setIsUploading] = useState(false);
+  const [categoryOptions, setCategoryOptions] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   const { name, price, category,image } = formData;
 
   const formRef = useRef(null);
+
+  useEffect(() => {
+    loadCategoryOptions();
+  }, [onClose]);
+
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -93,6 +102,21 @@ export const FormUpdatedProducts = ({ idProduct, resetForm, onClose }) => {
     }
   };
 
+  const loadCategoryOptions = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/products/categories');
+      const formattedOptions = response.data.map((category) => ({
+        value: category.name,
+        label: category.name,
+      }));
+
+      setCategoryOptions(formattedOptions);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
   const uploadImage = async (e) => {
     try {
       const { files } = e.target;
@@ -137,8 +161,17 @@ export const FormUpdatedProducts = ({ idProduct, resetForm, onClose }) => {
     }
   }, [resetForm]);
 
+  const handleCategoryChange = (selectedOption) => {
+    setSelectedCategory(selectedOption);
+    setFormData((prevState) => ({
+      ...prevState,
+      category: selectedOption ? selectedOption.value : '',
+    }));
+  };
+
   return (
     <form className="formCreateProduct" onSubmit={onSubmit} ref={formRef}>
+      <h1>Actualizar Producto</h1>
       <InputUI
         typeInpt="text"
         style="inputProduct"
@@ -159,15 +192,21 @@ export const FormUpdatedProducts = ({ idProduct, resetForm, onClose }) => {
         eventInpt={onChange}
       />
 
-      <InputUI
-        typeInpt="text"
-        style="inputProduct"
-        textInpt="Ingrese Categoria"
-        idInpt="category"
-        nameInpt="category"
-        valueInpt={category}
-        eventInpt={onChange}
-      />
+    <div className="inputProducts">
+        <label className="inputProductLabel" htmlFor="inputProducts">
+          Seleccione Categoría
+        </label>
+        <div className="inputProductSelect">
+          <Select
+            options={categoryOptions}
+            value={selectedCategory}
+            placeholder="Categorias"
+            onChange={handleCategoryChange}
+            classNamePrefix="custom-select"
+            className="custom-select"
+          />
+        </div>
+      </div>
 
 
       <InputUI typeInpt="file" style="inputProduct" textInpt="Inserte Imagen" eventInpt={uploadImage} />
