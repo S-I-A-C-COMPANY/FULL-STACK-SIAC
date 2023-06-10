@@ -19,15 +19,12 @@ import { deleteProducts } from '../../features/products/productSlice';
 const socket = io('http://localhost:5000');
 
 export const ModalAndProducts = () => {
-  const { activeCategory } = useContext(ModalAndProductsContext);
-  const [listProduct, setProduct] = useState([]);
+  const { activeCategory, listProduct, setProduct, categoryContent } = useContext(ModalAndProductsContext);
   const [modalCreateProductOpen, setModalCreateProductOpen] = useState(false);
   const [modalUpdatedProductOpen, setModalUpdatedProductOpen] = useState(false);
   const [idProduct, setIdProduct] = useState('');
-  const [resetFormKey, setResetFormKey] = useState(0); // Nuevo estado para reiniciar el formulario
-  
-  const [shouldReloadApi, setShouldReloadApi] = useState(false); // Estado para indicar si se debe recargar la API
-
+  const [resetFormKey, setResetFormKey] = useState(0);
+  const [shouldReloadApi, setShouldReloadApi] = useState(false);
   const dispatch = useDispatch();
 
   const openModalCreateProduct = () => {
@@ -99,7 +96,7 @@ export const ModalAndProducts = () => {
       // Eliminar el producto del frontend
       setProduct((prevListProduct) => prevListProduct.slice(0, -1));
 
-      
+     
     }
   };
 
@@ -120,11 +117,10 @@ export const ModalAndProducts = () => {
           <ButtonUI onClicks={openModalCreateProduct} style='btnOpenModal' text='+' />
         </div>
 
-
-        {
-        listProduct.map((producto) => (
-
-          
+        {categoryContent==false ? (
+          <p className='emptyProducts'>No hay productos en la categoría activa.</p>
+        ) : (
+          listProduct.map((producto) => (
           <div key={producto._id} className='cardOrder'>
             <div className='containerImgOrder'>
               <ImgUI style='imgOrder' routeImg={producto.image} />
@@ -140,7 +136,7 @@ export const ModalAndProducts = () => {
               </div>
             </div>
           </div>
-        ))}
+        )))}
       </div>
     </>
   );
