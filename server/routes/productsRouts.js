@@ -12,7 +12,7 @@ const { registerProduct, deleteProduct, getProduct, imgProduct} = require("../co
 //registar un producto
 router.post('/register-products', registerProduct)
 //traer productos especificos categoria
-router.get('/all/:name', getProduct)
+router.get('/all', getProduct)
 
 
 //traer todos productos

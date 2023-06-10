@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ModalAndProductsContext } from '../ContainerProducts/ContainerProducts';
 
 export const ContainerCategories = () => {
-  const { setActiveCategory, listProduct, categoryContent, setcategoryContent } = useContext(ModalAndProductsContext);
+  const { setActiveCategory, listProduct,  setCategoryContent } = useContext(ModalAndProductsContext);
   const [activeLink, setActiveLink] = useState(0);
 
   const onClickLink = (i) => {
@@ -14,7 +14,7 @@ export const ContainerCategories = () => {
     setActiveCategory(category);
 
     if (category.toLowerCase() === 'all') {
-      setcategoryContent(true);
+      setCategoryContent(true);
       listProduct.forEach((producto) => {
         console.log(producto.name);
       });
@@ -24,10 +24,10 @@ export const ContainerCategories = () => {
       });
 
       if (filteredProducts.length === 0) {
-        setcategoryContent(false);
+        setCategoryContent(false);
         // console.log(`No hay productos en la categoría ${category}.`);
       } else {
-        setcategoryContent(true);
+        setCategoryContent(true);
       }
     }
   }

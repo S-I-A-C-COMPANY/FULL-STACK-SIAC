@@ -60,15 +60,13 @@ const registerProduct = asyncHandler(async (req, res) => {
 //@Route    GET /api/all/:category
 //@Access   Private
 const getProduct = async (req, res) => {
-  const { name } = req.params;
+  
   let products = {};
 
   try {
-    if (name === "all" || name === "all" ) {
+ 
       products = await Product.find();
-    } else {
-      products = await Product.find({ category: name });
-    }
+    
 
     if (products.length > 0) {
       res.status(200).json(products);
@@ -90,6 +88,12 @@ const updateProducto = asyncHandler(async (req, res) => {
   const { name, price, category, image } = req.body;
 
   try {
+    // Verificar si hay otro producto con el mismo nombre
+    const existingProduct = await Product.findOne({ name: name, _id: { $ne: id } });
+    if (existingProduct) {
+      return res.status(400).json({ status: 'Error', message: 'Ya existe otro producto con el mismo nombre' });
+    }
+
     // Construir el objeto de actualización con los campos correspondientes
     const updateFields = {
       name: name,
@@ -107,6 +111,7 @@ const updateProducto = asyncHandler(async (req, res) => {
     res.status(500).json({ status: 'Something Went Wrong' });
   }
 });
+
 
 
 //@Desc     delete Product

@@ -8,15 +8,17 @@ export const ModalAndProductsContext = createContext();
 export const ContainerProducts = () => {
   const [activeCategory, setActiveCategory] = useState('All');
   const [listProduct, setProduct] = useState([]);
-  const [categoryContent, setcategoryContent] = useState(null);
+  const [categoryContent, setCategoryContent] = useState([]);
 
   return (
     <div className="containerProducts">
       <ContainerTittleMenu />
 
       {/* Proveedor del contexto ModalAndProductsContext */}
-      <ModalAndProductsContext.Provider value={{ activeCategory, setActiveCategory, listProduct, setProduct, categoryContent, setcategoryContent }}>
-        <ContainerCategories />
+      <ModalAndProductsContext.Provider
+      value={{setActiveCategory, activeCategory, listProduct, setProduct, categoryContent, setCategoryContent }}
+    >
+      <ContainerCategories />
         <ModalAndProducts />
       </ModalAndProductsContext.Provider>
     </div>
