@@ -6,7 +6,14 @@ const router = express.Router();
 // Actualizar un producto
 router.put('/update-products/:id', updateProducto,protect);
 
-const { registerProduct, deleteProduct, getProduct, imgProduct} = require("../controllers/productsController")
+const { 
+    registerProduct, 
+    deleteProduct, 
+    getProduct, 
+    imgProduct, 
+    uploadCategory, 
+    allCategories, 
+    delCategories} = require("../controllers/productsController")
 
 
 //registar un producto
@@ -19,6 +26,11 @@ router.get('/all', getProduct)
 // router.get('/all-product', allProduct)
 
 //borrar un producto
+router.post('/uploadCategory',uploadCategory)
+router.get('/categories', allCategories)
+router.delete('/delCategories/:id', delCategories)
+
+
 router.delete('/delete-products/:id', deleteProduct)
 router.post('/uploadImg',protect, imgProduct)
 

@@ -1,3 +1,4 @@
+const Category = require('../model/categoryModel');
 const Role = require("../model/roleModel");
 
 const createRoles = async()=>{
@@ -18,6 +19,27 @@ try {
      }
 }
 
+
+
+
+const createCategories = async () => {
+  try {
+    const count = await Category.estimatedDocumentCount();
+
+    if (count > 0) return;
+
+    const values = await Promise.all([
+      new Category({ name: 'All' }).save(),
+    ]);
+
+    console.log(`Categories data created: ${values}`);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
 module.exports = {
-    createRoles
+    createRoles,
+    createCategories
 }

@@ -3,7 +3,7 @@ const colors = require('colors')
 const dotenv = require("dotenv").config() //variables de entorno //config archivo de var
 const { connectDB } = require("./config/db")
 const {errorHandler} = require("./middleware/errorMiddleware")
-const {createRoles} = require("./libs/initialSetup")
+const {createRoles, createCategories} = require("./libs/initialSetup")
 const http = require("http")
 // sockets
 const { Server } = require("socket.io")
@@ -42,8 +42,15 @@ app.use((req, res, next) => {
 //     });
 // });
 
-createRoles()
-connectDB()
+connectDB().then(() => {
+  createRoles();
+  createCategories();
+  // Resto del código
+}).catch((error) => {
+  console.error('Error al conectar a la base de datos:', error);
+  process.exit(1); // Salir del proceso en caso de error
+});
+
 
 app.use(express.json()) //leer body
 app.use(express.urlencoded({extended: false})) //leer URL

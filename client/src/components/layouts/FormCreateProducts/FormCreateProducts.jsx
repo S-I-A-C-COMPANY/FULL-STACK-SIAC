@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import Select from 'react-select';
 import { InputUI } from '../../UI/InputUI/InputUI';
 import { ButtonUI } from '../../UI/ButtonUI/ButtonUI';
 import axios from 'axios';
@@ -6,7 +7,6 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { createProducts } from '../../features/products/productSlice';
 import { useSelector, useDispatch } from 'react-redux';
-
 export const FormCreateProducts = ({ resetForm, onClose }) => {
   const [formData, setFormData] = useState({
     name: '',
@@ -16,14 +16,19 @@ export const FormCreateProducts = ({ resetForm, onClose }) => {
   });
 
   const [isUploading, setIsUploading] = useState(false);
+  const [categoryOptions, setCategoryOptions] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { name, price, category } = formData;
+  const { name, price } = formData;
 
   const { isError, isSuccess, message } = useSelector((state) => state.auth);
-  const formRef = useRef(null);
+
+  useEffect(() => {
+    loadCategoryOptions();
+  }, [onClose]);
 
   useEffect(() => {
     if (isError) {
@@ -39,6 +44,20 @@ export const FormCreateProducts = ({ resetForm, onClose }) => {
     }
   }, [isError, isSuccess, message]);
 
+  const loadCategoryOptions = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/products/categories');
+      const formattedOptions = response.data.map((category) => ({
+        value: category.name,
+        label: category.name,
+      }));
+
+      setCategoryOptions(formattedOptions);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const uploadImage = async (e) => {
     try {
       const { files } = e.target;
@@ -50,17 +69,12 @@ export const FormCreateProducts = ({ resetForm, onClose }) => {
       data.append('file', files[0], uniqueFileName);
       data.append('upload_preset', 'imageProducts');
 
-      const res = await axios.post(
-        'https://api.cloudinary.com/v1_1/duodkaexg/image/upload',
-        data,
-        {
-          params: {
-            public_id: uniqueFileName,
-          },
-        }
-      );
+      const res = await axios.post('https://api.cloudinary.com/v1_1/duodkaexg/image/upload', data, {
+        params: {
+          public_id: uniqueFileName,
+        },
+      });
 
-      console.log(res.data.secure_url);
       setFormData((prevState) => ({
         ...prevState,
         image: res.data.secure_url,
@@ -76,21 +90,17 @@ export const FormCreateProducts = ({ resetForm, onClose }) => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    // Verificar si todos los campos del formulario han sido llenados
-    if (!name || !price || !category) {
+    if (!name || !price || !selectedCategory) {
       Swal.fire({
         icon: 'error',
         title: 'Error',
         text: 'Debe llenar todos los campos antes de enviar el formulario',
-        // toast: true,
-        // position: 'top-end',
         showConfirmButton: false,
         timer: 3000,
       });
       return;
     }
 
-    // Verificar si la imagen se ha cargado antes de enviar el formulario
     if (formData.image !== '') {
       dispatch(createProducts(formData));
 
@@ -107,7 +117,6 @@ export const FormCreateProducts = ({ resetForm, onClose }) => {
           category: '',
           image: '',
         });
-        formRef.current.reset();
         navigate('/products');
         onClose();
       });
@@ -123,19 +132,16 @@ export const FormCreateProducts = ({ resetForm, onClose }) => {
     }));
   };
 
-  useEffect(() => {
-    if (resetForm) {
-      setFormData({
-        name: '',
-        price: '',
-        category: '',
-        image: '',
-      });
-    }
-  }, [resetForm]);
+  const handleCategoryChange = (selectedOption) => {
+    setSelectedCategory(selectedOption);
+    setFormData((prevState) => ({
+      ...prevState,
+      category: selectedOption ? selectedOption.value : '',
+    }));
+  };
 
   return (
-    <form className='formCreateProduct' onSubmit={onSubmit} ref={formRef}>
+    <form className='formCreateProduct' onSubmit={onSubmit} >
       <InputUI
         typeInpt='text'
         style='inputProduct'
@@ -156,15 +162,14 @@ export const FormCreateProducts = ({ resetForm, onClose }) => {
         eventInpt={onChange}
       />
 
-      <InputUI
-        typeInpt='text'
-        style='inputProduct'
-        textInpt='Ingrese Categoria'
-        idInpt='category'
-        nameInpt='category'
-        valueInpt={category}
-        eventInpt={onChange}
-      />
+      <div className='inputProduct'>
+        <label htmlFor='category'>Seleccione Categoría</label>
+        <Select
+          options={categoryOptions}
+          value={selectedCategory}
+          onChange={handleCategoryChange}
+        />
+      </div>
 
       <InputUI typeInpt='file' style='inputProduct' textInpt='Inserte Imagen' eventInpt={uploadImage} />
 

@@ -387,6 +387,31 @@ li {
   text-decoration: none;
 }
 
+/* .containerButtone {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  position: relative;
+} */
+.closeButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -35%);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  padding: 0;
+  background-color: #ff0000;
+  border: none;
+  color: #ffffff;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 /* Laptop */
 @media only screen and (max-width : 1366px) {
@@ -2043,6 +2068,10 @@ li {
 }
 
 .containerLinks{
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  position: relative;
   margin-left: 2rem;
   margin-right: 2rem;
   background-color: #ffffff;
@@ -2389,6 +2418,10 @@ input[type="number"]::-webkit-inner-spin-button {
   }
   
   .containerLinks{
+    display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  position: relative;
     margin-left: 2rem;
     margin-right: 2rem;
     background-color: #ffffff;
@@ -2406,6 +2439,10 @@ input[type="number"]::-webkit-inner-spin-button {
   }
   
   .active{
+    display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  position: relative;
     margin-left: 2rem;
     margin-right: 2rem;
     background-color: #FF5C00;

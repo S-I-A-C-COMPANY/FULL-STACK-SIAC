@@ -1,7 +1,9 @@
 
 const asyncHandler = require('express-async-handler')
 const Product = require("../model/productsModel")
+
 const { cloudinary } = require('../utils/cloudinary');
+const Category = require('../model/categoryModel');
 
 
 //@Desc     Register Product
@@ -156,13 +158,72 @@ const imgProduct = asyncHandler ( async (req,res)=>{
 })
 
 
+const uploadCategory = asyncHandler(async (req, res) => {
+  try {
+    const { name } = req.body;
 
+    if (!name) {
+      return res.status(400).json({ error: 'El nombre de la categoría es obligatorio' });
+    }
 
+    const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+
+    const existingCategory = await Category.findOne({ name: capitalizedName });
+    if (existingCategory) {
+      return res.status(409).json({ error: 'La categoría ya existe' });
+    }
+
+    const category = new Category({ name: capitalizedName });
+    await category.save();
+
+    res.json({ message: 'Categoría creada exitosamente' });
+  } catch (error) {
+    console.error('Error al crear la categoría:', error);
+    res.status(500).json({ error: 'Error al crear la categoría' });
+  }
+});
+
+const allCategories = asyncHandler(async(req,res)=>{
+  
+  let category = {};
+
+  try {
+ 
+    category = await Category.find();
+    
+
+    if (category.length > 0) {
+      res.status(200).json(category);
+    } else {
+      res.status(404).json({ status: 'Category Not Founds' });
+    }
+  } catch (error) {
+    
+    res.status(500).json({ status: 'Error retrieving categories', error });
+  }
+})
+
+const delCategories = asyncHandler(async(req,res)=>{
+  const {id} = req.params;
+
+  const idCategory = await Category.findById(id)
+
+  if (!idCategory) {
+    res.status(400)
+    throw new Error('Category not found')
+  }else{
+  await idCategory.remove();
+  res.status(200).json({ status: "Eliminado"})
+  }
+})
 
 module.exports = {
   registerProduct,
   getProduct,
   updateProducto,
   deleteProduct,
-  imgProduct
+  imgProduct,
+  allCategories,
+  uploadCategory,
+  delCategories
 }
