@@ -64,7 +64,7 @@ const getProduct = async (req, res) => {
   let products = {};
 
   try {
-    if (name === "all") {
+    if (name === "all" || name === "all" ) {
       products = await Product.find();
     } else {
       products = await Product.find({ category: name });

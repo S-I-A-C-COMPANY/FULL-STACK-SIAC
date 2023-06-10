@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { deleteProducts } from '../../features/products/productSlice';
 import io from 'socket.io-client';
-
 // UI
 import { ImgUI } from '../../UI/ImgUI/ImgUI';
 import { ButtonUI } from '../../UI/ButtonUI/ButtonUI';
@@ -16,25 +14,31 @@ import { ModalAndProductsContext } from '../ContainerProducts/ContainerProducts'
 // IMG
 import updateIcon from '../../../Images/updateIcon.png';
 import deleteIcon from '../../../Images/deleteIcon.png';
+import { deleteProducts } from '../../features/products/productSlice';
 
 const socket = io('http://localhost:5000');
 
 export const ModalAndProducts = () => {
   const { activeCategory } = useContext(ModalAndProductsContext);
-  const dispatch = useDispatch();
   const [listProduct, setProduct] = useState([]);
   const [modalCreateProductOpen, setModalCreateProductOpen] = useState(false);
   const [modalUpdatedProductOpen, setModalUpdatedProductOpen] = useState(false);
   const [idProduct, setIdProduct] = useState('');
   const [resetFormKey, setResetFormKey] = useState(0); // Nuevo estado para reiniciar el formulario
+  
+  const [shouldReloadApi, setShouldReloadApi] = useState(false); // Estado para indicar si se debe recargar la API
+
+  const dispatch = useDispatch();
 
   const openModalCreateProduct = () => {
     setModalCreateProductOpen(true);
+    
   };
 
   const closeModalCreateProduct = () => {
     setModalCreateProductOpen(false);
     setResetFormKey((prevKey) => prevKey + 1);
+     setShouldReloadApi(true);
   };
 
   const openModalUpdatedProduct = (id) => {
@@ -52,6 +56,7 @@ export const ModalAndProducts = () => {
       try {
         const res = await axios.get(`http://localhost:5000/api/products/all/${activeCategory.toLowerCase()}`);
         setProduct(res.data);
+        
       } catch (err) {
         console.log(err);
       }
@@ -62,7 +67,7 @@ export const ModalAndProducts = () => {
     return () => {
       socket.disconnect();
     };
-  }, [activeCategory, listProduct]);
+  }, [activeCategory, listProduct,shouldReloadApi]);
 
   useEffect(() => {
     socket.connect();
@@ -74,15 +79,35 @@ export const ModalAndProducts = () => {
     socket.on('nuevoProducto', (producto) => {
       if (producto.category.toLowerCase() === activeCategory.toLowerCase()) {
         setProduct((prevListProduct) => [...prevListProduct, producto]);
+        
       }
     });
+
+    socket.on('eliminarProducto', () => {
+      setProduct((prevListProduct) => prevListProduct.slice(0, -1));
+      
+    });
   }, [activeCategory]);
+
+  const deleteLastProduct = async () => {
+    if (listProduct.length > 0) {
+      const lastProductId = listProduct[listProduct.length - 1]._id;
+
+      // Eliminar el producto del backend
+      await dispatch(deleteProducts(lastProductId));
+
+      // Eliminar el producto del frontend
+      setProduct((prevListProduct) => prevListProduct.slice(0, -1));
+
+      
+    }
+  };
 
   return (
     <>
       <div className={`modalCreateProducts ${modalCreateProductOpen ? 'open' : ''}`}>
         <ButtonUI onClicks={closeModalCreateProduct} style='btnCloseModal' text='x' />
-        <FormCreateProducts key={resetFormKey} onClose={closeModalCreateProduct}/>
+        <FormCreateProducts key={resetFormKey} onClose={closeModalCreateProduct} />
       </div>
 
       <div className={`modalCreateProducts ${modalUpdatedProductOpen ? 'open' : ''}`}>
@@ -95,7 +120,11 @@ export const ModalAndProducts = () => {
           <ButtonUI onClicks={openModalCreateProduct} style='btnOpenModal' text='+' />
         </div>
 
-        {listProduct.map((producto) => (
+
+        {
+        listProduct.map((producto) => (
+
+          
           <div key={producto._id} className='cardOrder'>
             <div className='containerImgOrder'>
               <ImgUI style='imgOrder' routeImg={producto.image} />
@@ -106,7 +135,7 @@ export const ModalAndProducts = () => {
               <p className='categoryProduct'>Categoria: {producto.category}</p>
 
               <div className='containerEdits'>
-                <ButtonUI onClicks={() => dispatch(deleteProducts(producto._id))} style='btnDeleteProduct' text={<ImgUI style='iconDelete' routeImg={deleteIcon} />} />
+                <ButtonUI onClicks={() => deleteLastProduct()} style='btnDeleteProduct' text={<ImgUI style='iconDelete' routeImg={deleteIcon} />} />
                 <ButtonUI onClicks={() => openModalUpdatedProduct(producto._id)} style='btnEditProduct' text={<ImgUI style='iconEdit' routeImg={updateIcon} />} />
               </div>
             </div>

@@ -34,13 +34,13 @@ app.use((req, res, next) => {
   });
 
 
-io.on("connection", (socket) => {
-    console.log(`Usuario conectado: ${socket.id}`);
+// io.on("connection", (socket) => {
+//     console.log(`Usuario conectado: ${socket.id}`);
 
-    socket.on('disconnect', () => {
-        console.log('Usuario desconectado');
-    });
-});
+//     socket.on('disconnect', () => {
+//         console.log('Usuario desconectado');
+//     });
+// });
 
 createRoles()
 connectDB()
