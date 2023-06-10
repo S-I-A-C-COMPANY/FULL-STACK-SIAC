@@ -143,7 +143,7 @@ export const ModalAndProducts = () => {
                   <ImgUI style='imgOrder' routeImg={producto.image} />
                 </div>
                 <div className='infoOrder'>
-                  <h3 className='nameOrder'>Nombre: {producto.name}</h3>
+                  <h3 className='nameOrder'>Nombre:  {producto.name}</h3>
                   <p className='priceOrder'>Precio: {producto.price}</p>
                   <p className='categoryProduct'>Categoria: {producto.category}</p>
 
