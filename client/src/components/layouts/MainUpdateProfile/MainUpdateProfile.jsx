@@ -1,13 +1,13 @@
 import React from "react";
 
-import { SideBarProfile } from "../SideBarProfile/SideBarProfile";
 import { ContentUpdateProfile } from "../ContentUpdateProfile/ContentUpdateProfile";
+import { SideBar } from "../SideBar/SideBar";
 
 export const MainUpdateProfile = () => {
  
   return (
     <main className='mainUpdateProfile'>
-        <SideBarProfile />
+        <SideBar />
 
         <ContentUpdateProfile />
     </main>

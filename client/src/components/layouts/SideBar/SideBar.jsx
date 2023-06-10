@@ -11,12 +11,11 @@ import { ImgUI } from "../../UI/ImgUI/ImgUI";
 import logoWhite from "../../../Images/whiteIcon.png";
 import iconNotifications from "../../../Images/iconNotifications.png";
 import iconMenu from "../../../Images/iconCalendary.png";
-import iconStats from "../../../Images/iconStats.png";
 import iconProfile from "../../../Images/iconProfile.png";
 import iconLogout from "../../../Images/iconLogout.png";
 import iconUsers from "../../../Images/iconUsers.png"
 
-export const SideBarProfile = () => {
+export const SideBar = () => {
 
   const dispatch = useDispatch();
 
@@ -53,11 +52,6 @@ export const SideBarProfile = () => {
         <li className="listLinks">
           <Link className="links" to="/products">
             <ImgUI style="iconCalendary" routeImg={iconMenu}></ImgUI>
-          </Link>
-        </li>
-        <li className="listLinks">
-          <Link className="links" to="">
-            <ImgUI style="iconStats" routeImg={iconStats}></ImgUI>
           </Link>
         </li>
         <li className="listLinks">

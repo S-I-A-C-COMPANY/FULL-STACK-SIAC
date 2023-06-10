@@ -1,14 +1,13 @@
-
 import React from 'react';
 // Layout
 import { ContentUsers } from '../ContentUsers/ContentUsers'
-import { SideBarProducts } from '../SideBarProducts/SideBarProducts'
+import { SideBar } from '../SideBar/SideBar';
 
 
 export const MainUsers = () => {
   return (
     <main className='mainUsers'>
-        <SideBarProducts />
+        <SideBar />
         <ContentUsers />
     </main>
   )

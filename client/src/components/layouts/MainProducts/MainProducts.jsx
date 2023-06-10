@@ -1,12 +1,14 @@
 
 import React from 'react';
 
-import { SideBarProducts } from '../SideBarProducts/SideBarProducts'
 import { ContainerProducts } from '../ContainerProducts/ContainerProducts'
+import { SideBar } from '../SideBar/SideBar'
+
+
 export const MainProducts = () => {
   return (
     <main className="mainProducts">
-        <SideBarProducts />
+        <SideBar />
         <ContainerProducts />
     </main>
   )

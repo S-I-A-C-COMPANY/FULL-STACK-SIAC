@@ -2,13 +2,13 @@
 import React from 'react';
 // Layout
 import { ContentNotifications } from '../ContentNotifications/ContentNotifications'
-import { SideBarProfile } from '../SideBarProfile/SideBarProfile'
+import { SideBar } from '../SideBar/SideBar';
 
 
 export const MainNotifications = () => {
   return (
     <main className='mainNotifications'>
-      <SideBarProfile />
+      <SideBar />
       <ContentNotifications />
     </main>
   )

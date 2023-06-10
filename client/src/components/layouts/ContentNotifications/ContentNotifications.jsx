@@ -56,7 +56,7 @@ export const ContentNotifications = () => {
 
   const getProductsList = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/products/all/all");
+      const res = await axios.get("http://localhost:5000/api/products/all");
       setProduct(res.data);
       // console.log(res.data)
     } catch (err) {
