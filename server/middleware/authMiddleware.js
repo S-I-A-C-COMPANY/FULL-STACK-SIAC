@@ -31,6 +31,61 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 });
 
+
+// Manejo de roles
+
+// Rol Jefe de cocina
+const isChef = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.user)
+  const roles = await Role.find({_id: {$in: user.roles}})
+  // console.log(roles);
+
+  for (let i = 0; i < roles.length; i++) {
+    if (roles[i].name === 'Jefe Cocina' ) {
+      next()
+      return;
+    } 
+  }
+
+  return res.status(403).json({message: "Require Chef Role"})
+});
+
+// Rol admin
+const isAdmin = async (req, res, next) => {
+  const user = await User.findById(req.user)
+  const roles = await Role.find({_id: {$in: user.roles}})
+  // console.log(roles);
+
+  for (let i = 0; i < roles.length; i++) {
+    if (roles[i].name === 'admin' ) {
+      next()
+      return;
+    } 
+  }
+
+  return res.status(403).json({message: "Require Admin Role"})
+}
+
+// Rol mesero
+const isMesero = async (req, res, next) => {
+  const user = await User.findById(req.user)
+  const roles = await Role.find({_id: {$in: user.roles}})
+  // console.log(roles);
+
+  for (let i = 0; i < roles.length; i++) {
+    if (roles[i].name === 'mesero' ) {
+      next()
+      return;
+    } 
+  }
+
+  return res.status(403).json({message: "Require Mesero Role"})
+}
+
+
 module.exports = {
-  protect
+  protect,
+  isChef,
+  isAdmin,
+  isMesero,
 };

@@ -1,5 +1,6 @@
 
-import React from 'react';
+import React, { useContext } from 'react';
+
 // IMG
 import logoWhite from "../../../Images/whiteIcon.png";
 import iconNotifications from "../../../Images/iconNotifications.png";
@@ -12,34 +13,99 @@ import { Link } from "react-router-dom";
 import { ImgUI } from "../../UI/ImgUI/ImgUI";
 
 export const SideBarProducts = () => {
+
+  let rol =  'admin';
+  // let rol =  'mesero';
+  // let rol =  'Jefe cocina';
+
   return (
     <div className="sideBar">
       <nav className="navBarInSideBar">
-        <ul>
-          <li className="listLinks">
+
+        {rol === "admin" && (
+          <ul>
+            <li className="listLinks">
               <ImgUI style="imgIcon" routeImg={logoWhite} />
-          </li>
-          <li className="listLinks">
-            <Link className="links" to="/profile">
-              <ImgUI style="iconProfile" routeImg={iconProfile}></ImgUI>
-            </Link>
-          </li>
-          <li className="listLinks">
-            <Link className="links" to="/notifications">
-              <ImgUI style="iconNotification" routeImg={iconNotifications}></ImgUI>
-            </Link>
-          </li>
-          <li className="listLinks">
-            <Link className="links" to="/">
-              <ImgUI style="iconStats" routeImg={iconStats}></ImgUI>
-            </Link>
-          </li>
-          <li className="listLinks">
-            <Link className="links" to="/users">
-              <ImgUI style="iconStats" routeImg={iconUsers}></ImgUI>
-            </Link>
-          </li>
-        </ul>
+            </li>
+            <li className="listLinks">
+              <Link className="links" to="/profile">
+                <ImgUI style="iconProfile" routeImg={iconProfile}></ImgUI>
+              </Link>
+            </li>
+            <li className="listLinks">
+              <Link className="links" to="/notifications">
+                <ImgUI style="iconNotification" routeImg={iconNotifications}></ImgUI>
+              </Link>
+            </li>
+            <li className="listLinks">
+              <Link className="links" to="/">
+                <ImgUI style="iconStats" routeImg={iconStats}></ImgUI>
+              </Link>
+            </li>
+            <li className="listLinks">
+              <Link className="links" to="/users">
+                <ImgUI style="iconStats" routeImg={iconUsers}></ImgUI>
+              </Link>
+            </li>
+          </ul>
+        )}
+
+        {rol === "Jefe Cocina" && (
+          <ul>
+            <li className="listLinks">
+              <ImgUI style="imgIcon" routeImg={logoWhite} />
+            </li>
+            <li className="listLinks">
+              <Link className="links" to="/profile">
+                <ImgUI style="iconProfile" routeImg={iconProfile}></ImgUI>
+              </Link>
+            </li>
+            <li className="listLinks">
+              <Link className="links" to="/notifications">
+                <ImgUI style="iconNotification" routeImg={iconNotifications}></ImgUI>
+              </Link>
+            </li>
+            <li className="listLinks">
+              <Link className="links" to="/">
+                <ImgUI style="iconStats" routeImg={iconStats}></ImgUI>
+              </Link>
+            </li>
+            <li className="listLinks">
+              <Link className="links" to="/users">
+                <ImgUI style="iconStats" routeImg={iconUsers}></ImgUI>
+              </Link>
+            </li>
+          </ul>
+        )}
+
+        {rol === "mesero" && (
+          <ul>
+            <li className="listLinks">
+              <ImgUI style="imgIcon" routeImg={logoWhite} />
+            </li>
+            <li className="listLinks">
+              <Link className="links" to="/profile">
+                <ImgUI style="iconProfile" routeImg={iconProfile}></ImgUI>
+              </Link>
+            </li>
+            <li className="listLinks">
+              <Link className="links" to="/notifications">
+                <ImgUI style="iconNotification" routeImg={iconNotifications}></ImgUI>
+              </Link>
+            </li>
+            <li className="listLinks">
+              <Link className="links" to="/">
+                <ImgUI style="iconStats" routeImg={iconStats}></ImgUI>
+              </Link>
+            </li>
+            <li className="listLinks">
+              <Link className="links" to="/users">
+                <ImgUI style="iconStats" routeImg={iconUsers}></ImgUI>
+              </Link>
+            </li>
+          </ul>
+        )}
+
       </nav>
     </div>
   );
