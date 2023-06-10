@@ -9,9 +9,10 @@ export const ContainerCategories = () => {
   const onClickLink = (i) => {
     setActiveLink(i);
   }
-
-  const filterProductsByCategory = (category) => {
+  const filterProductsByCategory = (category, i) => {
+    setActiveLink(i);
     setActiveCategory(category);
+
 
     if (category.toLowerCase() === 'all') {
       setCategoryContent(true);
@@ -31,30 +32,29 @@ export const ContainerCategories = () => {
       }
     }
   }
-
   return (
     <div className="containerCategories">
-      <div onClick={() => filterProductsByCategory('All')} className={activeLink === 0 ? 'active' : 'containerLinks'}>
+      <div onClick={() => filterProductsByCategory('All', 0)} className={activeLink === 0 ? 'active' : 'containerLinks'}>
         <Link onClick={() => onClickLink(0)} className={activeLink === 0 ? 'activeLink' : 'categories'} to="/products">
           All
         </Link>
       </div>
-      <div onClick={() => filterProductsByCategory('Entrada')} className={activeLink === 1 ? 'active' : 'containerLinks'}>
+      <div onClick={() => filterProductsByCategory('Entrada', 1)} className={activeLink === 1 ? 'active' : 'containerLinks'}>
         <Link onClick={() => onClickLink(1)} className={activeLink === 1 ? 'activeLink' : 'categories'} to="/products">
           Entrada
         </Link>
       </div>
-      <div onClick={() => filterProductsByCategory('Principio')} className={activeLink === 2 ? 'active' : 'containerLinks'}>
+      <div onClick={() => filterProductsByCategory('Principio', 2)} className={activeLink === 2 ? 'active' : 'containerLinks'}>
         <Link onClick={() => onClickLink(2)} className={activeLink === 2 ? 'activeLink' : 'categories'} to="/products">
           Principio
         </Link>
       </div>
-      <div onClick={() => filterProductsByCategory('Bebida')} className={activeLink === 3 ? 'active' : 'containerLinks'}>
+      <div onClick={() => filterProductsByCategory('Bebida', 3)} className={activeLink === 3 ? 'active' : 'containerLinks'}>
         <Link onClick={() => onClickLink(3)} className={activeLink === 3 ? 'activeLink' : 'categories'} to="/products">
           Bebida
         </Link>
       </div>
-      <div onClick={() => filterProductsByCategory('Postre')} className={activeLink === 4 ? 'active' : 'containerLinks'}>
+      <div onClick={() => filterProductsByCategory('Postre', 4)} className={activeLink === 4 ? 'active' : 'containerLinks'}>
         <Link onClick={() => onClickLink(4)} className={activeLink === 4 ? 'activeLink' : 'categories'} to="/products">
           Postre
         </Link>

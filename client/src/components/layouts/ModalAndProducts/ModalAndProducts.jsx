@@ -27,6 +27,7 @@ export const ModalAndProducts = () => {
   const [modalUpdatedProductOpen, setModalUpdatedProductOpen] = useState(false);
   const [idProduct, setIdProduct] = useState('');
   const [resetFormKey, setResetFormKey] = useState(0);
+  const [loadingProducts, setLoadingProducts] = useState(true);
   const dispatch = useDispatch();
 
   const openModalCreateProduct = () => {
@@ -51,9 +52,17 @@ export const ModalAndProducts = () => {
 
   const fetchProductsList = async () => {
     try {
+      await new Promise(resolve => setTimeout(resolve, 500));
+
       const res = await axios.get(`http://localhost:5000/api/products/all`);
       setProduct(res.data);
-      setCategoryContent(res.data.length > 0);
+
+      const productsInActiveCategory = res.data.filter(
+        (producto) => activeCategory === 'All' || producto.category.toLowerCase() === activeCategory.toLowerCase()
+      );
+      setCategoryContent(productsInActiveCategory.length > 0);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setLoadingProducts(false);
     } catch (err) {
       console.log(err);
     }
@@ -85,7 +94,8 @@ export const ModalAndProducts = () => {
     socket.on('eliminarProducto', (productoId) => {
       setProduct((prevListProduct) => prevListProduct.filter((producto) => producto._id !== productoId));
       setCategoryContent((prevCategoryContent) =>
-        prevCategoryContent && prevCategoryContent.filter((producto) => producto._id !== productoId).length > 0
+        prevCategoryContent &&
+        prevCategoryContent.filter((producto) => producto._id !== productoId).length > 0
       );
     });
   }, [activeCategory]);
@@ -100,7 +110,7 @@ export const ModalAndProducts = () => {
       return [];
     });
   };
-  
+
   return (
     <>
       <div className={`modalCreateProducts ${modalCreateProductOpen ? 'open' : ''}`}>
@@ -118,35 +128,41 @@ export const ModalAndProducts = () => {
           <ButtonUI onClicks={openModalCreateProduct} style='btnOpenModal' text='+' />
         </div>
 
-        {(!categoryContent && activeCategory !== 'All') && <p className='emptyProducts'>No hay productos en la categoría activa.</p>}
+        {loadingProducts ? (
+          <p className='emptyProducts'>Cargando productos...</p>
+        ) : !categoryContent && activeCategory !== 'All' || listProduct.length === 0 ? (
+          <p className='emptyProducts'>No hay productos en la categoría activa.</p>
+        ) : (
+          listProduct
+            .filter(
+              (producto) => activeCategory === 'All' || producto.category.toLowerCase() === activeCategory.toLowerCase()
+            )
+            .map((producto) => (
+              <div key={producto._id} className='cardOrder'>
+                <div className='containerImgOrder'>
+                  <ImgUI style='imgOrder' routeImg={producto.image} />
+                </div>
+                <div className='infoOrder'>
+                  <h3 className='nameOrder'>Nombre: {producto.name}</h3>
+                  <p className='priceOrder'>Precio: {producto.price}</p>
+                  <p className='categoryProduct'>Categoria: {producto.category}</p>
 
-        {listProduct
-          .filter((producto) => activeCategory === 'All' || producto.category.toLowerCase() === activeCategory.toLowerCase())
-          .map((producto) => (
-            <div key={producto._id} className='cardOrder'>
-              <div className='containerImgOrder'>
-                <ImgUI style='imgOrder' routeImg={producto.image} />
-              </div>
-              <div className='infoOrder'>
-                <h3 className='nameOrder'>Nombre: {producto.name}</h3>
-                <p className='priceOrder'>Precio: {producto.price}</p>
-                <p className='categoryProduct'>Categoria: {producto.category}</p>
-
-                <div className='containerEdits'>
-                  <ButtonUI
-                    onClicks={() => deleteProduct(producto._id)}
-                    style='btnDeleteProduct'
-                    text={<ImgUI style='iconDelete' routeImg={deleteIcon} />}
-                  />
-                  <ButtonUI
-                    onClicks={() => openModalUpdatedProduct(producto._id)}
-                    style='btnEditProduct'
-                    text={<ImgUI style='iconEdit' routeImg={updateIcon} />}
-                  />
+                  <div className='containerEdits'>
+                    <ButtonUI
+                      onClicks={() => deleteProduct(producto._id)}
+                      style='btnDeleteProduct'
+                      text={<ImgUI style='iconDelete' routeImg={deleteIcon} />}
+                    />
+                    <ButtonUI
+                      onClicks={() => openModalUpdatedProduct(producto._id)}
+                      style='btnEditProduct'
+                      text={<ImgUI style='iconEdit' routeImg={updateIcon} />}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+        )}
       </div>
     </>
   );
