@@ -26,22 +26,31 @@ const registerProduct = asyncHandler(async (req, res) => {
       throw new Error('Product already exists');
     }
 
+    // Find the category by its name
+    const foundCategory = await Category.findOne({ name: category })
+
+    if (!foundCategory) {
+      res.status(400);
+      throw new Error('Invalid category');
+    }
+
     // Create Product
     const newProduct = new Product({
       name,
       price,
-      category,
+      category: foundCategory._id,
       image
     });
 
     const product = await newProduct.save();
 
     if (product) {
+      
       res.status(201).json({
         _id: product.id,
         name: product.name,
         price: product.price,
-        category: product.category,
+        category: category, // Use the name of the found category
         image: product.image
       });
     } else {
@@ -58,17 +67,14 @@ const registerProduct = asyncHandler(async (req, res) => {
 
 
 
+
+
 //@Desc     Get data product
 //@Route    GET /api/all/:category
 //@Access   Private
 const getProduct = async (req, res) => {
-  
-  let products = {};
-
   try {
- 
-      products = await Product.find();
-    
+    const products = await Product.find().populate('category', 'name');
 
     if (products.length > 0) {
       res.status(200).json(products);
@@ -76,10 +82,10 @@ const getProduct = async (req, res) => {
       res.status(404).json({ status: 'Product Not Found' });
     }
   } catch (error) {
-    
     res.status(500).json({ status: 'Error retrieving products', error });
   }
 };
+
 
 
 //@Desc     update Product
@@ -96,11 +102,17 @@ const updateProducto = asyncHandler(async (req, res) => {
       return res.status(400).json({ status: 'Error', message: 'Ya existe otro producto con el mismo nombre' });
     }
 
+    // Verificar si la categoría existe
+    const existingCategory = await Category.findOne({ name: category });
+    if (!existingCategory) {
+      return res.status(400).json({ status: 'Error', message: 'Categoría no válida' });
+    }
+
     // Construir el objeto de actualización con los campos correspondientes
     const updateFields = {
       name: name,
       price: price,
-      category: category,
+      category: existingCategory._id, // Usar el ID de la categoría existente
       image: image
     };
 

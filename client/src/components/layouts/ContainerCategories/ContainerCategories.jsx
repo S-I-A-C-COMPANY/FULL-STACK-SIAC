@@ -34,11 +34,11 @@ export const ContainerCategories = () => {
     if (category.toLowerCase() === 'all') {
       setCategoryContent(true);
       listProduct.forEach((producto) => {
-        console.log(producto.name);
+        // console.log(producto.name);
       });
     } else {
       const filteredProducts = listProduct.filter((producto) => {
-        return producto.category.toLowerCase() === category.toLowerCase();
+        return producto.category.name.toLowerCase() === category.toLowerCase();
       });
 
       if (filteredProducts.length === 0) {

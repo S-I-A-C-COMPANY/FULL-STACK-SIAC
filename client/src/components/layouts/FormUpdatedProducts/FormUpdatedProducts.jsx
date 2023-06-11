@@ -104,7 +104,9 @@ export const FormUpdatedProducts = ({ idProduct, resetForm, onClose }) => {
   const loadCategoryOptions = async () => {
     try {
       const response = await axios.get('http://localhost:5000/api/products/categories');
-      const formattedOptions = response.data.map((category) => ({
+      const formattedOptions = response.data.map((category) => (
+        {
+        
         value: category.name,
         label: category.name,
       }));

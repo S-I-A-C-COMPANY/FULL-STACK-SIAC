@@ -59,7 +59,7 @@ export const ModalAndProducts = () => {
       setProduct(res.data);
 
       const productsInActiveCategory = res.data.filter(
-        (producto) => activeCategory === 'All' || producto.category.toLowerCase() === activeCategory.toLowerCase()
+        (producto) => activeCategory === 'All' || producto.category.name.toLowerCase() === activeCategory.toLowerCase()
       );
       setCategoryContent(productsInActiveCategory.length > 0);
       await new Promise(resolve => setTimeout(resolve, 1000));
@@ -87,7 +87,7 @@ export const ModalAndProducts = () => {
 
     socket.on('nuevoProducto', (producto) => {
       setProduct((prevListProduct) => [...prevListProduct, producto]);
-      if (producto.category.toLowerCase() === activeCategory.toLowerCase()) {
+      if (producto.category.name.toLowerCase() === activeCategory.toLowerCase()) {
         setCategoryContent(true);
       }
     });
@@ -136,7 +136,7 @@ export const ModalAndProducts = () => {
         ) : (
           listProduct
             .filter(
-              (producto) => activeCategory === 'All' || producto.category.toLowerCase() === activeCategory.toLowerCase()
+              (producto) => activeCategory === 'All' || producto.category.name.toLowerCase() === activeCategory.toLowerCase()
             )
             .map((producto) => (
               <div key={producto._id} className='cardOrder'>
@@ -146,7 +146,7 @@ export const ModalAndProducts = () => {
                 <div className='infoOrder'>
                   <h3 className='nameOrder'>Nombre:  {producto.name}</h3>
                   <p className='priceOrder'>Precio: {producto.price}</p>
-                  <p className='categoryProduct'>Categoria: {producto.category}</p>
+                  <p className='categoryProduct'>Categoria: {producto.category.name}</p>
 
                   <div className='containerEdits'>
                     <ButtonUI
