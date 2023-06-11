@@ -19,7 +19,16 @@ export const BannerProfile = () => {
         console.log(err);
       }
     };
+
     getInfoUser();
+
+    const interval = setInterval(() => {
+      getInfoUser();
+    }, 5000); // Actualizar la información cada 5 segundos
+
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   const formattedName =
