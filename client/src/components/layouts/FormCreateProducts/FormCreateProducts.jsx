@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { createProducts } from '../../features/products/productSlice';
 import { useSelector, useDispatch } from 'react-redux';
+
 export const FormCreateProducts = ({ resetForm, onClose }) => {
   const [formData, setFormData] = useState({
     name: '',
@@ -74,11 +75,13 @@ export const FormCreateProducts = ({ resetForm, onClose }) => {
           public_id: uniqueFileName,
         },
       });
+      console.log(res.data.secure_url);
 
       setFormData((prevState) => ({
         ...prevState,
         image: res.data.secure_url,
       }));
+      
 
       setIsUploading(false);
     } catch (error) {
@@ -139,6 +142,7 @@ export const FormCreateProducts = ({ resetForm, onClose }) => {
       category: selectedOption ? selectedOption.value : '',
     }));
   };
+
 
   return (
     <form className='formCreateProduct' onSubmit={onSubmit} >

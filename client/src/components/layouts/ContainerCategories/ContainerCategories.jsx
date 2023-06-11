@@ -103,30 +103,21 @@ export const ContainerCategories = () => {
         Swal.fire({
           icon: 'success',
           title: 'Categoría creada',
-          text: 'La categoría se ha creado exitosamente',
+          toast: true,
+          position: 'top-end',
+          text: 'La categoría se ha eliminado exitosamente',
         });
-        fetchCategories(); // Actualizar la lista de categorías después de crear una nueva categoría
-      } else if (response.status === 409) {
-        Swal.fire({
-          icon: 'warning',
-          title: 'Categoría existente',
-          text: 'La categoría ingresada ya existe',
-        });
-      } else {
+        fetchCategories(); 
+        filterProductsByCategory('All', 0);// Actualizar la lista de categorías después de crear una nueva categoría
+      }else {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'Error al crear la categoría',
+          text: 'Error al eliminar la categoría',
         });
       }
     } catch (error) {
-      if (error.status === 409) {
-        Swal.fire({
-          icon: 'warning',
-          title: 'Categoría existente',
-          text: 'La categoría ingresada ya existe',
-        });
-      }
+      console.log(error);
     }
   };
 
