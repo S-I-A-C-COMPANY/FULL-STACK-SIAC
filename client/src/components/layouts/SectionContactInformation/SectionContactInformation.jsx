@@ -41,11 +41,20 @@ export const SectionContactInformation = () => {
       </label> */}
       <label className="type">
         Dni:
-        <p className="dniProfile">{datUser.dni}</p>
+        {datUser.dni? (
+          <p className="dniProfile">{datUser.dni}</p>
+        ):(
+          <p className="dniProfile"> Cargando..</p>
+        )}
       </label>
+
       <label className="type">
         Email:
-        <p className="emailProfile">{datUser.email}</p>
+        {datUser.email? (
+          <p className="emailProfile">{datUser.email}</p>
+        ):(
+          <p className="emailProfile"> Cargando..</p>
+        )}
       </label>
       
 
