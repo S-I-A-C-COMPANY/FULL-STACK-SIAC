@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ModalAndProductsContext } from '../ContainerProducts/ContainerProducts';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { InputUI } from '../../UI/InputUI/InputUI';
 
 export const ContainerCategories = () => {
   const { setActiveCategory, listProduct, setCategoryContent } = useContext(ModalAndProductsContext);
@@ -49,7 +50,26 @@ export const ContainerCategories = () => {
   };
 
   const createCategory = async () => {
-    const categoryName = prompt('Ingrese el nombre de la categoría');
+    const { value: categoryName } = await Swal.fire({
+      title: 'Ingrese el nombre de la categoría',
+      input: 'text',
+      inputPlaceholder: 'Nombre de la categoría',
+      showCancelButton: true,
+      confirmButtonText: 'Crear',
+      cancelButtonText: 'Cancelar',
+      inputValidator: (value) => {
+        if (!value) {
+          return 'Debe ingresar un nombre de categoría';
+        }
+      },
+      customClass: {
+        popup: 'containerSwal',
+        confirmButton: 'btnConfirmSwal', // Clase personalizada para el botón de confirmación
+      cancelButton: 'custom-swal-button-cancel', // Clase personalizada para la modal de creación de categoría
+      },
+    });
+
+
     if (categoryName) {
       const capitalizedCategoryName = categoryName.charAt(0).toUpperCase() + categoryName.slice(1).toLowerCase();
       try {
@@ -66,7 +86,7 @@ export const ContainerCategories = () => {
             timer: 2000,
           });
           fetchCategories(); // Actualizar la lista de categorías después de crear una nueva categoría
-        }else {
+        } else {
           Swal.fire({
             icon: 'error',
             title: 'Error',
@@ -89,7 +109,6 @@ export const ContainerCategories = () => {
             timer: 3000,
           });
         }
-         
       }
     }
   };
@@ -98,22 +117,25 @@ export const ContainerCategories = () => {
     try {
       const response = await axios.delete(`http://localhost:5000/api/products/delCategories/${categoryId}`);
 
-      
       if (response.status === 200) {
         Swal.fire({
           icon: 'success',
-          title: 'Categoría creada',
+          title: 'Categoría eliminada',
           toast: true,
           position: 'top-end',
           text: 'La categoría se ha eliminado exitosamente',
+          showConfirmButton: false,
+          timer: 3000,
         });
-        fetchCategories(); 
-        filterProductsByCategory('All', 0);// Actualizar la lista de categorías después de crear una nueva categoría
-      }else {
+        fetchCategories();
+        filterProductsByCategory('All', 0); // Actualizar la lista de categorías después de eliminar una categoría
+      } else {
         Swal.fire({
           icon: 'error',
           title: 'Error',
           text: 'Error al eliminar la categoría',
+          showConfirmButton: false,
+          timer: 3000,
         });
       }
     } catch (error) {
@@ -125,10 +147,10 @@ export const ContainerCategories = () => {
     <div className="containerCategories">
       <div onClick={() => createCategory()} className={activeLink === -1 ? 'active' : 'containerLinks'}>
         <Link onClick={() => onClickLink(-1)} className={activeLink === -1 ? 'activeLink' : 'categories '} to="/products">
-        ✚
+          ✚
         </Link>
       </div>
-      
+
       {categories.map((category, index) => (
         <div
           onClick={() => filterProductsByCategory(category.name, index)}

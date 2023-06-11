@@ -1483,6 +1483,27 @@ li {
 
 }
 
+.swal2-title{
+  color: #000 !important;
+}
+.swal2-input:focus {
+  outline: none !important;
+}
+.swal2-input{
+  border: 2px solid #FF5C00 !important;
+  border-radius: 8px !important;
+}
+.containerSwal{
+  border-radius: 25px !important;
+  border: 5px solid #FF5C00 !important;
+}
+.swal2-cancel{
+  background-color: red !important;
+}
+
+.btnConfirmSwal{
+  background-color: #FF5C00 !important;
+}
 .contentLoader{
   width: 10rem;
   height: 5rem;
