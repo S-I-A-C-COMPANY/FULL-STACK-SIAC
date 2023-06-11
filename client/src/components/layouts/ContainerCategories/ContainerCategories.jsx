@@ -116,7 +116,7 @@ export const ContainerCategories = () => {
   const deleteCategory = async (categoryId) => {
     try {
       const response = await axios.delete(`http://localhost:5000/api/products/delCategories/${categoryId}`);
-
+  
       if (response.status === 200) {
         Swal.fire({
           icon: 'success',
@@ -128,7 +128,7 @@ export const ContainerCategories = () => {
           timer: 3000,
         });
         fetchCategories();
-        filterProductsByCategory('All', 0); // Actualizar la lista de categorías después de eliminar una categoría
+        filterProductsByCategory('All', 0); // Actualizar la lista de categorías después de eliminar una categoría y posicionar en "All"
       } else {
         Swal.fire({
           icon: 'error',
