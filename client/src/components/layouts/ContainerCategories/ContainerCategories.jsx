@@ -133,8 +133,8 @@ export const ContainerCategories = () => {
   return (
     <div className="containerCategories">
       <div onClick={() => createCategory()} className={activeLink === -1 ? 'active' : 'containerLinks'}>
-        <Link onClick={() => onClickLink(-1)} className={activeLink === -1 ? 'activeLink' : 'categories'} to="/products">
-          +
+        <Link onClick={() => onClickLink(-1)} className={activeLink === -1 ? 'activeLink' : 'categories '} to="/products">
+        ✚
         </Link>
       </div>
       

@@ -19,7 +19,6 @@ body {
   justify-content: center;
   margin-bottom: 10px;
 }
-
 .loader:after {
   content: '';
   display: block;
@@ -1464,7 +1463,7 @@ li {
   width: 3rem;
   height: 2.5rem;
   position: absolute;
-  top: 18rem;
+  top: 11.5rem;
   font-size: 2rem;
   border: none;
   cursor: pointer;
@@ -1482,6 +1481,55 @@ li {
   background: #FF5C00;
   text-align: center;
 
+}
+
+.contentLoader{
+  width: 10rem;
+  height: 5rem;
+}
+
+.loaderUpdate{
+  width: 3rem;
+  height: 2.5rem;
+  position: absolute;
+  top: 5.5rem;
+  right: 2rem;
+  font-size: 2rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 25%;
+}
+.loaderUpdate {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  position: relative;
+  animation: rotate 1s linear infinite
+}
+.loaderUpdate::before , .loaderUpdate::after {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  inset: 0px;
+  border-radius: 50%;
+  border: 5px solid #000000;
+  animation: prixClipFix 2s linear infinite ;
+}
+.loaderUpdate::after{
+  inset: 8px;
+  transform: rotate3d(90, 90, 0, 180deg );
+  border-color: #FF5C00;
+}
+
+@keyframes rotate {
+  0%   {transform: rotate(0deg)}
+  100%   {transform: rotate(360deg)}
+}
+
+@keyframes prixClipFix {
+    0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
+    50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
+    75%, 100%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
 }
 
 
@@ -1766,10 +1814,16 @@ li {
 /* dos */
 .contentProfile{
   display: flex;
-  justify-content: center;
+  justify-items: center;
   align-items: center;
+  flex-direction: column;
+  padding: 1rem;
   width: 100vw;
   height: 100vh;
+}
+
+.infoPersonal{
+  padding: 1rem;
 }
 
 .containerProfile{
@@ -1783,14 +1837,17 @@ li {
   border: 1.5px solid rgb(153, 149, 149);
 }
 
-.imgProfile{
-  width: 13%;
-  height: 65%;
-  border: 5px solid #FF5C00;
-  border-radius: 50%;
-  border-style: dashed;
+.contentUserBanner{
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  flex-direction: column;
+  width: 100%;
+  margin-top: 1rem;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
 }
-
 .bannerProfile{
   display:flex;
   background: url(./Images/banner.png);
@@ -1798,14 +1855,44 @@ li {
   align-items: center;
   flex-direction: column;
   width: 100%;
+  
   height: 35%;
   border-bottom: 1.5px solid rgb(153, 149, 149);
 }
 
-.nameProfile{
+.imgProfile{
+  position: relative;
+  inset: 3rem 1rem 0rem 3rem;
+  width: 13%;
+  height: 65%;
+  border: 5px solid #FF5C00;
+  border-radius: 50%;
+  border-style: dashed;
+}
+
+.nameProfile {
+  position: relative;
+  bottom: 4rem;
   font-weight: bold;
   color: #FF5C00;
-  font-size: 25px;
+  font-size: 2rem;
+}
+.roleProfile{
+  position: relative;
+  bottom: 3rem;
+  font-weight: bold;
+  color: #010101;
+  font-size: 2rem;
+
+}
+
+.roleProfileUpdate{
+  position: relative;
+  right: 30rem;
+  font-weight: bold;
+  color: #010101;
+  font-size: 2rem;
+
 }
 
 /* .nameProfile, .nameUpdatedProfile::first-letter{
@@ -1829,9 +1916,15 @@ li {
   flex-direction: column;
   width: 50%;
   font-size: 18px;
-  gap: 35px;
+  gap: 3px;
   border-right: 1px solid rgb(153, 149, 149);
 }
+
+.updateMessage-red{
+  color: red;
+  font-weight:600;
+}
+
 
 .emailProfile, .addressProfile, .dniProfile, .phoneProfile{
   font-weight: normal;
@@ -3262,6 +3355,7 @@ input[type="number"]::-webkit-inner-spin-button {
   color: #ffffff;
   font-size: 18px;
 }
+
 
 .btnAddQuantity{
   cursor: pointer;

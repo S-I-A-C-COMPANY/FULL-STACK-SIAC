@@ -10,7 +10,7 @@ const Role = require("../model/roleModel")
 //@Route    POST /api/users/register
 //@Access   Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, dni, email, password, phone,address, roles } = req.body;
+  const { name, dni, email, password, phone,address, image,roles } = req.body;
 
   if (!name || !dni || !email || !password) {
     res.status(400);
@@ -36,7 +36,8 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     password: hashedPassword,
     phone: "",
-    address: ""
+    address: "",
+    image:""
   });
 
   if (roles) {
@@ -57,6 +58,7 @@ const registerUser = asyncHandler(async (req, res) => {
       token: generateToken(savedUser._id),
       phone: savedUser.phone,
       address: savedUser.address,
+      image: savedUser.image,
       roles: savedUser.roles
     });
   } else {
@@ -100,7 +102,8 @@ const loginUser = asyncHandler(async(req,res)=>{
 //@Route    GET /api/users/me
 //@Access   Private
 const getMe = asyncHandler(async (req, res) => {
-  const {_id, dni, name, email,phone,address,} = await User.findById(req.user.id);
+  const {_id, dni, name, email,phone,address,image,roles} = await User.findById(req.user.id).populate('roles', 'name');
+
 
   res.json({
     id: _id,
@@ -108,7 +111,9 @@ const getMe = asyncHandler(async (req, res) => {
     name,
     email,
     phone,
-    address
+    address,
+    image,
+    roles: roles.name
   });
 });
 
@@ -299,7 +304,7 @@ const deleteUser = asyncHandler( async (req, res) => {
 //@Route    PUT /api/users/update-profile
 //@Access   Private
 const profileUser = asyncHandler(async (req, res) => {
-  const { name, email, phone, address, password } = req.body;
+  const { name, email, phone, address, password, image } = req.body;
 
   // Verificar si se proporcionó una contraseña
   let hashedPassword = null;
@@ -328,6 +333,7 @@ const profileUser = asyncHandler(async (req, res) => {
       email: email,
       phone: phone,
       address: address,
+      image: image
     };
 
     // Actualizar la contraseña si se proporcionó una
@@ -338,7 +344,7 @@ const profileUser = asyncHandler(async (req, res) => {
     // Actualizar el usuario en la base de datos
     await User.updateOne({ _id: userId }, { $set: updateFields });
 
-    res.status(200).json({ status: 'Actualizado' });
+    res.status(200).json({ status: image});
   } catch (error) {
     console.log(error);
     res.status(500).json({ status: 'Something Went Wrong' });
@@ -376,6 +382,35 @@ const roleUser = asyncHandler(async (req, res) => {
 });
 
 
+const cloudinary = require("../config/cloudinaryConfig");
+
+const uploadImage = async (req, res) => {
+  try {
+    // Verifica si hay un archivo subido
+    if (!req.file) {
+      return res.status(400).json({ message: "No se ha subido ningún archivo" });
+    }
+
+    // Convierte el buffer a una cadena Base64
+    const fileData = req.file.buffer.toString('base64');
+
+    // Sube la imagen a Cloudinary
+    const result = await cloudinary.uploader.upload(`data:${req.file.mimetype};base64,${fileData}`, { folder: "userImages" });
+
+    // Aquí puedes hacer algo con la URL de la imagen en Cloudinary, por ejemplo, guardarla en la base de datos
+    const imageUrl = result.secure_url;
+
+    // Envía la URL de la imagen en la respuesta
+    res.status(200).json({ imageUrl });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error al cargar la imagen" });
+  }
+};
+
+module.exports = { uploadImage };
+
+
 
 //Generate Token
 // si expira el token pide al user, volver a logearse
@@ -395,5 +430,6 @@ module.exports = {
     roleUser,
     deleteUser,
     profileUser,
-    getUsers
+    getUsers,
+    uploadImage
 }

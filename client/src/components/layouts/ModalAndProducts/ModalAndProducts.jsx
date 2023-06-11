@@ -10,6 +10,7 @@ import { ButtonUI } from '../../UI/ButtonUI/ButtonUI';
 // LAYOUT
 import { FormCreateProducts } from '../FormCreateProducts/FormCreateProducts';
 import { FormUpdatedProducts } from '../FormUpdatedProducts/FormUpdatedProducts';
+
 import { ModalAndProductsContext } from '../ContainerProducts/ContainerProducts';
 
 // IMG
@@ -125,7 +126,7 @@ export const ModalAndProducts = () => {
 
       <div className='containerCards'>
         <div className='cardCreateProduct'>
-          <ButtonUI onClicks={openModalCreateProduct} style='btnOpenModal' text='+' />
+          <ButtonUI onClicks={openModalCreateProduct} style='btnOpenModal'  text='+' />
         </div>
 
         {loadingProducts ? (

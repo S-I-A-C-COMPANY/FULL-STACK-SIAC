@@ -1,19 +1,20 @@
-
-// UI
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
-// const render = 'https://backend-render-corp.onrender.com'
 const localHost = "http://localhost:5000";
+
 export const SectionContactInformation = () => {
   const [datUser, setUser] = useState({});
+  const [pageLoaded, setPageLoaded] = useState(false);
 
   useEffect(() => {
     const getInfoUser = async () => {
       try {
         const res = await axios.get(`${localHost}/api/users/me`);
         setUser(res.data);
-        
+        setPageLoaded(true);
+        console.log(res.data);
       } catch (err) {
         console.log(err);
       }
@@ -23,36 +24,51 @@ export const SectionContactInformation = () => {
   }, []);
 
   useEffect(() => {
-    if (!("phone" in datUser)) {
-      setUser((prevUser) => ({
-        ...prevUser,
-        phone: "Actualice su número de contacto",
-      }));
+    if (pageLoaded && (!datUser.phone || !datUser.address)) {
+      Swal.fire({
+        title: "¡Actualice su información!",
+        icon: "warning",
+        confirmButtonText: "Aceptar",
+      });
     }
-    if (!("address" in datUser)) {
-      setUser((prevUser) => ({
-        ...prevUser,
-        address: "Actualice su número de contacto"
-      }));
-    }
-  }, [datUser]);
+  }, [pageLoaded, datUser.phone, datUser.address]);
 
   return (
     <section className="contactInformation">
-      <h2>Informacion de contacto:</h2>
+      {/* <label className="type">
+        Rol:
+        <p className="emailProfile">{datUser.roles}</p>
+      </label> */}
       <label className="type">
-        Dni:<p className="dniProfile">{datUser.dni}</p>
+        Dni:
+        <p className="dniProfile">{datUser.dni}</p>
       </label>
       <label className="type">
-        Email:<p className="emailProfile">{datUser.email}</p>
+        Email:
+        <p className="emailProfile">{datUser.email}</p>
+      </label>
+      
+
+      <label className="type">
+        Phone:
+        {datUser.phone ? (
+          <p className="phoneProfile">{datUser.phone}</p>
+        ) : (
+          <p className="updateMessage-red">
+            ¡Actualice su número de contacto!
+          </p>
+        )}
       </label>
 
       <label className="type">
-        Phone:<p className="phoneProfile">{datUser.phone}</p>
-      </label>
-
-      <label className="type">
-        Address:<p className="addressProfile">{datUser.address}</p>
+        Address:
+        {datUser.address ? (
+          <p className="addressProfile">{datUser.address}</p>
+        ) : (
+          <p className="updateMessage-red">
+            ¡Actualice su dirección!
+          </p>
+        )}
       </label>
     </section>
   );

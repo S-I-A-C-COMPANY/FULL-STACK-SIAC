@@ -32,6 +32,7 @@ const userSchema = mongoose.Schema({
      image: {
         type: String,
         required: [false, 'Please add an image'],
+        unique: true
     },
 
     roles: {

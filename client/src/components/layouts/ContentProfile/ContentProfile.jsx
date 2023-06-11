@@ -6,7 +6,9 @@ import { SectionToProfile } from "../SectionToProfile/SectionToProfile";
 
 export const ContentProfile = () => {
   return (
+    
     <div className="contentProfile">
+      <h2 className="infoPersonal">Información Personal </h2>
       <div className="containerProfile">
         <BannerProfile />
         <div className="containersInfomation">

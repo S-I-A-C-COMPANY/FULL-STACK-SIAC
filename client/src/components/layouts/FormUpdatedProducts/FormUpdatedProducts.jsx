@@ -79,7 +79,6 @@ export const FormUpdatedProducts = ({ idProduct, resetForm, onClose }) => {
 
     try {
       dispatch(updateProducts({ idProduct, productData: nonEmptyProductData }));
-
       Swal.fire({
         title: 'Éxito',
         text: 'Actualización exitosa',
