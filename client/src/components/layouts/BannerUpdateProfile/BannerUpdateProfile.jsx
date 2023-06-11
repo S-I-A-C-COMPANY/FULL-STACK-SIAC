@@ -104,10 +104,15 @@ export const BannerUpdateProfile = () => {
       console.log(error);
     }
   };
+  const formattedName =
+  datUser.name && datUser.name.charAt(0).toUpperCase() + datUser.name.slice(1);
+const formattedRole =
+  datUser.roles && datUser.roles.charAt(0).toUpperCase() + datUser.roles.slice(1);
+
 
   return (
     <div className="banner">
-      <p className="roleProfileUpdate">{datUser.roles}</p>
+      <p className="roleProfileUpdate">{formattedRole}</p>
       <ImgUI style="imgUpdatedProfile" routeImg={image || imageBanner} />
 
       {isUploading ? (
@@ -117,7 +122,7 @@ export const BannerUpdateProfile = () => {
       )}
 
       <div className="groupText">
-        <p className="nameUpdatedProfile">{datUser.name}</p>
+        <p className="nameUpdatedProfile">{formattedName}</p>
         <p className="emailUpdatedProfile">{datUser.email}</p>
       </div>
     </div>

@@ -35,10 +35,7 @@ export const SectionContactInformation = () => {
 
   return (
     <section className="contactInformation">
-      {/* <label className="type">
-        Rol:
-        <p className="emailProfile">{datUser.roles}</p>
-      </label> */}
+
       <label className="type">
         Dni:
         {datUser.dni? (
