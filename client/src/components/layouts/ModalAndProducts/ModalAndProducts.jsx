@@ -57,10 +57,20 @@ export const ModalAndProducts = () => {
 
       const res = await axios.get(`http://localhost:5000/api/products/all`);
       setProduct(res.data);
+      // console.log(res.data);
+      
+      // Obtener productos con categoría nula
+      const productsWithNullCategory = res.data.filter((producto) => producto.category === null);
+          
+      // Eliminar productos con categoría nula
+      productsWithNullCategory.forEach((producto) => {
+        deleteProduct(producto._id);
+      });
 
       const productsInActiveCategory = res.data.filter(
         (producto) => activeCategory === 'All' || producto.category.name.toLowerCase() === activeCategory.toLowerCase()
       );
+      
       setCategoryContent(productsInActiveCategory.length > 0);
       await new Promise(resolve => setTimeout(resolve, 1000));
       setLoadingProducts(false);
@@ -102,6 +112,9 @@ export const ModalAndProducts = () => {
   }, [activeCategory]);
 
   const deleteProduct = async (productId) => {
+    
+
+  try {
     await dispatch(deleteProducts(productId));
     setProduct((prevListProduct) => prevListProduct.filter((producto) => producto._id !== productId));
     setCategoryContent((prevCategoryContent) => {
@@ -110,7 +123,10 @@ export const ModalAndProducts = () => {
       }
       return [];
     });
-  };
+  } catch (error) {
+    console.log('Error al eliminar el producto:', error);
+  }
+};
 
   return (
     <>
@@ -146,7 +162,8 @@ export const ModalAndProducts = () => {
                 <div className='infoOrder'>
                   <h3 className='nameOrder'>Nombre:  {producto.name}</h3>
                   <p className='priceOrder'>Precio: {producto.price}</p>
-                  <p className='categoryProduct'>Categoria: {producto.category.name}</p>
+                  <p className='categoryProduct'>Categoria: {producto.category ? producto.category.name : 'Sin categoría'}</p>
+
 
                   <div className='containerEdits'>
                     <ButtonUI

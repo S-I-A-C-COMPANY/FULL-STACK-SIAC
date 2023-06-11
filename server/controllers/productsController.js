@@ -102,19 +102,22 @@ const updateProducto = asyncHandler(async (req, res) => {
       return res.status(400).json({ status: 'Error', message: 'Ya existe otro producto con el mismo nombre' });
     }
 
-    // Verificar si la categoría existe
-    const existingCategory = await Category.findOne({ name: category });
-    if (!existingCategory) {
-      return res.status(400).json({ status: 'Error', message: 'Categoría no válida' });
-    }
-
     // Construir el objeto de actualización con los campos correspondientes
     const updateFields = {
       name: name,
       price: price,
-      category: existingCategory._id, // Usar el ID de la categoría existente
       image: image
     };
+
+    // Verificar si se proporciona una categoría en la solicitud
+    if (category) {
+      // Verificar si la categoría existe
+      const existingCategory = await Category.findOne({ name: category });
+      if (!existingCategory) {
+        return res.status(400).json({ status: 'Error', message: 'Categoría no válida' });
+      }
+      updateFields.category = existingCategory._id; // Asignar el ID de la categoría existente
+    }
 
     // Actualizar el producto en la base de datos utilizando el modelo Product
     await Product.updateOne({ _id: id }, { $set: updateFields });
@@ -125,6 +128,7 @@ const updateProducto = asyncHandler(async (req, res) => {
     res.status(500).json({ status: 'Something Went Wrong' });
   }
 });
+
 
 
 

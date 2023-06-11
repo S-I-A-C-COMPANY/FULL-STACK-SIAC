@@ -65,6 +65,7 @@ export const FormUpdatedProducts = ({ idProduct, resetForm, onClose }) => {
   };
 
   const sendForm = async () => {
+    console.log(category);
     const productData = {
       name,
       price,
