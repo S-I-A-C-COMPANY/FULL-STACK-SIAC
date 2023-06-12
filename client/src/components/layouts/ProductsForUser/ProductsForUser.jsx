@@ -24,26 +24,27 @@ import Swal from "sweetalert2";
 // const socket = io('https://backend-render-corp.onrender.com')
 const socket = io("http://localhost:5000");
 
-export const ProductsUser = ({ 
-  allProducts, 
-  setAllProducts, 
-  total, 
-  setTotal,
-}) => {
+export const ProductsUser = ({ allProducts, setAllProducts, total, setTotal }) => {
 
-  const { activeCategory, listProduct, setProduct, categoryContent, setCategoryContent } = useContext(
-    ProductsForUserContext
-  );
+  const { activeCategory, listProduct, setProduct, categoryContent, setCategoryContent } = useContext(ProductsForUserContext);
+  const [loadingProducts, setLoadingProducts] = useState(true);
+
 
   const onAddProduct = (producto) => {
+
+    // Se verifica si el producto ya existe en el carrito utilizando el ID del producto
     if (allProducts.find(item => item._id === producto._id)) {
-      const products = allProducts.map(item => 
+      const products = allProducts.map(item =>
         item._id === producto._id
-        ? { ...item, quantity: item.quantity + 1}
-        : item
+          ? { ...item, quantity: item.quantity + 1 } // Si el producto existe, se actualiza la cantidad sumando 1
+          : item
       );
-      setTotal(total + producto.price * producto.quantity)
-      return setAllProducts([...products]) 
+
+      // Se actualiza el estado "total" sumando el precio del producto multiplicado por la cantidad del producto
+      setTotal(total + producto.price * producto.quantity);
+
+      // Se actualiza el estado "allProducts" con la lista de productos actualizada
+      return setAllProducts([...products]);
     }
 
     Swal.fire({
@@ -56,15 +57,12 @@ export const ProductsUser = ({
       timer: 1500,
     });
 
+    // Se actualiza el estado "total" sumando el precio del producto multiplicado por la cantidad del producto
     setTotal(total + producto.price * producto.quantity)
+
+    // Se agrega el producto al carrito concatenando el producto al estado "allProducts"
     setAllProducts([...allProducts, producto])
   };
-
-  // console.log(allProducts);
-
-
-
-
 
   const fetchProductsList = async () => {
     try {
@@ -72,9 +70,6 @@ export const ProductsUser = ({
 
       const res = await axios.get(`http://localhost:5000/api/products/all`);
       setProduct(res.data);
-      // console.log(res.data);
-
-
 
       const productsInActiveCategory = res.data.filter(
         (producto) => activeCategory === 'All' || producto.category.name.toLowerCase() === activeCategory.toLowerCase()
@@ -82,6 +77,7 @@ export const ProductsUser = ({
 
       setCategoryContent(productsInActiveCategory.length > 0);
       await new Promise(resolve => setTimeout(resolve, 1000));
+      setLoadingProducts(false);
     } catch (err) {
       console.log(err);
     }
@@ -114,25 +110,38 @@ export const ProductsUser = ({
 
 
   return (
-    <div className='containerOrdersUsers'>
-      {listProduct.map((producto) => (
-        <div key={producto._id} className='cardOrderUser'>
-          <div className='containerImgOrderUsers'>
-            <ImgUI style='imgOrder' routeImg={producto.image} />
-          </div>
-          <div className='infoOrderUsers'>
-            <h3 className='nameOrder'>Nombre: {producto.name}</h3>
-            <p className='categoryProduct'>Categoria: {producto.category.name}</p>
-            <div className='containerButtons'>
-              <p className='priceOrderUser'>${producto.price}</p>
-              <ButtonUI onClicks={() => onAddProduct(producto)}
-                style='btnAddToCar' text='+'
-              />
-            </div>
+    <>
+      <div className='containerOrdersUsers'>
 
-          </div>
-        </div>
-      ))}
-    </div>
+        {loadingProducts ? (
+          <p className='emptyProducts'>Cargando productos...</p>
+        ) : !categoryContent && activeCategory !== 'All' || listProduct.length === 0 ? (
+          <p className='emptyProducts'>No hay productos en la categoría activa.</p>
+        ) : (
+          listProduct
+            .filter(
+              (producto) => activeCategory === 'All' || producto.category.name.toLowerCase() === activeCategory.toLowerCase()
+            )
+            .map((producto) => (
+              <div key={producto._id} className='cardOrderUser'>
+                <div className='containerImgOrderUsers'>
+                  <ImgUI style='imgOrder' routeImg={producto.image} />
+                </div>
+                <div className='infoOrderUsers'>
+                  <h3 className='nameOrder'>Nombre: {producto.name}</h3>
+                  <p className='categoryProduct'>Categoria: {producto.category ? producto.category.name : 'Sin categoría'}</p>
+                  <div className='containerButtons'>
+                    <p className='priceOrderUser'>${producto.price}</p>
+                    <ButtonUI onClicks={() => onAddProduct(producto)}
+                      style='btnAddToCar' text='+'
+                    />
+                  </div>
+
+                </div>
+              </div>
+            ))
+        )}
+      </div>
+    </>
   );
 };

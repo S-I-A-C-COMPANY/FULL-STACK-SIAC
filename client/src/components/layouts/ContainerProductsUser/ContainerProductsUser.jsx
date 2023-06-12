@@ -13,9 +13,9 @@ export const ContainerProductsUser = () => {
   const [listProduct, setProduct] = useState([]);
   const [categoryContent, setCategoryContent] = useState([]);
 
-  // carrito etc
-  const [allProducts, setAllProducts] = useState([]);
-  const [total, setTotal] = useState(0);
+  // Cart & Products
+  const [allProducts, setAllProducts] = useState([]); //  Almacenar los productos en el carrito
+  const [total, setTotal] = useState(0); // Almacenar el valor total del carrito
 
   return (
     <div className="containerProductsUser">
@@ -27,6 +27,9 @@ export const ContainerProductsUser = () => {
         <div className='containerCartAndMenu'>
           <ContainerTittleMenuUser />
           <ContainerCategoriesForUser />
+
+          {/* Componente para mostrar los productos disponibles 
+          para el usuario y permitir agregarlos al carrito */}
           <ProductsUser
             allProducts={allProducts}
             setAllProducts={setAllProducts}
@@ -35,6 +38,8 @@ export const ContainerProductsUser = () => {
           />
         </div>
 
+        {/* Componente para mostrar el carrito de compras y realizar 
+        acciones como eliminar productos y realizar el pago */}
         <MainShoppingCart
           allProducts={allProducts}
           setAllProducts={setAllProducts}

@@ -1,6 +1,4 @@
 import Swal from "sweetalert2";
-// Importo socket
-import io from "socket.io-client";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
@@ -15,12 +13,7 @@ import { ImgUI } from "../../UI/ImgUI/ImgUI";
 import iconDeleteToCar from "../../../Images/deleteToCar.png";
 import iconTypeOfPay from "../../../Images/typeOfPay.svg"
 
-
-// const socket = io('https://backend-render-corp.onrender.com')
-const socket = io("http://localhost:5000");
-
-
-export const MainShoppingCart = ({ 
+export const MainShoppingCart = ({
     allProducts,
     setAllProducts,
     total,
@@ -28,15 +21,33 @@ export const MainShoppingCart = ({
 }) => {
 
     const onDeleteProduct = (producto) => {
-
+        // Filtar los productos para eliminar el producto seleccionado
         const results = allProducts.filter(
-            item => item._id !== producto._id 
+            item => item._id !== producto._id
         );
-
-        setTotal(total - producto.price * producto.quantity)
-        setAllProducts(results)
+        // Calcular el precio total del producto a eliminar y restarlo del total actual
+        const productTotal = producto.price * producto.quantity
+        setTotal(total - productTotal);
+        // Actualizar la lista de productos eliminando el producto seleccionado
+        setAllProducts(results);
     };
 
+    const updateQuantity = (productId, newQuantity, price) => {
+        const updatedProducts = allProducts.map(item => {
+            if (item._id === productId) {
+                // Calcular el nuevo precio total del producto multiplicando el nuevo precio por la nueva cantidad
+                const productTotal = price * newQuantity;
+
+                // Actualizar el total restando el precio total anterior del producto y sumando el nuevo precio total
+                setTotal(total - (item.price * item.quantity) + productTotal);
+
+                // Retornar un nuevo objeto con la cantidad actualizada para el producto correspondiente
+                return { ...item, quantity: newQuantity };
+            }
+            return item;
+        });
+        setAllProducts(updatedProducts);
+    };
 
     return (
         <main className='mainShoppingCart'>
@@ -58,9 +69,13 @@ export const MainShoppingCart = ({
 
                                     <div className="infoProduct">
                                         <p className="productName">{producto.name}</p>
-                                        
-                                        <CounterCart setData={producto.quantity} /> 
-                                        {/* <CounterCart /> */}
+
+                                        <CounterCart
+                                            setData={producto.quantity}
+                                            updateQuantity={updateQuantity}
+                                            productId={producto._id}
+                                            price={producto.price}
+                                        />
                                     </div>
 
                                     <div className="containerButtonCart">

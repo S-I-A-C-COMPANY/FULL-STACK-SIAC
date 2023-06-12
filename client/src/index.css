@@ -2867,13 +2867,13 @@ input[type="number"]::-webkit-inner-spin-button {
     border-radius: 25px;
     cursor: pointer;
   }
-  
+
   .activeLinkUsers{
     text-decoration: none;
     color: #ffffff;
     font-size: 14px;
   }
-  
+
   .activeUsers{
     display: flex;
     justify-content: center;
@@ -2885,7 +2885,7 @@ input[type="number"]::-webkit-inner-spin-button {
     padding: 0.3rem 1rem ;
     border-radius: 25px;
   }
-  
+
   .categoriesUsers{
     display: flex;
     align-items: center;
@@ -3017,11 +3017,11 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .containerCardsUsers{
-  display: flex; 
+  display: flex;
   justify-items: center;
   align-items: center;
   overflow-y: auto;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
   width: 85%;
   height: 80%;
   /* border: 3px solid rgb(0, 0, 0); */
@@ -3450,10 +3450,10 @@ input[type="number"]::-webkit-inner-spin-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 48%;
   height: 100%;
   /* border: 1px solid blue; */
-  word-break: break-all;
+  word-break: keep-all;
   flex-wrap: wrap;
 }
 
@@ -3579,11 +3579,11 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .containerOrdersUsers{
-  display: flex; 
+  display: flex;
   justify-content: center;
   align-items: center;
   overflow-y: auto;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
   width: 85%;
   height: 100%;
   /* border: 3px solid rgb(0, 0, 0); */

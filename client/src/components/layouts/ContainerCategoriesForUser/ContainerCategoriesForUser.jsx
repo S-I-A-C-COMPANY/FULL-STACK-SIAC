@@ -32,11 +32,9 @@ export const ContainerCategoriesForUser = () => {
 
     if (category.toLowerCase() === 'all') {
       setCategoryContent(true);
-      listProduct.forEach((producto) => {
-        // console.log(producto.name);
-      });
     } else {
       const filteredProducts = listProduct.filter((producto) => {
+        console.log(producto.category.name);
         return producto.category.name.toLowerCase() === category.toLowerCase();
       });
 
