@@ -13,6 +13,7 @@ import { ImgUI } from "../../UI/ImgUI/ImgUI";
 import iconDeleteToCar from "../../../Images/deleteToCar.png";
 import iconTypeOfPay from "../../../Images/typeOfPay.svg"
 
+
 export const MainShoppingCart = ({
     allProducts,
     setAllProducts,
@@ -28,6 +29,18 @@ export const MainShoppingCart = ({
         // Calcular el precio total del producto a eliminar y restarlo del total actual
         const productTotal = producto.price * producto.quantity
         setTotal(total - productTotal);
+
+        // Mostrar mensaje de Sweet Alert para informar que el producto ha sido eliminado
+        Swal.fire({
+            icon: 'success',
+            title: 'Producto eliminado',
+            text: `${producto.name} ha sido eliminado del carrito.`,
+            toast: true,
+            position: 'top-right',
+            showConfirmButton: false,
+            timer: 1500,
+        });
+
         // Actualizar la lista de productos eliminando el producto seleccionado
         setAllProducts(results);
     };

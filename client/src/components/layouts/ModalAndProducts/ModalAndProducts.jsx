@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import io from 'socket.io-client';
+import Swal from 'sweetalert2';
 
 // UI
 import { ImgUI } from '../../UI/ImgUI/ImgUI';
@@ -17,6 +18,7 @@ import { ModalAndProductsContext } from '../ContainerProducts/ContainerProducts'
 import updateIcon from '../../../Images/updateIcon.png';
 import deleteIcon from '../../../Images/deleteIcon.png';
 import { deleteProducts } from '../../features/products/productSlice';
+
 
 const socket = io('http://localhost:5000');
 
@@ -58,10 +60,10 @@ export const ModalAndProducts = () => {
       const res = await axios.get(`http://localhost:5000/api/products/all`);
       setProduct(res.data);
       // console.log(res.data);
-      
+
       // Obtener productos con categoría nula
       const productsWithNullCategory = res.data.filter((producto) => producto.category === null);
-          
+
       // Eliminar productos con categoría nula
       productsWithNullCategory.forEach((producto) => {
         deleteProduct(producto._id);
@@ -70,7 +72,7 @@ export const ModalAndProducts = () => {
       const productsInActiveCategory = res.data.filter(
         (producto) => activeCategory === 'All' || producto.category.name.toLowerCase() === activeCategory.toLowerCase()
       );
-      
+
       setCategoryContent(productsInActiveCategory.length > 0);
       await new Promise(resolve => setTimeout(resolve, 1000));
       setLoadingProducts(false);
@@ -112,21 +114,30 @@ export const ModalAndProducts = () => {
   }, [activeCategory]);
 
   const deleteProduct = async (productId) => {
-    
+    try {
+      await dispatch(deleteProducts(productId));
+      setProduct((prevListProduct) => prevListProduct.filter((producto) => producto._id !== productId));
+      setCategoryContent((prevCategoryContent) => {
+        if (Array.isArray(prevCategoryContent)) {
+          return prevCategoryContent.filter((producto) => producto._id !== productId);
+        }
+        return [];
+      });
 
-  try {
-    await dispatch(deleteProducts(productId));
-    setProduct((prevListProduct) => prevListProduct.filter((producto) => producto._id !== productId));
-    setCategoryContent((prevCategoryContent) => {
-      if (Array.isArray(prevCategoryContent)) {
-        return prevCategoryContent.filter((producto) => producto._id !== productId);
-      }
-      return [];
-    });
-  } catch (error) {
-    console.log('Error al eliminar el producto:', error);
-  }
-};
+      // Mostrar mensaje de Sweet Alert para informar que el producto ha sido eliminado
+      Swal.fire({
+        icon: 'success',
+        title: 'Producto eliminado',
+        text: 'El producto ha sido eliminado exitosamente.',
+        toast: true,
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      console.log('Error al eliminar el producto:', error);
+    }
+  };
 
   return (
     <>
@@ -142,7 +153,7 @@ export const ModalAndProducts = () => {
 
       <div className='containerCards'>
         <div className='cardCreateProduct'>
-          <ButtonUI onClicks={openModalCreateProduct} style='btnOpenModal'  text='+' />
+          <ButtonUI onClicks={openModalCreateProduct} style='btnOpenModal' text='+' />
         </div>
 
         {loadingProducts ? (

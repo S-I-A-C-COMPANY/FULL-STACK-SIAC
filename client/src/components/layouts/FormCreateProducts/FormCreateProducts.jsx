@@ -82,7 +82,7 @@ export const FormCreateProducts = ({ resetForm, onClose }) => {
         ...prevState,
         image: res.data.secure_url,
       }));
-      
+
 
       setIsUploading(false);
     } catch (error) {
@@ -185,7 +185,15 @@ export const FormCreateProducts = ({ resetForm, onClose }) => {
       </div>
 
 
-      <InputUI typeInpt='file' style='inputProduct' textInpt='Inserte Imagen' eventInpt={uploadImage} />
+      <div className='containerInputFile'>
+        <p>Agregar Imagen</p>
+        <InputUI
+          style='btnUploadImage'
+          typeInpt='file'
+          textInpt='Inserte Imagen'
+          eventInpt={uploadImage}
+        />
+      </div>
 
       {isUploading ? (
         <div className='loader'></div>

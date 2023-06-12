@@ -34,7 +34,7 @@ export const ContainerCategoriesForUser = () => {
       setCategoryContent(true);
     } else {
       const filteredProducts = listProduct.filter((producto) => {
-        console.log(producto.category.name);
+        // console.log(producto.category.name);
         return producto.category.name.toLowerCase() === category.toLowerCase();
       });
 

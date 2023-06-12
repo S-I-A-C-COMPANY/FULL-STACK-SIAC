@@ -45,7 +45,7 @@ export const FormUpdatedProducts = ({ idProduct, resetForm, onClose }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const isEmptyFields = !name || !price || !category  || !image  || !quantity;
+    const isEmptyFields = !name || !price || !category || !image || !quantity;
 
     if (isEmptyFields) {
       const confirmResult = await Swal.fire({
@@ -109,10 +109,10 @@ export const FormUpdatedProducts = ({ idProduct, resetForm, onClose }) => {
       const response = await axios.get('http://localhost:5000/api/products/categories');
       const formattedOptions = response.data.map((category) => (
         {
-        
-        value: category.name,
-        label: category.name,
-      }));
+
+          value: category.name,
+          label: category.name,
+        }));
 
       setCategoryOptions(formattedOptions);
     } catch (error) {
@@ -197,7 +197,7 @@ export const FormUpdatedProducts = ({ idProduct, resetForm, onClose }) => {
         eventInpt={onChange}
       />
 
-    <div className="inputProducts">
+      <div className="inputProducts">
         <label className="inputProductLabel" htmlFor="inputProducts">
           Seleccione Categoría
         </label>
@@ -213,8 +213,16 @@ export const FormUpdatedProducts = ({ idProduct, resetForm, onClose }) => {
         </div>
       </div>
 
+      <div className='containerInputFile'>
+        <p>Agregar Imagen</p>
+        <InputUI
+          typeInpt="file"
+          style="btnUploadImage"
+          textInpt="Inserte Imagen"
+          eventInpt={uploadImage} 
+          />
+      </div>
 
-      <InputUI typeInpt="file" style="inputProduct" textInpt="Inserte Imagen" eventInpt={uploadImage} />
 
       {isUploading ? (
         <div className="loader"></div>
