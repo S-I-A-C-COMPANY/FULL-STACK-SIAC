@@ -10,9 +10,9 @@ const Category = require('../model/categoryModel');
 //@Route    POST /api/products/register-products
 //@Access   Public
 const registerProduct = asyncHandler(async (req, res) => {
-  const { name, price, category, image } = req.body;
+  const { name, price, category, image, quantity } = req.body;
 
-  if (!name || !price || !category || !image) {
+  if (!name || !price || !category || !image || !quantity) {
     res.status(400);
     throw new Error('Please add all fields');
   }
@@ -39,7 +39,8 @@ const registerProduct = asyncHandler(async (req, res) => {
       name,
       price,
       category: foundCategory._id,
-      image
+      image,
+      quantity,
     });
 
     const product = await newProduct.save();
@@ -51,7 +52,8 @@ const registerProduct = asyncHandler(async (req, res) => {
         name: product.name,
         price: product.price,
         category: category, // Use the name of the found category
-        image: product.image
+        image: product.image,
+        quantity: product.quantity,
       });
     } else {
       res.status(400);

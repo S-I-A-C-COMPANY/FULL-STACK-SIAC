@@ -1,93 +1,72 @@
 import React from 'react';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { ProductsForUserContext } from '../ContainerProductsUser/ContainerProductsUser';
 
 export const ContainerCategoriesForUser = () => {
-    const { setActiveCategory } = useContext(ProductsForUserContext);
-    const [activeLink, setActiveLink] = useState(0);
-    const [listProduct, setProduct] = useState([]);
+  const { setActiveCategory, listProduct, setCategoryContent } = useContext(ProductsForUserContext);
+  const [activeLink, setActiveLink] = useState(0);
+  const [categories, setCategories] = useState([]);
 
-    const onClickLink = (i) => {
-        setActiveLink(i);
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/products/categories');
+      setCategories(response.data);
+    } catch (error) {
+      console.log('Error al obtener las categorías', error);
     }
-    
-      const isEntrada = () => {
-        setActiveCategory('Entrada');
-        listProduct.filter((producto) => {
-          if (producto.category === 'Entrada' || producto.category === 'entrada') {
-            console.log(producto.name);
-          }
-        });
+  };
+
+  const onClickLink = (i) => {
+    setActiveLink(i);
+  };
+
+  const filterProductsByCategory = (category, i) => {
+    setActiveLink(i);
+    setActiveCategory(category);
+
+    if (category.toLowerCase() === 'all') {
+      setCategoryContent(true);
+      listProduct.forEach((producto) => {
+        // console.log(producto.name);
+      });
+    } else {
+      const filteredProducts = listProduct.filter((producto) => {
+        return producto.category.name.toLowerCase() === category.toLowerCase();
+      });
+
+      if (filteredProducts.length === 0) {
+        setCategoryContent(false);
+      } else {
+        setCategoryContent(true);
       }
-      const isAll = () => {
-        setActiveCategory('All');
-        listProduct.filter((producto) => {
-          if (producto.category === 'All' || producto.category === 'all') {
-            console.log(producto.name);
-          }
-        });
-      }
-    
-      const isPrincipio = () => {
-        setActiveCategory('Principio');
-        listProduct.filter((producto) => {
-          if (producto.category === 'Principio' || producto.category === 'principio') {
-            console.log(producto.name);
-          }
-        });
-      }
-    
-      const isBebida = () => {
-        setActiveCategory('Bebida');
-        listProduct.filter((producto) => {
-          if (producto.category === 'Bebida' || producto.category === 'bebida') {
-            console.log(producto.name);
-          }
-        });
-      }
-    
-      const isPostre = () => {
-        setActiveCategory('Postre');
-        listProduct.filter((producto) => {
-          if (producto.category === 'Postre' || producto.category === 'postre') {
-            console.log(producto.name);
-          }
-        });
-      }
+    }
+  };
 
   return (
     <div className="containerCategoriesUser">
-      
-      <div onClick={isAll} className={activeLink === 0 ? 'active' : 'containerLinks'}>
-        <Link onClick={() => onClickLink(0)} className={activeLink === 0 ? 'activeLink' : 'categories'} to="/products-user">
-          All
-        </Link>
-      </div>
-      <div onClick={isEntrada} className={activeLink === 1 ? 'active' : 'containerLinks'}>
-        <Link onClick={() => onClickLink(1)} className={activeLink === 1 ? 'activeLink' : 'categories'} to="/products-user">
-          Entrada
-        </Link>
-      </div>
 
-      <div onClick={isPrincipio} className={activeLink === 2 ? 'active' : 'containerLinks'}>
-        <Link onClick={() => onClickLink(2)} className={activeLink === 2 ? 'activeLink' : 'categories'} to="/products-user">
-          Principio
-        </Link>
-      </div>
+      {categories.map((category, index) => (
+        <div
+          onClick={() => filterProductsByCategory(category.name, index)}
+          key={index}
+          className={activeLink === index ? 'activeUsers' : 'containerLinksUsers'}
+        >
+          <Link
+            onClick={() => onClickLink(index)}
+            className={activeLink === index ? 'activeLinkUsers' : 'categoriesUsers'}
+            to="/products-user"
+          >
+            {category.name}
+          </Link>
+        </div>
+      ))}
 
-      <div onClick={isBebida} className={activeLink === 3 ? 'active' : 'containerLinks'}>
-        <Link onClick={() => onClickLink(3)} className={activeLink === 3 ? 'activeLink' : 'categories'} to="/products-user">
-          Bebida
-        </Link>
-      </div>
-
-      <div onClick={isPostre} className={activeLink === 4 ? 'active' : 'containerLinks'}>
-        <Link onClick={() => onClickLink(4)} className={activeLink === 4 ? 'activeLink' : 'categories'} to="/products-user">
-          Postre
-        </Link>
-      </div>
     </div>
   )
 }

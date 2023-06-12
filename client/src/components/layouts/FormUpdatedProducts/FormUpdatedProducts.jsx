@@ -19,13 +19,14 @@ export const FormUpdatedProducts = ({ idProduct, resetForm, onClose }) => {
     price: '',
     category: '',
     image: '',
+    quantity: 1,
   });
 
   const [isUploading, setIsUploading] = useState(false);
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
 
-  const { name, price, category,image } = formData;
+  const { name, price, category, image, quantity } = formData;
 
   const formRef = useRef(null);
 
@@ -44,7 +45,7 @@ export const FormUpdatedProducts = ({ idProduct, resetForm, onClose }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const isEmptyFields = !name || !price || !category  || !image;
+    const isEmptyFields = !name || !price || !category  || !image  || !quantity;
 
     if (isEmptyFields) {
       const confirmResult = await Swal.fire({
@@ -71,6 +72,7 @@ export const FormUpdatedProducts = ({ idProduct, resetForm, onClose }) => {
       price,
       category,
       image,
+      quantity,
     };
 
     // Filtrar propiedades vacías
@@ -159,6 +161,7 @@ export const FormUpdatedProducts = ({ idProduct, resetForm, onClose }) => {
         price: '',
         category: '',
         image: '',
+        quantity: 1,
       });
     }
   }, [resetForm]);

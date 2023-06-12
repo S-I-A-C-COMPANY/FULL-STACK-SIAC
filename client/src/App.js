@@ -14,7 +14,6 @@ import { Notifications } from "./components/pages/Notifications/Notifications";
 import { Users } from "./components/pages/Users/Users";
 import { UpdateProfile } from "./components/pages/UpdateProfile/UpdateProfile";
 import { ProductsUser } from "./components/pages/ProductsUser/ProductsUser"
-import { ShoppingCart } from "./components/pages/ShoppingCart/ShoppingCart";
 
 
 function App() {
@@ -37,7 +36,8 @@ function App() {
             <Route path="/products-user" element={<ProductsUser />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/users" element={<Users />} />
-            <Route path="/shopping-cart" element={<ShoppingCart />} />
+
+            <Route path="/products-user" element={<ProductsUser />} />
           </Routes>
         </div>
       </Router>

@@ -14,6 +14,7 @@ export const FormCreateProducts = ({ resetForm, onClose }) => {
     price: '',
     category: '',
     image: '',
+    quantity: 1,
   });
 
   const [isUploading, setIsUploading] = useState(false);
