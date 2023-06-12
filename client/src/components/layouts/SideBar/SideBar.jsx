@@ -10,7 +10,7 @@ import { ImgUI } from "../../UI/ImgUI/ImgUI";
 //IMG
 import logoWhite from "../../../Images/whiteIcon.png";
 import iconNotifications from "../../../Images/iconNotifications.png";
-import iconMenu from "../../../Images/iconCalendary.png";
+import iconProductManagement from "../../../Images/managementProduct.png"
 import iconProfile from "../../../Images/iconProfile.png";
 import iconLogout from "../../../Images/iconLogout.png";
 import iconUsers from "../../../Images/iconUsers.png"
@@ -70,7 +70,7 @@ export const SideBar = () => {
             </li>
             <li className="listLinks">
               <Link className="links" to="/products">
-                <ImgUI style="iconCalendary" routeImg={iconMenu}></ImgUI>
+                <ImgUI style="iconProductManagement" routeImg={iconProductManagement}></ImgUI>
               </Link>
             </li>
             <li className="listLinks">
@@ -101,7 +101,7 @@ export const SideBar = () => {
             </li>
             <li className="listLinks">
               <Link className="links" to="/products">
-                <ImgUI style="iconCalendary" routeImg={iconMenu}></ImgUI>
+                <ImgUI style="iconProductManagement" routeImg={iconProductManagement}></ImgUI>
               </Link>
             </li>
           </ul>

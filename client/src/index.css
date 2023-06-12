@@ -1570,14 +1570,9 @@ li {
   height: 25px;
 }
 
-.iconCalendary{
-  width: 23px;
-  height: 24px;
-}
-
-.iconStats{
+.iconProductManagement{
   width: 30px;
-  height: 20px;
+  height: 30px;
 }
 
 .iconProfile{
@@ -1811,7 +1806,7 @@ li {
   }
 
 
-  .iconHome, .iconNotification, .iconCalendary, .iconStats, .iconProfile{
+  .iconHome, .iconNotification, .iconProductManagement, .iconProfile{
     width: 23px;
     height: 20px;
     margin: 0;
