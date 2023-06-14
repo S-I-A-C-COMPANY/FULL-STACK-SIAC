@@ -88,7 +88,7 @@ export const ContainerFormForgotPass = () => {
             eventInpt={onChange}
           />
         </div>
-        <ButtonUI typeBtn="submit" Style='btnSendForgotPass' text='Enviar' />
+        <ButtonUI typeBtn="submit" style='btnSendForgotPass' text='Enviar' />
       </form>
       <Link className='back' to='/login'>Volver Al Inicio</Link>
 
